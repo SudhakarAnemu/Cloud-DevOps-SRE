@@ -740,3 +740,32 @@ auto mode can be convert to custom but not vice versa
 
 
 ![1731494772097](image/GCPCloudComputing/1731494772097.png)
+
+## VPC Netpeering
+
+
+![1731518712079](image/GCPCloudComputing/1731518712079.png)
+
+![1731521005991](image/GCPCloudComputing/1731521005991.png)
+
+
+![1731522805176](image/GCPCloudComputing/1731522805176.png)
+
+
+## Shared VPC
+
+
+![1731526202295](image/GCPCloudComputing/1731526202295.png)
+
+![1731526250123](image/GCPCloudComputing/1731526250123.png)
+
+
+
+![1731526315220](image/GCPCloudComputing/1731526315220.png)
+
+![1731526332471](image/GCPCloudComputing/1731526332471.png)
+
+## VPC Flow logs
+
+
+![1731526713956](image/GCPCloudComputing/1731526713956.png)
