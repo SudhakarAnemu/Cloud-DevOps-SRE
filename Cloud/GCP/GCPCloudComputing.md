@@ -732,34 +732,25 @@ auto mode can be convert to custom but not vice versa
 
 ![1731494131699](image/GCPCloudComputing/1731494131699.png)
 
-
 ![1731494317525](image/GCPCloudComputing/1731494317525.png)
 
-
 ![1731494493144](image/GCPCloudComputing/1731494493144.png)
-
 
 ![1731494772097](image/GCPCloudComputing/1731494772097.png)
 
 ## VPC Netpeering
 
-
 ![1731518712079](image/GCPCloudComputing/1731518712079.png)
 
 ![1731521005991](image/GCPCloudComputing/1731521005991.png)
 
-
 ![1731522805176](image/GCPCloudComputing/1731522805176.png)
 
-
 ## Shared VPC
-
 
 ![1731526202295](image/GCPCloudComputing/1731526202295.png)
 
 ![1731526250123](image/GCPCloudComputing/1731526250123.png)
-
-
 
 ![1731526315220](image/GCPCloudComputing/1731526315220.png)
 
@@ -767,5 +758,45 @@ auto mode can be convert to custom but not vice versa
 
 ## VPC Flow logs
 
-
 ![1731526713956](image/GCPCloudComputing/1731526713956.png)
+
+![1731526904570](image/GCPCloudComputing/1731526904570.png)
+
+![1731526969707](image/GCPCloudComputing/1731526969707.png)
+
+![1731527044586](image/GCPCloudComputing/1731527044586.png)
+
+## DNS Fundamentals
+
+![1731527464544](image/GCPCloudComputing/1731527464544.png)
+
+![1731527622770](image/GCPCloudComputing/1731527622770.png)
+
+![1731527666460](image/GCPCloudComputing/1731527666460.png)
+
+![1731528017177](image/GCPCloudComputing/1731528017177.png)
+
+![1731528328212](image/GCPCloudComputing/1731528328212.png)
+
+## DNS Record type
+
+
+![1731530259835](image/GCPCloudComputing/1731530259835.png)
+
+
+![1731530354927](image/GCPCloudComputing/1731530354927.png)
+
+![1731532186937](image/GCPCloudComputing/1731532186937.png)
+
+![1731532271059](image/GCPCloudComputing/1731532271059.png)
+
+![1731532291823](image/GCPCloudComputing/1731532291823.png)
+
+![1731532441106](image/GCPCloudComputing/1731532441106.png)
+
+![1731532493744](image/GCPCloudComputing/1731532493744.png)
+
+
+![1731532587022](image/GCPCloudComputing/1731532587022.png)
+
+## NAT1-Network address transalation
