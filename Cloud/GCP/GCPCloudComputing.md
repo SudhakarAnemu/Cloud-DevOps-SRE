@@ -1,8 +1,12 @@
 js
 
+# Links (youtube, Github and Mainlink)
+
 Youtube : Andrew - https://www.youtube.com/watch?v=jpno8FSqpc8&t=3674s
 
 https://app.exampro.co/
+
+https://github.com/antonitz/google-cloud-associate-cloud-engineer
 
 # Cloud computing
 
@@ -690,21 +694,15 @@ auto mode can be convert to custom but not vice versa
 
 ![1731379040330](image/GCPCloudComputing/1731379040330.png)
 
-
-
 ![1731416735001](image/GCPCloudComputing/1731416735001.png)![1731418178348](image/GCPCloudComputing/1731418178348.png)'
-
 
 ![1731418214268](image/GCPCloudComputing/1731418214268.png)
 
-
 ![1731418882362](image/GCPCloudComputing/1731418882362.png)
-
 
 ![1731419086151](image/GCPCloudComputing/1731419086151.png)
 
 ![1731419393346](image/GCPCloudComputing/1731419393346.png)
-
 
 ## IP Addressing
 
@@ -724,10 +722,21 @@ auto mode can be convert to custom but not vice versa
 
 ![1731436540905](image/GCPCloudComputing/1731436540905.png)
 
-
 ![1731436765379](image/GCPCloudComputing/1731436765379.png)
-
 
 ![1731437226981](image/GCPCloudComputing/1731437226981.png)
 
 ![1731437266764](image/GCPCloudComputing/1731437266764.png)
+
+## Firewalls and Firewall rules
+
+![1731494131699](image/GCPCloudComputing/1731494131699.png)
+
+
+![1731494317525](image/GCPCloudComputing/1731494317525.png)
+
+
+![1731494493144](image/GCPCloudComputing/1731494493144.png)
+
+
+![1731494772097](image/GCPCloudComputing/1731494772097.png)
