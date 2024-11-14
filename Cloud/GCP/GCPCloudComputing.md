@@ -780,9 +780,7 @@ auto mode can be convert to custom but not vice versa
 
 ## DNS Record type
 
-
 ![1731530259835](image/GCPCloudComputing/1731530259835.png)
-
 
 ![1731530354927](image/GCPCloudComputing/1731530354927.png)
 
@@ -796,7 +794,34 @@ auto mode can be convert to custom but not vice versa
 
 ![1731532493744](image/GCPCloudComputing/1731532493744.png)
 
-
 ![1731532587022](image/GCPCloudComputing/1731532587022.png)
 
 ## NAT1-Network address transalation
+
+![1731592456916](image/GCPCloudComputing/1731592456916.png)
+
+
+![1731592585222](image/GCPCloudComputing/1731592585222.png)
+
+
+![1731592744123](image/GCPCloudComputing/1731592744123.png)
+
+![1731592798741](image/GCPCloudComputing/1731592798741.png)
+
+![1731593176933](image/GCPCloudComputing/1731593176933.png)
+
+![1731593205887](image/GCPCloudComputing/1731593205887.png)
+
+
+![1731593989075](image/GCPCloudComputing/1731593989075.png)
+
+![1731594187218](image/GCPCloudComputing/1731594187218.png)
+
+## Cloud DNS
+
+
+![1731599338177](image/GCPCloudComputing/1731599338177.png)
+
+![1731599407760](image/GCPCloudComputing/1731599407760.png)
+
+# Compute engine
