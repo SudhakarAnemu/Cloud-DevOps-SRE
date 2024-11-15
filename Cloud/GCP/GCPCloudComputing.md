@@ -800,9 +800,7 @@ auto mode can be convert to custom but not vice versa
 
 ![1731592456916](image/GCPCloudComputing/1731592456916.png)
 
-
 ![1731592585222](image/GCPCloudComputing/1731592585222.png)
-
 
 ![1731592744123](image/GCPCloudComputing/1731592744123.png)
 
@@ -812,16 +810,114 @@ auto mode can be convert to custom but not vice versa
 
 ![1731593205887](image/GCPCloudComputing/1731593205887.png)
 
-
 ![1731593989075](image/GCPCloudComputing/1731593989075.png)
 
 ![1731594187218](image/GCPCloudComputing/1731594187218.png)
 
 ## Cloud DNS
 
-
 ![1731599338177](image/GCPCloudComputing/1731599338177.png)
 
 ![1731599407760](image/GCPCloudComputing/1731599407760.png)
 
 # Compute engine
+
+## Virtualizaton fundamentals
+
+![1731601979103](image/GCPCloudComputing/1731601979103.png)
+
+![1731601995148](image/GCPCloudComputing/1731601995148.png)
+
+![1731602041698](image/GCPCloudComputing/1731602041698.png)
+
+![1731602118980](image/GCPCloudComputing/1731602118980.png)
+
+![1731602318124](image/GCPCloudComputing/1731602318124.png)
+
+![1731602905420](image/GCPCloudComputing/1731602905420.png)
+
+![1731603826079](image/GCPCloudComputing/1731603826079.png)
+
+## Compute engine overview
+
+![1731604054713](image/GCPCloudComputing/1731604054713.png)
+
+![1731604068450](image/GCPCloudComputing/1731604068450.png)
+
+![1731604180002](image/GCPCloudComputing/1731604180002.png)
+
+![1731604326987](image/GCPCloudComputing/1731604326987.png)
+
+![1731604482234](image/GCPCloudComputing/1731604482234.png)
+
+![1731604568403](image/GCPCloudComputing/1731604568403.png)
+
+## Compute engine - machine types
+
+![1731613421651](image/GCPCloudComputing/1731613421651.png)
+
+![1731613535323](image/GCPCloudComputing/1731613535323.png)
+
+![1731613592003](image/GCPCloudComputing/1731613592003.png)
+
+![1731613665393](image/GCPCloudComputing/1731613665393.png)
+
+![1731613682471](image/GCPCloudComputing/1731613682471.png)
+
+![1731613700280](image/GCPCloudComputing/1731613700280.png)
+
+![1731613738202](image/GCPCloudComputing/1731613738202.png)
+
+![1731613788814](image/GCPCloudComputing/1731613788814.png)
+
+![1731613836916](image/GCPCloudComputing/1731613836916.png)
+
+![1731613854885](image/GCPCloudComputing/1731613854885.png)
+
+![1731613906408](image/GCPCloudComputing/1731613906408.png)
+
+![1731613924205](image/GCPCloudComputing/1731613924205.png)
+
+![1731613988642](image/GCPCloudComputing/1731613988642.png)
+
+![1731614043544](image/GCPCloudComputing/1731614043544.png)
+
+![1731614103959](image/GCPCloudComputing/1731614103959.png)
+
+![1731614123926](image/GCPCloudComputing/1731614123926.png)
+
+![1731614172171](image/GCPCloudComputing/1731614172171.png)
+
+![1731614199064](image/GCPCloudComputing/1731614199064.png)
+
+## Managing instances
+
+Using the `gcloud compute instances move` command to move an instance to another zone is no longer possible, and attempting to do so will result in a 400 error. This functionality has been deprecated, and Google Cloud now recommends alternative methods such as creating snapshots of the instance and then using those snapshots to create a new instance in the desired zone.
+
+Resource:
+
+* [Create custom images | Compute Engine Documentation](https://cloud.google.com/compute/docs/images/create-custom)
+* [Move a VM instance between zones or regions](https://cloud.google.com/compute/docs/instances/moving-instance-across-zones)
+
+![1731618958085](image/GCPCloudComputing/1731618958085.png)
+
+![1731619018514](image/GCPCloudComputing/1731619018514.png)
+
+![1731619031879](image/GCPCloudComputing/1731619031879.png)
+
+![1731619065358](image/GCPCloudComputing/1731619065358.png)
+
+![1731619164819](image/GCPCloudComputing/1731619164819.png)
+
+![1731619690751](image/GCPCloudComputing/1731619690751.png)
+
+
+![1731619823721](image/GCPCloudComputing/1731619823721.png)
+
+![1731619883002](image/GCPCloudComputing/1731619883002.png)
+
+![1731620077363](image/GCPCloudComputing/1731620077363.png)
+
+![1731620151909](image/GCPCloudComputing/1731620151909.png)
+
+![1731620170302](image/GCPCloudComputing/1731620170302.png)
