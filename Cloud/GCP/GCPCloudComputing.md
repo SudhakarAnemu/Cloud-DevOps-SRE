@@ -911,7 +911,6 @@ Resource:
 
 ![1731619690751](image/GCPCloudComputing/1731619690751.png)
 
-
 ![1731619823721](image/GCPCloudComputing/1731619823721.png)
 
 ![1731619883002](image/GCPCloudComputing/1731619883002.png)
@@ -921,3 +920,5 @@ Resource:
 ![1731620151909](image/GCPCloudComputing/1731620151909.png)
 
 ![1731620170302](image/GCPCloudComputing/1731620170302.png)
+
+Lets continue from here - js
