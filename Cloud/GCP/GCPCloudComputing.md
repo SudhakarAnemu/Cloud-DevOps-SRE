@@ -921,4 +921,105 @@ Resource:
 
 ![1731620170302](image/GCPCloudComputing/1731620170302.png)
 
-Lets continue from here - js
+## Compute engine billing
+
+
+## Compute Engine Billing
+
+| Maximum of 20% monthly SUDs                                          | Maximum of 30% monthly SUDs                                                 |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| - All general-purpose N2 and N2D predefined and custom machine types | - All general-purpose N1 predefined and custom machine types                |
+| - All general-purpose N2 and N2D sole-tenant node types              | - All general-purpose N1 sole-tenant node types                             |
+| - All compute-optimized C2 machine types                             | - All memory-optimized M1 and M2 machine types                              |
+| - All compute-optimized C2 sole-tenant node types                    | - All memory-optimized M1 and M2 sole-tenant node types                     |
+|                                                                      | -`f1-micro` and `g1-small` shared-core machine types                    |
+|                                                                      | - All GPU devices with the exception of NVIDIA H100, A100, and L4 GPU types |
+
+## Sustained use discounts for up to 20%
+
+Resources: All N2 and N2D predefined and custom machine types, All N2 and N2D sole-tenant node types, All C2 machine types, All C2 sole-tenant node types
+
+| Usage level (% of the month) | % at which incremental is charged | Incremental rate (USD/hour) example:`c2-standard-4` VM |
+| ---------------------------- | --------------------------------- | -------------------------------------------------------- |
+| 0%–25%                      | 100% of base rate                 | $0.2088                                                  |
+| 25%–50%                     | 86.78% of base rate               | $0.1811                                                  |
+| 50%–75%                     | 73.3% of base rate                | $0.1530                                                  |
+| 75%–100%                    | 60% of base rate                  | $0.1252                                                  |
+
+## Sustained use discounts for up to 30%
+
+Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1-micro and g1-small shared-core machine types, All GPU devices with the exception of NVIDIA H100, A100, and L4 GPU types
+
+| Usage level (% of month) | % at which incremental is charged | Incremental rate (USD/hour) example:`n1-standard-1` VM |
+| ------------------------ | --------------------------------- | -------------------------------------------------------- |
+| 0%–25%                  | 100% of base rate                 | $0.0475                                                  |
+| 25%–50%                 | 80% of base rate                  | $0.0380                                                  |
+| 50%–75%                 | 60% of base rate                  | $0.0285                                                  |
+| 75%–100%                | 40% of base rate                  | $0.0190                                                  |
+
+![1731778991782](image/GCPCloudComputing/1731778991782.png)
+
+![1731779143016](image/GCPCloudComputing/1731779143016.png)
+
+![1731779493377](image/GCPCloudComputing/1731779493377.png)
+
+![1731779577596](image/GCPCloudComputing/1731779577596.png)
+
+![1731779701207](image/GCPCloudComputing/1731779701207.png)
+
+![1731779955344](image/GCPCloudComputing/1731779955344.png)
+
+![1731780110182](image/GCPCloudComputing/1731780110182.png)
+
+## Storage fundamentals
+
+![1731780602464](image/GCPCloudComputing/1731780602464.png)
+
+![1731780720416](image/GCPCloudComputing/1731780720416.png)
+
+![1731780837760](image/GCPCloudComputing/1731780837760.png)
+
+![1731781181554](image/GCPCloudComputing/1731781181554.png)
+
+![1731781543889](image/GCPCloudComputing/1731781543889.png)
+
+## Persistant disks and local SSD
+
+![1731781997876](image/GCPCloudComputing/1731781997876.png)
+
+![1731782238021](image/GCPCloudComputing/1731782238021.png)
+
+![1731782792417](image/GCPCloudComputing/1731782792417.png)
+
+![1731782856695](image/GCPCloudComputing/1731782856695.png)
+
+![1731783012214](image/GCPCloudComputing/1731783012214.png)
+
+![1731783061626](image/GCPCloudComputing/1731783061626.png)
+
+![1731783135128](image/GCPCloudComputing/1731783135128.png)
+
+![1731783156493](image/GCPCloudComputing/1731783156493.png)
+
+![1731783200899](image/GCPCloudComputing/1731783200899.png)
+
+![1731783226998](image/GCPCloudComputing/1731783226998.png)
+
+![1731783239179](image/GCPCloudComputing/1731783239179.png)
+
+![1731783761951](image/GCPCloudComputing/1731783761951.png)
+
+![1731783784022](image/GCPCloudComputing/1731783784022.png)
+
+1 vcpu for 2000 io ops
+
+![1731783881190](image/GCPCloudComputing/1731783881190.png)
+
+## Managing disks on compute engine-lab
+
+## Snapshots
+
+
+# JSSudha
+
+## jssudha
