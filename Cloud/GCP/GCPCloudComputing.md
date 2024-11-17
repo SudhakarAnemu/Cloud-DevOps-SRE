@@ -923,7 +923,6 @@ Resource:
 
 ## Compute engine billing
 
-
 ## Compute Engine Billing
 
 | Maximum of 20% monthly SUDs                                          | Maximum of 30% monthly SUDs                                                 |
@@ -1018,6 +1017,34 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 ## Managing disks on compute engine-lab
 
 ## Snapshots
+
+![1731803593940](image/GCPCloudComputing/1731803593940.png)
+
+![1731803749657](image/GCPCloudComputing/1731803749657.png)
+
+![1731803832571](image/GCPCloudComputing/1731803832571.png)
+
+![1731803961618](image/GCPCloudComputing/1731803961618.png)
+
+![1731803983970](image/GCPCloudComputing/1731803983970.png)
+
+![1731804161479](image/GCPCloudComputing/1731804161479.png)
+
+## Deployment manager
+
+![1731869905070](image/GCPCloudComputing/1731869905070.png)
+
+![1731869601464](image/GCPCloudComputing/1731869601464.png)
+
+![1731869586322](image/GCPCloudComputing/1731869586322.png)
+
+![1731869648986](image/GCPCloudComputing/1731869648986.png)
+
+![1731870049353](image/GCPCloudComputing/1731870049353.png)
+
+![1731870102701](image/GCPCloudComputing/1731870102701.png)
+
+![1731870367777](image/GCPCloudComputing/1731870367777.png)
 
 
 # JSSudha

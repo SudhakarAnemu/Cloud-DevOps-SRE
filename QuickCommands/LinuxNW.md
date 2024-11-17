@@ -18,6 +18,12 @@ base64
 
 md5sum `<file>`
 
+### Curl
+
+#### Download a file
+
+curl https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/800px-Ada_Lovelace_portrait.jpg --output ada.jpg
+
 ## Network
 
 ### netstat
