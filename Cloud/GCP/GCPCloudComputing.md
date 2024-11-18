@@ -1046,6 +1046,160 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ![1731870367777](image/GCPCloudComputing/1731870367777.png)
 
+# High availability and auto scaling
+
+## cloud load balancer
+
+![1731959422916](image/GCPCloudComputing/1731959422916.png)
+
+![1731960085050](image/GCPCloudComputing/1731960085050.png)
+
+![1731960286722](image/GCPCloudComputing/1731960286722.png)
+
+
+## GCP Load Balancer Study Notes
+
+### Backend Services
+
+**Defines how Cloud Load Balancing distributes traffic**
+
+* **Health Checks**: Verifies the health of backend instances.
+* **Session Affinity**: Ensures traffic from a client is sent to the same backend.
+* **Service Timeout**: Specifies the time the load balancer waits for a response from the backend.
+* **Traffic Distribution**: Balances traffic across multiple backends.
+* **Backends**: Instances or endpoints receiving the traffic.
+
+### HTTP(S) Traffic Management
+
+* **Cross-region load balancing** : Distributes traffic across multiple regions for high availability.
+* **Content-based load balancing** : Routes traffic based on URL path to different backend services.
+
+### HTTP(S) Load Balancer
+
+**Global, proxy-based Layer 7 load balancer**
+
+* **Features** :
+* **Layer 7 Load Balancer**
+* **Single Unicast IP address**
+* **Implemented on Google Front Ends (GFE)**
+* **Global, external, internal**
+* **HTTPS and SSL for encryption in transit**
+* **IPv4/IPv6 traffic**
+* **Distribute traffic by location or content**
+* **SSL certificates must be used for HTTPS**
+* **Ports 80, 8080; 443 (HTTPS)**
+
+### SSL Proxy
+
+**Reverse proxy load balancer that distributes SSL traffic coming from the internet to VMs**
+
+* **Features** :
+* **Layer 4 Load Balancer**
+* **Global and external**
+* **Support for TCP with SSL offload**
+* **Distribute traffic by location only**
+* **IPv4/IPv6 traffic**
+* **Used for protocols that use SSL**
+
+### TCP Proxy
+
+**Reverse proxy load balancer that distributes TCP traffic coming from the internet to VMs**
+
+* **Features** :
+* **Layer 4 Load Balancer**
+* **Global and external**
+* **Forward traffic as SSL or TCP**
+* **Distribute traffic by location only**
+* **IPv4/IPv6 traffic**
+* **Supports many well-known TCP ports**
+
+### Network Load Balancer
+
+**Pass-through load balancer that distributes TCP and UDP traffic to VMs**
+
+* **Features** :
+* **Regional and external**
+* **Supports either TCP or UDP, not both**
+* **Traffic distributed by protocol, scheme, and scope**
+* **No TLS offloading or proxying**
+* **Self-managed SSL certificates**
+
+### Internal Load Balancer
+
+**Pass-through load balancer that distributes TCP and UDP traffic to VMs within a VPC**
+
+* **Features** :
+* **Layer 4 Load Balancer**
+* **Regional and internal**
+* **Supports either TCP or UDP, not both**
+* **Balances internal traffic between instances**
+* **Traffic sent to backend directly**
+* **Does not terminate client connections**
+* **Forwarding rules: specify at least one and up to five ports by number**
+
+### Load Balancer Types
+
+* **HTTP(S)**
+* **SSL Proxy**
+* **TCP Proxy**
+* **Network**
+* **Internal**
+
+![1731960570012](image/GCPCloudComputing/1731960570012.png)
+
+![1731960770524](image/GCPCloudComputing/1731960770524.png)
+
+![1731960917083](image/GCPCloudComputing/1731960917083.png)
+
+![1731961021370](image/GCPCloudComputing/1731961021370.png)
+
+![1731961113794](image/GCPCloudComputing/1731961113794.png)
+
+![1731961187338](image/GCPCloudComputing/1731961187338.png)
+
+![1731961203017](image/GCPCloudComputing/1731961203017.png)
+
+## Instance group and templates
+
+![1731961363546](image/GCPCloudComputing/1731961363546.png)
+
+![1731961374314](image/GCPCloudComputing/1731961374314.png)
+
+![1731961519031](image/GCPCloudComputing/1731961519031.png)
+
+![1731961554144](image/GCPCloudComputing/1731961554144.png)
+
+![1731961632708](image/GCPCloudComputing/1731961632708.png)
+
+![1731961673743](image/GCPCloudComputing/1731961673743.png)
+
+![1731961718239](image/GCPCloudComputing/1731961718239.png)
+
+![1731961786287](image/GCPCloudComputing/1731961786287.png)
+
+![1731961813961](image/GCPCloudComputing/1731961813961.png)
+
+![1731961996252](image/GCPCloudComputing/1731961996252.png)
+
+# Kubernetes
+
+## Intro about containers
+
+![1731965559668](image/GCPCloudComputing/1731965559668.png)
+
+![1731965655977](image/GCPCloudComputing/1731965655977.png)
+
+![1731965788750](image/GCPCloudComputing/1731965788750.png)
+
+![1731965913110](image/GCPCloudComputing/1731965913110.png)
+
+![1731965992801](image/GCPCloudComputing/1731965992801.png)
+
+![1731966066762](image/GCPCloudComputing/1731966066762.png)
+
+## Concepts
+
+
 
 # JSSudha
 
