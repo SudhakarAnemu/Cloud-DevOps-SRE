@@ -12,6 +12,10 @@ ssh-keygen -R `<ip> --> it will update known_hosts file with the appropriate ip 
 
 apt-get install build-essential
 
+### OSI-Open System Interconnection
+
+![1731991531109](image/LinuxNW/1731991531109.png)
+
 ### hashing
 
 base64

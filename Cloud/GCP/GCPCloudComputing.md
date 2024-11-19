@@ -1056,7 +1056,6 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ![1731960286722](image/GCPCloudComputing/1731960286722.png)
 
-
 ## GCP Load Balancer Study Notes
 
 ### Backend Services
@@ -1199,6 +1198,122 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ## Concepts
 
+![1731986884677](image/GCPCloudComputing/1731986884677.png)
+
+![1731986992561](image/GCPCloudComputing/1731986992561.png)
+
+![1731987105181](image/GCPCloudComputing/1731987105181.png)
+
+![1731987188831](image/GCPCloudComputing/1731987188831.png)
+
+![1731987208301](image/GCPCloudComputing/1731987208301.png)
+
+![1731987231162](image/GCPCloudComputing/1731987231162.png)
+
+![1731987256858](image/GCPCloudComputing/1731987256858.png)
+
+![1731987285943](image/GCPCloudComputing/1731987285943.png)
+
+
+![1731987340564](image/GCPCloudComputing/1731987340564.png)
+
+![1731987382131](image/GCPCloudComputing/1731987382131.png)
+
+![1731987397563](image/GCPCloudComputing/1731987397563.png)
+
+## Cluster and node mgmt
+
+![1731987806421](image/GCPCloudComputing/1731987806421.png)
+
+![1731988158063](image/GCPCloudComputing/1731988158063.png)
+
+
+![1731988310303](image/GCPCloudComputing/1731988310303.png)
+
+![1731988492104](image/GCPCloudComputing/1731988492104.png)
+
+![1731988541392](image/GCPCloudComputing/1731988541392.png)
+
+![1731988626985](image/GCPCloudComputing/1731988626985.png)
+
+![1731989080429](image/GCPCloudComputing/1731989080429.png)
+
+## Pods and object management
+
+![1731989260131](image/GCPCloudComputing/1731989260131.png)
+
+![1731989275282](image/GCPCloudComputing/1731989275282.png)
+
+![1731989381379](image/GCPCloudComputing/1731989381379.png)
+
+![1731989421826](image/GCPCloudComputing/1731989421826.png)
+
+![1731989446452](image/GCPCloudComputing/1731989446452.png)
+
+
+![1731989497913](image/GCPCloudComputing/1731989497913.png)
+
+![1731989550758](image/GCPCloudComputing/1731989550758.png)
+
+
+![1731989609235](image/GCPCloudComputing/1731989609235.png)
+
+![1731989626056](image/GCPCloudComputing/1731989626056.png)
+
+![1731989741327](image/GCPCloudComputing/1731989741327.png)
+
+![1731989837157](image/GCPCloudComputing/1731989837157.png)
+
+![1731989960230](image/GCPCloudComputing/1731989960230.png)
+
+## Services
+
+
+![1731990476979](image/GCPCloudComputing/1731990476979.png)
+
+![1731990571911](image/GCPCloudComputing/1731990571911.png)
+
+![1731990595342](image/GCPCloudComputing/1731990595342.png)
+
+![1731990671834](image/GCPCloudComputing/1731990671834.png)
+
+![1731990748018](image/GCPCloudComputing/1731990748018.png)
+
+
+![1731990766222](image/GCPCloudComputing/1731990766222.png)
+
+
+![1731990887157](image/GCPCloudComputing/1731990887157.png)
+
+
+![1731990936827](image/GCPCloudComputing/1731990936827.png)
+
+
+![1731991158069](image/GCPCloudComputing/1731991158069.png)
+
+
+![1731991209256](image/GCPCloudComputing/1731991209256.png)
+
+![1731991581186](image/GCPCloudComputing/1731991581186.png)
+
+![1731991610747](image/GCPCloudComputing/1731991610747.png)
+
+![1731991763624](image/GCPCloudComputing/1731991763624.png)
+
+![1731991844737](image/GCPCloudComputing/1731991844737.png)
+
+![1731991940613](image/GCPCloudComputing/1731991940613.png)
+
+![1731991960196](image/GCPCloudComputing/1731991960196.png)
+
+
+![1731992076012](image/GCPCloudComputing/1731992076012.png)
+
+![1731992091022](image/GCPCloudComputing/1731992091022.png)
+
+![1731992148256](image/GCPCloudComputing/1731992148256.png)
+
+## Ingress for GKE
 
 
 # JSSudha
