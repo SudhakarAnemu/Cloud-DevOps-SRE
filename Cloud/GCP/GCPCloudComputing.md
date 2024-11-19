@@ -1214,7 +1214,6 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ![1731987285943](image/GCPCloudComputing/1731987285943.png)
 
-
 ![1731987340564](image/GCPCloudComputing/1731987340564.png)
 
 ![1731987382131](image/GCPCloudComputing/1731987382131.png)
@@ -1226,7 +1225,6 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 ![1731987806421](image/GCPCloudComputing/1731987806421.png)
 
 ![1731988158063](image/GCPCloudComputing/1731988158063.png)
-
 
 ![1731988310303](image/GCPCloudComputing/1731988310303.png)
 
@@ -1250,11 +1248,9 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ![1731989446452](image/GCPCloudComputing/1731989446452.png)
 
-
 ![1731989497913](image/GCPCloudComputing/1731989497913.png)
 
 ![1731989550758](image/GCPCloudComputing/1731989550758.png)
-
 
 ![1731989609235](image/GCPCloudComputing/1731989609235.png)
 
@@ -1268,7 +1264,6 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ## Services
 
-
 ![1731990476979](image/GCPCloudComputing/1731990476979.png)
 
 ![1731990571911](image/GCPCloudComputing/1731990571911.png)
@@ -1279,18 +1274,13 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ![1731990748018](image/GCPCloudComputing/1731990748018.png)
 
-
 ![1731990766222](image/GCPCloudComputing/1731990766222.png)
-
 
 ![1731990887157](image/GCPCloudComputing/1731990887157.png)
 
-
 ![1731990936827](image/GCPCloudComputing/1731990936827.png)
 
-
 ![1731991158069](image/GCPCloudComputing/1731991158069.png)
-
 
 ![1731991209256](image/GCPCloudComputing/1731991209256.png)
 
@@ -1306,7 +1296,6 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ![1731991960196](image/GCPCloudComputing/1731991960196.png)
 
-
 ![1731992076012](image/GCPCloudComputing/1731992076012.png)
 
 ![1731992091022](image/GCPCloudComputing/1731992091022.png)
@@ -1314,6 +1303,37 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 ![1731992148256](image/GCPCloudComputing/1731992148256.png)
 
 ## Ingress for GKE
+
+![1732035711795](image/GCPCloudComputing/1732035711795.png)
+
+![1732035762235](image/GCPCloudComputing/1732035762235.png)
+
+![1732035863857](image/GCPCloudComputing/1732035863857.png)
+
+![1732035942556](image/GCPCloudComputing/1732035942556.png)
+
+![1732036037947](image/GCPCloudComputing/1732036037947.png)
+
+## GKE Storage options
+
+![1732036297459](image/GCPCloudComputing/1732036297459.png)
+
+![1732036557906](image/GCPCloudComputing/1732036557906.png)
+
+![1732036950036](image/GCPCloudComputing/1732036950036.png)
+
+![1732037099999](image/GCPCloudComputing/1732037099999.png)
+
+![1732037451330](image/GCPCloudComputing/1732037451330.png)
+
+![1732037563207](image/GCPCloudComputing/1732037563207.png)
+
+![1732037637830](image/GCPCloudComputing/1732037637830.png)
+
+
+![1732037747293](image/GCPCloudComputing/1732037747293.png)
+
+![1732037929751](image/GCPCloudComputing/1732037929751.png)
 
 
 # JSSudha
