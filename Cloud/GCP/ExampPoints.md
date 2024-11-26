@@ -1,3 +1,5 @@
+# Set1
+
 1.When you create a project, you are automatically granted the roles/owner role. The owner role includes permissions granted by roles/editor, roles/viewer, and roles/browser. For more information, see https://cloud.google.com/resource-manager/docs/access-control-proj.
 
 2.Cloud Dataproc is a managed Spark/Hadoop service that can be used to migrate Hadoop clusters GCP. Cloud Pub/Sub is a queuing service that is used to ingest data and store it until it can be processed. Bigtable is a NoSQL database, not a queueing service. Cloud Dataflow is a stream and batch processing service, not a queueing service. For more information, see https://cloud.google.com/dataproc/docs/how-to.
@@ -48,4 +50,12 @@
 45. The correct command is gcloud config configurations create. Gcloud configurations crae, gcloud config configurations set, and gcloud configurations set are not valid gcloud commands to create configurations. For more information, see https://cloud.google.com/sdk/gcloud/reference/config/configurations/create.
 46. Cloud Audit Logs maintain three audit logs: Admin Activity logs, Data Access logs, and System Event logs. There is no such thing as a Policy Access log, a User Login log, or a Performance Metric log in GCP Audit Logs. For more information, see https://cloud.google.com/logging/docs/audit.
 47. billing.accounts.create is the permission needed to create a billing account. billing.create is not a valid permission. Roles are sets of permissions but they are not permissions themselves so roles/billing.create and roles/billing.accounts.create are not correct answers. For more information, see https://cloud.google.com/billing/docs/how-to/manage-billing-account.
-48.
+48. Folders are used to group resources that share common IAM policies. Service accounts are specific to a set of operating requirements within a project. Permissions are associated with roles but not directly with folders. IAM roles are granted to identities, not folders. For more information, see https://cloud.google.com/resource-manager/docs/creating-managing-folders.
+49. To copy files to a VM, a firewall rule must be in place to allow traffic on port 22, the default SSH port. Administrator privileges are not needed to upload a file so the other three options are not correct. For more information, see https://cloud.google.com/compute/docs/instances/transfer-files.
+50. Target pools must have a health check to function properly. Nodes can be in different zones but must be in the same region. Cloud Monitoring and Cloud Logging are useful but they are not required for the target pool to function properly. Nodes in a pool have the same configuration. For more information, see https://cloud.google.com/load-balancing/docs/target-pools.
+51. 
+
+# set2
+
+
+53. Set2
