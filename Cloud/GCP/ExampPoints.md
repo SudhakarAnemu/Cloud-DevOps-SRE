@@ -39,4 +39,5 @@
 36. Cloud Pub/Sub is a queuing service that is used to ingest data and store it until it can be processed. Bigtable is a NoSQL database, not a queueing service. Cloud Dataflow is a stream and batch processing service, not a queueing service. Cloud Dataproc is a managed Spark/Hadoop service. For more information, see https://cloud.google.com/pubsub/docs/overview.
 37. URL maps specify direct requests to particular services. Routes are used to specify paths to destination IP addresses outside a subnet. Firewall rules control the flow of traffic on a network. Traces are used to understand performance characteristics of services in a distributed system. For more information, see https://cloud.google.com/load-balancing/docs/url-map.
 38. The correct answer is to use the "kubectl apply -f" with the name of the deployment file. Deployments are Kubernetes abstractions and are managed using kubectl, not gcloud. The other options are not valid commands. For more information, see https://kubernetes.io/docs/reference/kubectl/overview/.
-39.
+39. The correct command for changing the storage class is gsutil rewrite with the target storage class and bucket specified. Gsutil migrate is not a valid command. There is no need to specify the parameters -from or -to.
+40.
