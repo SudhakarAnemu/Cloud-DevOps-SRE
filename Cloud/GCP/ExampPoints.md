@@ -57,5 +57,18 @@
 
 # set2
 
-
-53. Set2
+1. The correct command is gcloud projects describe followed by the PROJECT_ID or the PROJECT_NAME.
+2. After creating a custom mode network, you will need to create subnets in regions where instances will be deployed. You do not have to create subnets in all regions but an instance cannot be deployed to a region without a subnet.
+3. The correct command for changing the storage class is gcloud storage objects update with the target storage class and bucket specified.
+4. To rename a file in cloud storage, use the move command gsutil mv.
+5. Access is granted to Cloud Storage objects using IAM or access control lists (ACLs). When uniform bucket-level access is applied, users only have access through IAM roles and permissions. A users that could access objects before uniform bucket-level access is applied but not after must have had access through ACLs.
+6. URL maps specify direct requests to particular services. Routes are used to specify paths to destination IP addresses outside a subnet. Firewall rules control the flow of traffic on a network. Traces are used to understand performance characteristics of services in a distributed system.
+7. Internal TCP/UDP Load Balancing is used for internal traffic, that is not from the internet. SSL Proxy, TCP Proxy, and Network TCP/UDP load balancing are used with external traffic.
+8. Regional clusters have replicas of the control plane while single zone and multi-zonal clusters have only one control plane. There is no such thing as a dedicated cluster in GKE.
+9. Node pools are used to configure resources for particular workloads. All nodes in a node pool are configured the same. Replica sets and deployments do not control the number of CPUs or amount of memory.
+10. The correct way to enable Cloud Operations for GKE is to use the parameters --logging and --monitoring.
+11. Kubernete Engine collects log data written to standard output (STDOUT) and standard error (STDERR).
+12. To load data, an identity must have bigquery.tables.create, bigquery.tables.updateData, and bigquery.jobs.create.
+13. The correct answer is to use the --dry-run option with the bq select command.
+14. The correct command is gsutil iam ch allUsers:objectViewer gs://free-photos-on-gcp. Gsutil is used with Cloud Storage, not gcloud. The term objectViewer is the correct way to grant read access to objects in a bucket.
+15.
