@@ -71,4 +71,17 @@
 12. To load data, an identity must have bigquery.tables.create, bigquery.tables.updateData, and bigquery.jobs.create.
 13. The correct answer is to use the --dry-run option with the bq select command.
 14. The correct command is gsutil iam ch allUsers:objectViewer gs://free-photos-on-gcp. Gsutil is used with Cloud Storage, not gcloud. The term objectViewer is the correct way to grant read access to objects in a bucket.
-15.
+15. A shared VPC allows projects to share a common VPC network. VPNs are used to link VPCs to on premises networks. Routes and firewall rules are not sufficient for implementing a common VPC.
+16. Firewall rule logging can be enabled for each firewall rule. Each time the rule is applied to allow or deny traffic, a connection record is created. Connection records can be viewed in Cloud Logging.
+17. Cloud Data Fusion is a managed service that is designed for building data transformation pipelines. Compute Engine is not a managed service. Cloud Dataprep is used to prepare data for analytics and machine learning. Cloud Build is a service for creating container images.
+18. The role/bigtable.reader gives the data scientist the ability to read data but not write data or modify the database. This follows the Principle of Least Privilege as recommended by Google.
+19. Service accounts are used to provide applications and instances with an identity that can have roles that give the identity sufficient permission to execute operations it needs to perform.
+20. Since the connected networks are in different organizations, they must use VPC Network Peering. VPC sharing is only available within a single organization. Firewall rule changes may be needed, but that is not sufficient. VPNs are used to connect GCP networks with on premises networks.
+21. Google Cloud assigns regional internal IP addresses for VM instances, including GKE pods, nodes, and services. They are also used for Internal TCP/UDP Load Balancing and Internal HTTP(S) Load Balancing
+22. The correct answer is to use the "kubectl apply -f" with the name of the deployment file. Deployments are Kubernetes abstractions and are managed using kubectl, not gcloud. The other options are not valid commands.
+23. The correct command is to use kubectl autoscale deployment specifying the appropriate min, max, and cpu percent. The other options are not valid commands.
+24. The correct command is gcloud datastore export gs://my-datastore-backup --async. Export, not backup, is the datastore command to save data to a Cloud Storage bucket. Gsutil is used to manage Cloud Storage, not Cloud Datastore.
+25. The correct command is gcloud artifacts repositories list. The other options are not valid commands.
+26. Nearline Storage is a class of Cloud Storage designed for objects that will be accessed at most once every 30 days. Coldline Storage is suitable for objects accessed at most once per year. Multi-regional storage is best suited for objects that should have low latency access from multiple regions. Persistent disks should not be used for archival storage.
+27. To copy files to a VM, a firewall rule must be in place to allow traffic on port 22, the default SSH port,
+28.
