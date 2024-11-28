@@ -1,8 +1,3 @@
-jsmypod
-https://kennybrast.medium.com/kubernetes-to-the-rescue-how-to-host-multiple-websites-like-a-pro-e15ac1b17c5b#:~:text=Kubernetes%20offers%20an%20efficient%20and,and%20saves%20on%20hardware%20costs.
-
-
-
 | S.No | Command                                                                                                   | Description                          |
 | ---- | --------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | 1    | [kubectl get pods --all-namespaces](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables) | Cheatsheet of md(markdown)           |
