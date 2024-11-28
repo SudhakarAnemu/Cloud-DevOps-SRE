@@ -1,30 +1,39 @@
-jsmypod
+js
+
+Important URLs
+
+
+| S.No | Description                          | URL                                                                                                                                                                                                  |
+| ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1    | Host multiple websites at one server | https://kennybrast.medium.com/kubernetes-to-the-rescue-how-to-host-multiple-websites-like-a-pro-e15ac1b17c5b#:~:text=Kubernetes%20offers%20an%20efficient%20and,and%20saves%20on%20hardware%20costs. |
+|      |                                      |                                                                                                                                                                                                      |
+
 https://kennybrast.medium.com/kubernetes-to-the-rescue-how-to-host-multiple-websites-like-a-pro-e15ac1b17c5b#:~:text=Kubernetes%20offers%20an%20efficient%20and,and%20saves%20on%20hardware%20costs.
 
 
-
-| S.No | Command                                                                                                   | Description                          |
-| ---- | --------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| S.No | Command                                                                                                      | Description                          |
+| ------ | -------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
 | 1    | [kubectl get pods --all-namespaces](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables) | Cheatsheet of md(markdown)           |
-| 2    | https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac                                    | npm, nodejs installations on windows |
-| 3    | {{ }}                                                                                                     | Jinja2 templating                    |
-| 4    | comm                                                                                                      | $1600                                |
-| 5    | comm                                                                                                      | $12                                  |
-| 6    | comm                                                                                                      | $1                                   |
-| 7    | comm                                                                                                      | $1600                                |
-| 8    | comm                                                                                                      | $12                                  |
-| 9    | comm                                                                                                      | $1                                   |
-| 10   | comm                                                                                                      | $1600                                |
-| 11   | comm                                                                                                      | $12                                  |
-| 12   | comm                                                                                                      | $1                                   |
-| 13   | comm                                                                                                      | $1600                                |
-| 14   | comm                                                                                                      | $12                                  |
-| 15   | comm                                                                                                      | $1                                   |
+| 2    | https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac                                       | npm, nodejs installations on windows |
+| 3    | {{ }}                                                                                                        | Jinja2 templating                    |
+| 4    | comm                                                                                                         | $1600                                |
+| 5    | comm                                                                                                         | $12                                  |
+| 6    | comm                                                                                                         | $1                                   |
+| 7    | comm                                                                                                         | $1600                                |
+| 8    | comm                                                                                                         | $12                                  |
+| 9    | comm                                                                                                         | $1                                   |
+| 10   | comm                                                                                                         | $1600                                |
+| 11   | comm                                                                                                         | $12                                  |
+| 12   | comm                                                                                                         | $1                                   |
+| 13   | comm                                                                                                         | $1600                                |
+| 14   | comm                                                                                                         | $12                                  |
+| 15   | comm                                                                                                         | $1                                   |
 
 # Minikube :
 
+
 | S.No         | Command                                                                  | Description          |
-| ------------ | ------------------------------------------------------------------------ | -------------------- |
+| -------------- | -------------------------------------------------------------------------- | ---------------------- |
 | 1            | /usr/local/bin/minikube profile list                                     | List out the profile |
 | 2            | minikube start --nodes 2                                                 |                      |
 | 3            | minikube start --driver=docker                                           |                      |
@@ -99,14 +108,13 @@ https://srinirallabandi.medium.com/how-to-install-a-kubernetes-cluster-on-rhel-8
 
 https://download.docker.com/linux/rhel/8/x86_64/stable/Packages/ -
 
-
 https://www.rpmfind.net/linux/rpm2html/search.php?query=kubernetes-kubeadm
-
 
 # Kubernets commands
 
+
 | S.No | Command                                                                              | Description                                                                                                                            |
-| ---- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| ------ | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | 1    | Install Urls                                                                         | https://www.openwriteup.com/                                                                                                           |
 | 2    | Install Urls                                                                         | https://github.com/lerndevops/kubernetes                                                                                               |
 | 3    | kubectl get all --all-namespaces                                                     | Gets info from all NSs                                                                                                                 |
