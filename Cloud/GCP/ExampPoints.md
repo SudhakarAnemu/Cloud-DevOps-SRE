@@ -84,4 +84,37 @@
 25. The correct command is gcloud artifacts repositories list. The other options are not valid commands.
 26. Nearline Storage is a class of Cloud Storage designed for objects that will be accessed at most once every 30 days. Coldline Storage is suitable for objects accessed at most once per year. Multi-regional storage is best suited for objects that should have low latency access from multiple regions. Persistent disks should not be used for archival storage.
 27. To copy files to a VM, a firewall rule must be in place to allow traffic on port 22, the default SSH port,
-28.
+28. When you create a project, you are automatically granted the roles/owner role. The owner role includes permissions granted by roles/editor, roles/viewer, and roles/browser.
+29. Folders are used to group resources that share common IAM policies. Service accounts are specific to a set of operating requirements within a project. Permissions are associated with roles but not directly with folders. IAM roles are granted to identities, not folders.
+30. Labels are key-value pairs attached to resources and used to manage them. The manager could use a key-value pair with the key 'team-name' and the value the name of the team that created the resource. Audit logs do not necessarily have the names of teams that own a resource. Traces are used for performance monitoring and analysis. IAM policies are used to control access to resources, not to track which team created them.
+31. Cloud Audit Logs maintain three audit logs: Admin Activity logs, Data Access logs, and System Event logs. There is no such thing as a Policy Access log, a User Login log, or a Performance Metric log in GCP Audit Logs.
+32. Constraints are the standard way to restrict where resources can be created and applying policies with constraints will enforce those constraints for all resources in the organization. If the policy were applied at the folder level, it would have to be applied for all folders and that is not as efficient as applying at the organization level.
+33. Cloud Identity provides domain verification records, which are added to DNS settings for the domain.
+34. billing.accounts.create is the permission needed to create a billing account. Roles are sets of permissions but they are not permissions themselves.
+35. The correct command is gcloud config configurations create.
+36. Gcloud init will authorize access and perform other common setup steps. Gcloud auth login will authorize access only.
+37. App Engine is designed for applications written in supported languages, including Python 3, that need to run at low cost and scale in response to rapid increases in load. App Engine is a managed service and as such minimizes operational overhead. If the application were containerized, Cloud Run would also be an option. Compute Engine and Kubernetes Engine both require more management overhead. Cloud Functions are used to respond to events in GCP, not to execute a continually running application.
+38. Shielded VMs are hardened virtual machines that use Secure Boot, virtual trusted platform module enabled Measured Boot, and integrity monitoring.
+39. Cloud Dataproc is a managed Spark/Hadoop service that can be used to migrate Hadoop clusters GCP.
+40. The source and cloned disk must be in the same zone and region and must be of the same type. The size of the clone must be at least the size of the source disk.
+41. The correct command is gcloud compute snapshots describe which shows information about the snapshot, including source disk, creation time, and size.
+42. Heterogeneous clusters can be run on unmanaged instance groups but not managed instance groups.
+43. An instance template is needed to enable Compute Engine to automatically add instances to a managed instance group.
+44. On a sole tenant node, only VMs from the same project will run on that node. They do not need to use the same operating system. Sole tenant nodes are not restricted to a single VM.
+45. Target pools must have a health check to function properly. Nodes can be in different zones but must be in the same region. Cloud Monitoring and Cloud Logging are useful but they are not required for the target pool to function properly. Nodes in a pool have the same configuration.
+46. Cloud Functions is used to respond to events in Google Cloud, including uploading of files in Cloud Storage. Since there are periods when no images are uploaded, there is no need to have an application running continuously and checking for new image uploads.
+47. BigQuery is a managed, petabyte scale data warehouse, which uses SQL. Bigtable does not support SQL. Cloud SQL and Cloud Spanner support SQL but are designed for transaction processing, not analytical applications like data warehouses.
+48. Cloud SQL is a managed relational database service suitable for regionally used applications. Cloud Spanner is also a managed relational database but it is designed for multi-region and global applications. BigQuery is not used for transaction processing systems. Cloud Dataproc is a managed Spark/Hadoop service, not a relational database.
+49. Bigtable is a wide column database with low latency writes that is well suited for IoT data storage. BigQuery is a data warehouse service. Cloud Dataproc is a managed Spark/Hadoop service. Cloud Spanner is a global-scale relational database designed for transaction processing.
+50. Cloud Pub/Sub is a queuing service that is used to ingest data and store it until it can be processed. Bigtable is a NoSQL database, not a queueing service. Cloud Dataflow is a stream and batch processing service, not a queueing service. Cloud Dataproc is a managed Spark/Hadoop service.
+51. set 3
+
+
+# set 3
+
+1. ClusterIP service is the default type of service and is used to enable internal clients to send requests to a stable internal IP address. Headless service type is used when a stable IP address is not needed. NodePort is used to enable clients to send requests to the IP address of a node on one or more nodePort values specified by the service. LoadBalancer clients send request to the IP address of a network load balancer.
+2. All data stored in Google Cloud is encrypted before it is persisted. You do not have to do anything to ensure your data is encrypted at rest in GCP.
+3. BigQuery is a managed analytical database that supports SQL. It is optimized for write once/read many operations. It can easily store 100 GB or more of data. It is a managed service designed to support data warehouses. Bigtable and Cloud Firestore are NoSQL databases and do not support SQL. Cloud SQL does support SQL but it is designed for transaction processing and does not support up to 100 GB in a single database.
+4. Bigtable is a NoSQL wide-column database well suited to low latency writes. Since only a few, well defined query patterns are needed, you can design the data model to support those patterns. BigQuery does not support large volumes of low latency writes. Cloud SQL and Cloud Spanner are relational databases designed for transaction processing systems but this use case does not require a transaction processing system.
+5. BigQuery uses the bq command line. The command to list datasets is bq ls.
+6.
