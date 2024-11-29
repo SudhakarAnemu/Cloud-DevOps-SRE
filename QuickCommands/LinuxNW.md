@@ -30,6 +30,10 @@ curl https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_port
 
 ## Network
 
+### subnet list (url)
+
+https://www.dan.me.uk/ipsubnets
+
 ### netstat
 
 netstat -an | grep `<port>`
