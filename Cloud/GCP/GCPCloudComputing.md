@@ -1,6 +1,6 @@
 js
 
-# Links (youtube, Github and Mainlink)
+# Links(youtube, Github and Mainlink)
 
 Youtube : Andrew - https://www.youtube.com/watch?v=jpno8FSqpc8&t=3674s
 
@@ -67,7 +67,7 @@ investing in expensive on-site resources.
 
 PaaS: A PaaS vendor provides hardware and software tools over the
 internet, and people use these tools to develop applications. PaaS users
- tend to be developers.
+tend to be developers.
 
 SaaS: SaaS platforms make software available to users over the internet, usually for a monthly subscription fee.
 
@@ -634,7 +634,7 @@ A special type of Google account intended to represent a non-human user that nee
 
 ## Networking Refresher PART 1
 
- **Correction** : ~3:30 Timestamp. IPv6 (Internet Protocol version 6) was **not** designed in 2017. It was actually developed in the mid-1990s to address IPv4 address exhaustion. The initial specification of IPv6 was published in 1998 as RFC 2460.
+**Correction** : ~3:30 Timestamp. IPv6 (Internet Protocol version 6) was **not** designed in 2017. It was actually developed in the mid-1990s to address IPv4 address exhaustion. The initial specification of IPv6 was published in 1998 as RFC 2460.
 
 ![1731355351734](image/GCPCloudComputing/1731355351734.png)
 
@@ -925,36 +925,39 @@ Resource:
 
 ## Compute Engine Billing
 
+
 | Maximum of 20% monthly SUDs                                          | Maximum of 30% monthly SUDs                                                 |
-| -------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | - All general-purpose N2 and N2D predefined and custom machine types | - All general-purpose N1 predefined and custom machine types                |
 | - All general-purpose N2 and N2D sole-tenant node types              | - All general-purpose N1 sole-tenant node types                             |
 | - All compute-optimized C2 machine types                             | - All memory-optimized M1 and M2 machine types                              |
 | - All compute-optimized C2 sole-tenant node types                    | - All memory-optimized M1 and M2 sole-tenant node types                     |
-|                                                                      | -`f1-micro` and `g1-small` shared-core machine types                    |
+|                                                                      | -`f1-micro` and `g1-small` shared-core machine types                        |
 |                                                                      | - All GPU devices with the exception of NVIDIA H100, A100, and L4 GPU types |
 
 ## Sustained use discounts for up to 20%
 
 Resources: All N2 and N2D predefined and custom machine types, All N2 and N2D sole-tenant node types, All C2 machine types, All C2 sole-tenant node types
 
+
 | Usage level (% of the month) | % at which incremental is charged | Incremental rate (USD/hour) example:`c2-standard-4` VM |
-| ---------------------------- | --------------------------------- | -------------------------------------------------------- |
-| 0%–25%                      | 100% of base rate                 | $0.2088                                                  |
-| 25%–50%                     | 86.78% of base rate               | $0.1811                                                  |
-| 50%–75%                     | 73.3% of base rate                | $0.1530                                                  |
-| 75%–100%                    | 60% of base rate                  | $0.1252                                                  |
+| ------------------------------ | ----------------------------------- | -------------------------------------------------------- |
+| 0%–25%                      | 100% of base rate                 | $0.2088                                                |
+| 25%–50%                     | 86.78% of base rate               | $0.1811                                                |
+| 50%–75%                     | 73.3% of base rate                | $0.1530                                                |
+| 75%–100%                    | 60% of base rate                  | $0.1252                                                |
 
 ## Sustained use discounts for up to 30%
 
 Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1-micro and g1-small shared-core machine types, All GPU devices with the exception of NVIDIA H100, A100, and L4 GPU types
 
+
 | Usage level (% of month) | % at which incremental is charged | Incremental rate (USD/hour) example:`n1-standard-1` VM |
-| ------------------------ | --------------------------------- | -------------------------------------------------------- |
-| 0%–25%                  | 100% of base rate                 | $0.0475                                                  |
-| 25%–50%                 | 80% of base rate                  | $0.0380                                                  |
-| 50%–75%                 | 60% of base rate                  | $0.0285                                                  |
-| 75%–100%                | 40% of base rate                  | $0.0190                                                  |
+| -------------------------- | ----------------------------------- | -------------------------------------------------------- |
+| 0%–25%                  | 100% of base rate                 | $0.0475                                                |
+| 25%–50%                 | 80% of base rate                  | $0.0380                                                |
+| 50%–75%                 | 60% of base rate                  | $0.0285                                                |
+| 75%–100%                | 40% of base rate                  | $0.0190                                                |
 
 ![1731778991782](image/GCPCloudComputing/1731778991782.png)
 
@@ -1198,6 +1201,8 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ## Concepts
 
+concepts
+
 ![1731986884677](image/GCPCloudComputing/1731986884677.png)
 
 ![1731986992561](image/GCPCloudComputing/1731986992561.png)
@@ -1330,11 +1335,9 @@ Resources: All M1 and M2 machine types, All M1 and M2 sole-tenant node types, f1
 
 ![1732037637830](image/GCPCloudComputing/1732037637830.png)
 
-
 ![1732037747293](image/GCPCloudComputing/1732037747293.png)
 
 ![1732037929751](image/GCPCloudComputing/1732037929751.png)
-
 
 # JSSudha
 
