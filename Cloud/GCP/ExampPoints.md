@@ -1,10 +1,10 @@
 # Set1
 
-1.When you create a project, you are automatically granted the roles/owner role. The owner role includes permissions granted by roles/editor, roles/viewer, and roles/browser. For more information, see https://cloud.google.com/resource-manager/docs/access-control-proj.
+1. When you create a project, you are automatically granted the roles/owner role. The owner role includes permissions granted by roles/editor, roles/viewer, and roles/browser. For more information, see https://cloud.google.com/resource-manager/docs/access-control-proj.
 
-2.Cloud Dataproc is a managed Spark/Hadoop service that can be used to migrate Hadoop clusters GCP. Cloud Pub/Sub is a queuing service that is used to ingest data and store it until it can be processed. Bigtable is a NoSQL database, not a queueing service. Cloud Dataflow is a stream and batch processing service, not a queueing service. For more information, see https://cloud.google.com/dataproc/docs/how-to.
+2. Cloud Dataproc is a managed Spark/Hadoop service that can be used to migrate Hadoop clusters GCP. Cloud Pub/Sub is a queuing service that is used to ingest data and store it until it can be processed. Bigtable is a NoSQL database, not a queueing service. Cloud Dataflow is a stream and batch processing service, not a queueing service. For more information, see https://cloud.google.com/dataproc/docs/how-to.
 
-3.Cloud Data Fusion is a managed service that is designed for building data transformation pipelines. Compute Engine is not a managed service. Cloud Dataprep is used to prepare data for analytics and machine learning. Cloud Build is a service for creating container images. For more information, see https://cloud.google.com/data-fusion/docs/how-to.
+3. Cloud Data Fusion is a managed service that is designed for building data transformation pipelines. Compute Engine is not a managed service. Cloud Dataprep is used to prepare data for analytics and machine learning. Cloud Build is a service for creating container images. For more information, see https://cloud.google.com/data-fusion/docs/how-to.
 
 4. The correct command is gsutil iam ch allUsers:objectViewer gs://free-photos-on-gcp. Gsutil is used with Cloud Storage, not gcloud so the gcloud ch option is incorrect. The term objectViewer is the correct way to grant read access to objects in a bucket. For more information, see https://cloud.google.com/storage/docs/gsutil/commands/iam.
 5. The correct command is gcloud datastore export gs://my-datastore-backup --async. Export, not backup, is the datastore command to save data to a Cloud Storage bucket. Gsutil is used to manage Cloud Storage, not Cloud Datastore. For more information, see https://cloud.google.com/datastore/docs/export-import-entities.
