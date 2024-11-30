@@ -53,7 +53,7 @@
 48. Folders are used to group resources that share common IAM policies. Service accounts are specific to a set of operating requirements within a project. Permissions are associated with roles but not directly with folders. IAM roles are granted to identities, not folders. For more information, see https://cloud.google.com/resource-manager/docs/creating-managing-folders.
 49. To copy files to a VM, a firewall rule must be in place to allow traffic on port 22, the default SSH port. Administrator privileges are not needed to upload a file so the other three options are not correct. For more information, see https://cloud.google.com/compute/docs/instances/transfer-files.
 50. Target pools must have a health check to function properly. Nodes can be in different zones but must be in the same region. Cloud Monitoring and Cloud Logging are useful but they are not required for the target pool to function properly. Nodes in a pool have the same configuration. For more information, see https://cloud.google.com/load-balancing/docs/target-pools.
-51. 
+51.
 
 # set2
 
@@ -109,7 +109,6 @@
 50. Cloud Pub/Sub is a queuing service that is used to ingest data and store it until it can be processed. Bigtable is a NoSQL database, not a queueing service. Cloud Dataflow is a stream and batch processing service, not a queueing service. Cloud Dataproc is a managed Spark/Hadoop service.
 51. set 3
 
-
 # set 3
 
 1. ClusterIP service is the default type of service and is used to enable internal clients to send requests to a stable internal IP address. Headless service type is used when a stable IP address is not needed. NodePort is used to enable clients to send requests to the IP address of a node on one or more nodePort values specified by the service. LoadBalancer clients send request to the IP address of a network load balancer.
@@ -117,4 +116,48 @@
 3. BigQuery is a managed analytical database that supports SQL. It is optimized for write once/read many operations. It can easily store 100 GB or more of data. It is a managed service designed to support data warehouses. Bigtable and Cloud Firestore are NoSQL databases and do not support SQL. Cloud SQL does support SQL but it is designed for transaction processing and does not support up to 100 GB in a single database.
 4. Bigtable is a NoSQL wide-column database well suited to low latency writes. Since only a few, well defined query patterns are needed, you can design the data model to support those patterns. BigQuery does not support large volumes of low latency writes. Cloud SQL and Cloud Spanner are relational databases designed for transaction processing systems but this use case does not require a transaction processing system.
 5. BigQuery uses the bq command line. The command to list datasets is bq ls.
-6.
+6. The bq command is used with BigQuery and the show command displays information about a data set. Projects and datasets are specified as [project name]:[dataset name].
+7. Ingestion time partitioned tables creates partitions by ingestion time. The pseudo column _PARTITIONTIME is added to the table and can be used to restrict the amount of data scanned. BigQuery does not provide for read replicas like some databases. BigQuery does not use indexes. The LIMIT option does not reduce the amount of data scanned, it only limits the number of rows returned.
+8. Cloud Functions are the best option since it is a managed service that can be invoked on events, such as when a message is ingested by Cloud Pub/Sub. Also the code to execute runs for short periods of time.
+9. Files are written to servers within the Cloud Storage system based on filenames. Lexically close file names are written to the same server. This can lead to hotspots in which a few servers have heavy loads while other servers have little or no load.
+10. To use the client built into Cloud Shell, the correct command is gcloud sql connect followed by the instance ID of the database you want to connect to along with the --user parameter to specify the username.
+11. Cloud CDN is a content distribution network for global content delivery. It caches data at distributed points around the world so users requests for content are routed to the closest content location.
+12. When using auto mode VPC creation, a subnet is created in each region and each subnet is assigned a range of IP addresses that fit within the 10.128.0.0/9 CIDR block.
+13. The --dry_run flag is used with the bq query command to estimate the cost of running a query.
+14. The two operations that can be performed using Cloud Storage lifecycle management are deleting objects and setting the storage class.
+15. Images are Compute Engine resources so they use gcloud compute commands. Images are the resource that is being created so the command is gcloud compute images create followed by the image name and the source-snapshot parameter.
+16. The problem may be caused by the consuming application not acknowledging the message has been successfully processed within the time required. The --ack-deadline may be set too low and the consuming application may not send the acknowledgement within that time. Increasing the --ack-deadline would give the consuming application more time to acknowledge successful processing of the message.
+17. The Cloud Monitoring agent collects data on CPU utilization and other metrics. Installing the agent and then view the collected data with Cloud Monitoring requires the least amount of work.
+18. The role roles/iam.roles.create will provide the permissions required to create custom roles.
+19. SSL Proxy should be used for external TCP traffic with the SSL processing offloaded to the the proxy.
+20. Network TCP/UDP Load Balancing is used for internal TCP traffic.
+21. Cloud Dataproc is a managed Spark/Hadoop cluster service. Cloud Data Studio is a reporting and analytics tool. Cloud Dataflow is a batch and stream processing platform. Cloud Bigtable is a NoSQL database.
+22. Tags are used to group resources in GCP. They are added to images using the gcloud container images add-tag command.
+23. Preemptible VMs cost significantly less then standard priced VMs. Preemptible VMs run up to 24 hours before being shut down by Google. The epidemiologist could can tolerate failures in some simulations since failed simulation are re-run.
+24. Cloud Spanner is a globally scalable, managed relational database that supports consistency. Cloud Bigtable is a NoSQL database. BigQuery is an analytical database. Cloud SQL is a relational database but it is designed for regional use cases.
+25. The gcloud config configurations activate command allows for rapid changes to the configuration for the Cloud SDK and could be used for that purpose in this use case.
+26. Labels allow you to specify key-value pairs for grouping resources, for example, a VM cloud be labeled with the key value pair 'envior:production.'
+27. roles/logging.privateLogsViewer provides provides read-only access to log entries in logs, including private logs. roles/logging.admin would give permission to review logs but would also grant other permissions that are not needed. roles/logging.configWriter grants permissions to read and write the configurations of logs-based metrics and sinks for exporting logs. roles/logging.bucketWriter provides permission to write to a Cloud Storage bucket.
+28. Data Access Audit logs generate large amounts of data and are disabled by default for most services; it is enabled by default for BigQuery. The other audit logs are not likely to generate the same volume of data as the Data Access Audit logs.
+29. The command gcloud compute instances set-service-account assigns a service account to a VM instance. The other options are not valid gcloud commands.
+30. roles/compute.instanceAdmin.v1 gives full control of Compute Engine instances, instance groups, disks, snapshots, and images. roles/iam.serviceAccountUser gives permission to run operations as the service account.
+31. The permissions, resourcemanager.projects.get, for retrieving projects identified by a project ID, resourcemanager.projects.getIamPolicy, for getting IAM access control policy for the specified Project, and resourcemanager.projects.setIamPolicy, for setting IAM access control policy for the specified project, are all required.
+32. gcloud iam roles list --project=[PROJECT] is the correct command. Gsutil is the command line for managing Cloud Storage, not IAM.
+33. gcloud iam roles describe [ROLE-ID] is the correct command for displaying information about a role.
+34. The command gcloud compute images list --project windows-cloud --no-standard-images will list Windows Server images. List provides a list of images with minimal information. Describe is used to show more detailed information.
+35. Image families are used to group related images together so you can roll forward or back between specific images versions. Image families always point to the latest version of an image that is not deprecated. Managed and unmanaged instance groups are types of clusters, not an image management feature. Community supported images not directly supported by Compute Engine and are maintained by community members.
+36. Instance templates specify the configuration of virtual machines and managed instance groups. Unmanaged instance groups may be heterogeneous and do not use instance templates. Snapshots are copies of disks at a point in time. They are useful for backups and copying disks but are not used for specifying configurations.
+37. Managed instance groups are used to create sets of identically configured VMs that can autoscale an can be configure for regional deployment, which would address the need to be resilient to a failure in a single zone.
+38. Sole-tenant nodes provides for exclusive access to a physical server. Shielded VMs provide additional security protections but do not guarantee sole-tenancy. Managed instance groups is a set of identically configured VMs. Preemptible VMs are low cost VMs that may be shutdown at any time by Google.
+39. The Policy Denied Audit Log captures details when a user or service account is denied access because of a security policy violation. The Admin Activity Log tracks administrative actions including changes to configurations and metadata. The Data Access Audit Log tracks changes or reads of resource data or metadata. There is no Identity Access Audit Log in GCP.
+40. The correct subcommand is add-iam-policy-binding with --member and --role flags. The subcommand is available for several resource types, including: disk, images, instances, and snapshots among others.
+41. This is a compute service setting so you would use gcloud compute and the resource is a project so project-info is required. The correct command is gcloud compute project-info describe --project [PROJECT ID].
+42. The correct answer is guest attributes. When guest attributes are enabled, Compute Engine will store your generated host keys as guest attributes.
+43. Labels are key/value pairs that are attached to objects to specify identifying attributes of objects that are useful for users and admins. Namespaces are virtual clusters designed for environments like the one described, with many users, team, or other organization group structures.
+44. The correct command is gcloud container clusters create with --enable-autoscaling flag and --min-nodes and max-nodes parameters. Kubectl is a command line for managing resources, such as pods, within a Kubernetes cluster.
+45. When Cloud Run starts a container, it creates environment variables: K_Configuration, K_Revision, K_Service, and Port. K_Configuration specifies the configuration that created the container.
+46. Cloud Run can execute container images with custom applications written in any programming language. It is a managed service so operational overhead is minimized. Cloud Pub/Sub configured with a push subscription could invoke a service running in Cloud Run. Compute Engine is not a managed service and would have more operational overhead. App Engine Standard does not support C++ applications. Anthos is a platform for managing multiple Kubernetes clusters in multiple environments and while it could be used to run the service, it is more than required by the specifications.
+47. Cron.yaml files contain specifications for running scheduled jobs in App Engine. App.yaml has overall application specifications. Batch.yaml and job.yaml are not specified as part of App Engine services.
+48. Index.yaml files contain indexes for complex queries that reference more than one attribute. Datastore automatically creates indexes for single attributes. All queries must have a supporting index. App.yaml is for application specifications. Cron.yaml is for scheduled jobs. Dispatch.yaml is for overriding routing rules.
+49. Gsutil is the command line utility for Cloud Storage. The rewrite command with the -s parameter is used to change storage classes.
+50. The correct command to list that metadata is gsutil stat gs://BUCKET_NAME/OBJECT_NAME.
