@@ -6,11 +6,9 @@ Which GCP service below provides a direct physical connection between your GCP e
    B. Carrier Peering
    C. Dedicated Interconnect
    D. Partner Interconnect
-
 Cloud Interconnect provides low latency, highly available connections that enable you to reliably transfer data between your on- premises and Virtual Private Cloud networks. Also, Cloud Interconnect connections provide RFC 1918 communication, which means internal (private) IP addresses are directly accessible from both networks.
 Cloud Interconnect offers two options for extending your on-premises network. Google Cloud Interconnect - Dedicated (Dedicated Interconnect) provides a direct physical connection between your on-premises network and Google's network.
 Google Cloud Interconnect - Partner (Partner Interconnect) provides connectivity between your on-premises and GCP VPC networks through a supported service provider.
-
 Ans : C
 2. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Steve is the cloud admin for Blue Widget Corp. He has been asked to configure a Kubernetes-hosted app so that it can be accessed internally by the GKE cluster. It will NOT be accessed from the public internet. Which service is suitable for exposing an internal IP address for apps that do not need to be accessed from the public internet?
@@ -18,20 +16,16 @@ Steve is the cloud admin for Blue Widget Corp. He has been asked to configure a 
    B. ClusterIP
    C. LoadBalancer 
    D. ExternalName
-
 ClusterIP services expose an internal IP address for apps that do not need to be accessed from the public internet. 
 NodePort services expose the node's IP address on a specific port. 
 LoadBalancer and ExternalName services both work closely with your cloud provider. The former works with your provider's load balancer resources to expose a set of pods while the latter returns a CNAME record based a DNS name of your choosing.
-
 Ans : B : Cluster Ip. 
-
 3. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Which of the following Kubernetes controllers should be used for maintenance operations that must run with exactly one pod running on each node?
 A. DaemonSet
 B. ReplicaSet
 C. StatefulSet 
 D. Deployment
-
 DaemonSets attempt to adhere to a one-Pod-per-node model, either across the entire cluster or a subset of nodes. As you add nodes to a node pool, DaemonSets automatically add Pods to the new nodes as needed.
 Ans : A
 4. ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -42,8 +36,6 @@ B. Create an HTTP load balancer with a backend configuration that references an 
 C. Create a managed instance group. Set the Autohealing health check to healthy
 (HTTP)
 D. Create a managed instance group. Verify that the autoscaling setting is on.you
-
-
 Ans : C 
 5.  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Jennifer is the cloud admin for the Blue Widget Corp. She has been asked to deploy a Kubernetes cluster so that the organizaton can perform some testing of a containerized app. After creating the cluster, her teams begins testing. Thirty days later, Jennifer's team informs her the the cluster appears to have been deleted. Nobody on the team has deleted the cluster. What is likely the cause of this?
@@ -59,9 +51,36 @@ You want the number of instances to scale based on request rate. You need at lea
 A. Manual Scaling with 3 instances. B. Basic Scaling with min_instances set to 3. C. Basic Scaling with max_instances set to 3. D. Automatic Scaling with min_idle_instances
 Correct Answer: D
 7.  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+As the GCP admin in your organization, you need to perform some tasks using the Google Cloud SDK, using your Windows 10 workstation. To begin using the SDK on your workstation, you've created a Google Cloud Platform project, downloaded the Google Cloud SDK installer, and completed the installation.
+At this point, you need to initialize the SDK. Which command do you use to complete this task?
+A. initialize gcloud B. gcloud init
+C. gcloud start D. start gcloud
+Correct Ans : B
 8.  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Every employee of your company has a Google account. Your operational team needs to manage a large number of instances on Compute Engine. Each member of this team needs only administrative access to the servers. Your security team wants to ensure that the deployment of credentials is operationally efficient and must be able to determine who accessed a given instance. What should you do?
+of you m
+team. Configure the
+A. Generate a new SSH key pair. Give the private key to each member of y public key in the metadata of each instance.
+B. Ask each member of the team to generate a new SSH key pair and to send you their public key. Use a configuration management tool to deploy those keys on each instance.
+C. Ask each member of the team to generate a new SSH key pair and to add the public key to their Google account. Grant the compute.osAdmin Login role to the Google group corresponding to this team.
+D. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key as a project-wide public SSH key in your Cloud Platform project and allow project-wide public SSH keys on each instance.
+Correct Answer: C
 9.  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Jennifer is the cloud admin for Blue Widget Corp. She has been asked to build out a cloud application in GCP that leverages the serverless architecture model. Which GCP service will be of most interest to her?
+A. Compute Engine B. Kubernetes Engine C. App Engine
+D. Direct Peering
+The App Engine standard environment makes it easy heavy load and with large amounts of data.
+and deploy an application that runs reliably even under
+Applications run in a secure, sandboxed environment, allowing the App Engine standard environment to distribute requests across multiple servers, and scaling servers to meet traffic demands. Your application runs within its own secure, reliable environment that is independent of the hardware, operating system, or physical location of the
+server.
+Correct Answer: C
 10. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+You are using multiple configurations for gcloud. You want to review the configured Kubernetes Engine cluster of an inactive configuration using the fewest possible steps. What should you do?
+A. Use gcloud config configurations describe to review the output.
+B. Use gcloud config configurations activate and gcloud config list to review the output.
+C. Use kubectl config get-contexts to review the output.
+D. Use kubectl config use-context and kubectl config view to review the output.
+Correct Answer: D
 11. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 12. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 13. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
