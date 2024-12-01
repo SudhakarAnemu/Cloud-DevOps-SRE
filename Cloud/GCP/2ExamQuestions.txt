@@ -82,7 +82,18 @@ C. Use kubectl config get-contexts to review the output.
 D. Use kubectl config use-context and kubectl config view to review the output.
 Correct Answer: D
 11. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+When using Google BigQuery, which of the following best describes the pricing models? Choose two options.
+A. Flat-rate pricing
+B. Monthly subscription tiers for processing more than 500
+terabytes per month
+C. On-demand pricing D. Capacity-pricing
+On-demand pricing (per TB). With this pricing model, you are charged for the number of bytes processed by each query. The first 1 TB of query data processed per month is free.
+Capacity pricing (per slot-hour). With this pricing model, you are charged for compute capacity used to run queries, measured in slots (virtual CPUs) over time. This model takes advantage of BigQuery editions. You can leverage the BigQuery autoscaler or purchase slot commitments, which are dedicated capacity that is always available for your workloads, at a lower price.
+Anser is C and D
 12. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+On-demand pricing (per TB). With this pricing model, you are charged for the number of bytes processed by each query. The first 1 TB of query data processed per month is free.
+Capacity pricing (per slot-hour). With this pricing model, you are charged for compute capacity used to run queries, measured in slots (virtual CPUs) over time. This model takes advantage of BigQuery editions. You can leverage the BigQuery autoscaler or purchase slot commitments, which are dedicated capacity that is always available for your workloads, at a lower price.
 13. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 14. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 15. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

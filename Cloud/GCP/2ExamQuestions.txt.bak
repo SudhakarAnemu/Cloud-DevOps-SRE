@@ -66,7 +66,21 @@ C. Ask each member of the team to generate a new SSH key pair and to add the pub
 D. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key as a project-wide public SSH key in your Cloud Platform project and allow project-wide public SSH keys on each instance.
 Correct Answer: C
 9.  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Jennifer is the cloud admin for Blue Widget Corp. She has been asked to build out a cloud application in GCP that leverages the serverless architecture model. Which GCP service will be of most interest to her?
+A. Compute Engine B. Kubernetes Engine C. App Engine
+D. Direct Peering
+The App Engine standard environment makes it easy heavy load and with large amounts of data.
+and deploy an application that runs reliably even under
+Applications run in a secure, sandboxed environment, allowing the App Engine standard environment to distribute requests across multiple servers, and scaling servers to meet traffic demands. Your application runs within its own secure, reliable environment that is independent of the hardware, operating system, or physical location of the
+server.
+Correct Answer: C
 10. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+You are using multiple configurations for gcloud. You want to review the configured Kubernetes Engine cluster of an inactive configuration using the fewest possible steps. What should you do?
+A. Use gcloud config configurations describe to review the output.
+B. Use gcloud config configurations activate and gcloud config list to review the output.
+C. Use kubectl config get-contexts to review the output.
+D. Use kubectl config use-context and kubectl config view to review the output.
+Correct Answer: D
 11. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 12. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 13. --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
