@@ -5,7 +5,9 @@
 #/WebSphere/scripts/middleware/dsnChkMqscvp.sh
 #!/bin/bash
 SNO=1
-log=fulldsnoutput.log
+file=$1
+echo "Given file : $file"
+log=fulldsnoutput.log.$file
 >$log
 while IFS= read -r line
 do
@@ -27,10 +29,12 @@ do
     server=`mqsicvp -n $dsn -u $uid -p $pwd | grep -i datasourceServerName | awk -F"=" '{print $2}'`
     
     if [ $count == 1 ]; then  
-        echo -e "S.No:$SNO-Passed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd"
+        echo -e "S.No:$SNO-Passed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd,Broker:$brk"
+        echo -e "SNO:$SNO--Broker:$brk--DSN:--$dsn--uid:--$uid--Pwd:--$pwd--,Broker:$brk" >> $log
     elif [ $count == 0 ]; then  
-        echo -e "S.No:$SNO-Failed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd"
+        echo -e "S.No:$SNO-Failed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd,Broker:$brk"
+        echo -e "SNO:$SNO--Broker:$brk--DSN:--$dsn--uid:--$uid--Pwd:--$pwd--,Broker:$brk" >> $log
     fi
     ((SNO=SNO+1))
 
-done < dsnfile
+done < $file
