@@ -1,0 +1,25 @@
+js
+
+https://docs.docker.com/engine/install/rhel/#install-from-a-package
+
+[root@esb-poc-instance-1 docker]#  gsutil -m cpgs://esb_bucket/docker/* .
+CommandException: Invalid command "cpgs://esb_bucket/docker/*".
+[root@esb-poc-instance-1 docker]#  gsutil -m cp gs://esb_bucket/docker/* .
+Copying gs://esb_bucket/docker/containerd.io-1.6.28-3.1.el8.x86_64.rpm...
+Copying gs://esb_bucket/docker/docker-buildx-plugin-0.12.1-1.el8.x86_64.rpm...
+Copying gs://esb_bucket/docker/docker-ce-25.0.3-1.el8.x86_64.rpm...
+Copying gs://esb_bucket/docker/docker-ce-cli-25.0.3-1.el8.x86_64.rpm...
+Copying gs://esb_bucket/docker/docker-ce-rootless-extras-25.0.3-1.el8.x86_64.rpm...
+Copying gs://esb_bucket/docker/docker-compose-plugin-2.24.6-1.el8.x86_64.rpm...
+[root@esb-poc-instance-1 docker]#   99% Done
+[root@esb-poc-instance-1 docker]# pwd
+/root/sws/docker
+[root@esb-poc-instance-1 docker]#
+
+sudo dnf install ./containerd.io-<version>.<arch>.rpm \
+  ./docker-ce-<version>.<arch>.rpm \
+  ./docker-ce-cli-<version>.<arch>.rpm \
+  ./docker-buildx-plugin-<version>.<arch>.rpm \
+  ./docker-compose-plugin-<version>.<arch>.rpm
+
+  
