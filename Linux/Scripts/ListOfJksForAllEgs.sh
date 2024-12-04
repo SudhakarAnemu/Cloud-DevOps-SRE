@@ -11,7 +11,7 @@ LOG=$brk.$(date +%Y-%m-%d_%H-%M-%S).jks
       mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' > /tmp/eg.list
       while IFS= read -r eg
       do
-        echo -e "SNO:$SNO--Broker:$brk--EG:$eg" >> $LOG
+        echo -e "SNO:$SNO--Broker:$brk--EG:$eg---------------------------------------------------------------" >> $LOG
         echo -e "Now I am checking for - SNO:$SNO--Broker:$brk--EG:$eg" 
 
         echo -e "Store of ComIbmJVMManager"  >> $LOG
