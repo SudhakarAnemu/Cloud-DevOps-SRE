@@ -1,8 +1,8 @@
-#js sudha
-# Wanna to add - netstat of http, httpsports
-#
+#js 
+#JS 
 #v10Prechecks.sh <broker> Tag 
-#/WebSphere/scripts/middleware/v10Prechecks.sh brk tag
+#/WebSphere/scripts/middleware/v12Prechecks.sh brk tag
+#js
 #!/bin/bash
 LOG=/tmp/log.log
 brk=$1
@@ -10,35 +10,16 @@ tag=$2
 echo -e "\n-------------------------------------- Name of the Broker : $brk "
 mqsilist | grep $brk
 ps -ef | grep $brk
-echo -e "\n-------------------------------------- File 1 : Capturing mqsireportbroker"
-mqsireportbroker $brk > mqsireportbroker.$brk.$tag.1
-echo -e "\n-------------------------------------- File 2 : Capturing mqsiservice"
+echo -e "\n-------------------------------------- File 1 : Capturing mqsireportbroker" #Capture actual broker properties
+mqsireportproperties $brk -b BrokerRegistry -r > mqsireportbroker.$brk.$tag.1
+echo -e "\n-------------------------------------- File 2 : Capturing mqsiservice" #Capture BRK service
 mqsiservice $brk > mqsiservice.$brk.$tag.2
 echo -e "\n-------------------------------------- File 3 : Capturing mqsicvp"
 mqsicvp $brk > mqsicvp.$brk.$tag.3
-echo -e "\n Verification passed for User Datasource"
-cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource'
-echo -e "\n One or more problems have been detected with User Datasource"
-cat mqsicvp.$brk.$tag.3 | grep 'One or more problems have been detected with User Datasource'
-
-cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource' | awk -F"'" '{print $2}' > /tmp/dsn
-SNO=1
-while IFS= read -r line
-do
-   echo -e "\n Brk : $brk - DSN : $line - SNO : $SNO"
-   #mqsicvp $brk -n $line | grep datasourceServerName
-   mqsicvp $brk -n $line | wc -l
-   cat -n /var/mqsi/odbc/.v12_odbc.ini | grep $line
-   ((SNO=SNO+1))
-done < /tmp/dsn
-
-
-
-echo -e "\n-------------------------------------- File 4 : Capturing Broker propertes"
+echo -e "\n-------------------------------------- File 4 : Capturing Broker propertes" # OP was not good, cross check the command 
 mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > Config.$brk.$tag.4
 echo -e "\n-------------------------------------- File 5 : Capturing Broker dbparms"
 mqsireportdbparms $brk -n \* > mqsireportdbparms.$brk.$tag.5
-mqsireportdbparms $brk -n \* | grep -v '::'
 echo -e "\n-------------------------------------- File 6 : Capturing d2 -r of the Broker"
 mqsilist $brk -d2 -r > $brk.d2.$tag.6
 echo -e "\n-------------------------------------- File 7 : Capturing jks of the Broker and EG"
@@ -54,16 +35,16 @@ do
     mqsireportproperties $brk -e $line -o ComIbmJVMManager -r | grep -i storeFile >> $LOG
     ((SNO=SNO+1))
 done < /tmp/eg.list
-SNO=1
+
 echo -e "\n --------- JKS of the broker : $brk"
 cat jks.$brk.$tag.7
 echo -e "\n --------- Truststore of Egs : $brk"
 /WebSphere/scripts/middleware/jksexists.sh $brk | grep -i trusts | grep -v Not
-echo -e "\n --------- Keystores of Egs : $brk"
-/WebSphere/scripts/middleware/jksexists.sh $brk | grep -i Keystore | grep -v Not
 echo -e "\n --------- Keystore and truststore of Egs : $brk"
 /WebSphere/scripts/middleware/jksexists.sh $brk
 
+
+SNO=1
 echo -e "\n-------------------------------------- File 8 : Capturing http and https of all EG's"
 LOG=httpandhttpsports.$brk.$tag.8
 >$LOG
@@ -82,7 +63,7 @@ do
         echo  "$SNO:HTTP--$brk--$line--$port" >> $LOG
     ((SNO=SNO+1))
 done < /tmp/eg.list
-SNO=1
+
 
 echo -e "\n-------------------------------------- File 8.1 : http and https ports"
 LOG=PortsHttpAndHttps.$brk.$tag.8.1
@@ -107,6 +88,11 @@ cat httpandhttpsports.$brk.$tag.8
 echo -e "\n --------- Http and Https ports of the brokers & EG -- Second fortm : $brk"
 cat PortsHttpAndHttps.$brk.$tag.8.1
 
+
+
+
+
+SNO=1
 echo -e "\n-------------------------------------- File 9 : Capturing jvmSystemProperty,jvmDebugPort of all EG's"
 LOG=jvmProp.$brk.$tag.9
 >$LOG
@@ -120,7 +106,6 @@ do
     mqsireportproperties $brk -e $line -o ComIbmJVMManager -n jvmDebugPort | grep -v BIP8071I >> $LOG
     ((SNO=SNO+1))
 done < /tmp/eg.list
-
 echo -e "\n-------------------------------------- File 10 : Status of EGs"
 LOG=EGStatus.$brk.$tag.10
 >$LOG
@@ -128,9 +113,6 @@ echo -e "\n-------------------------------------- Running EGs - Brk $brk" >> $LO
 mqsilist $brk | grep running | sort -n  >> $LOG
 echo -e "\n-------------------------------------- Stopped EGs - Brk $brk" >> $LOG
 mqsilist $brk | grep stopped | sort -n  >> $LOG
-
-echo -e "\n --------- Status of EGs : $brk"
-cat EGStatus.$brk.$tag.10
 
 echo -e "\n-------------------------------------- File 11 : Status of all Flows"
 LOG=AllFlowStatus.$brk.$tag.11
@@ -185,6 +167,7 @@ echo -e "\n --------- maxThreads of : $brk "
 cat maxThreads.$brk.$tag.12 | grep maxThreads | grep -v HTTP
 
 
+
 echo -e "\n-------------------------------------- File 13 : maxHttpHeaderSize of Egs"
 LOG=maxHttpHeaderSize.$brk.$tag.13
 >$LOG
@@ -202,34 +185,31 @@ cat maxHttpHeaderSize.$brk.$tag.13 | grep maxHttpHeaderSize | grep -v "=''" | gr
 
 
 echo -e "\n-------------------------------------- File 14 : tls of Egs"
+# mqsireportproperties TESTBRKV9 -e s21csawds_eg2 -o HTTPSConnector -r | grep -i Protocol | awk -F"=" '{print $2}' | awk -F"'" '{print $2}'
+
 LOG=tlsssl.$brk.$tag.14
 >$LOG
-echo -e "Broker Prop of tls $brk " >> $LOG
-
-mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i ssl >> $LOG
-
+echo -e "Broker Prop of tls $brk - $eg($ENO)" >> $LOG
+mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i tls >> $LOG
 ENO=1
    for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
       echo -e "Prop of tls $brk - $eg($ENO)" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i tls >> $LOG
+      #mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i tls >> $LOG
+      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i Protocol | awk -F"=" '{print $2}' | awk -F"'" '{print $2}' >> $LOG
       echo -e "Prop of ssl $brk - $eg($ENO)" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i ssl >> $LOG
+      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i Protocol | awk -F"=" '{print $2}' | awk -F"'" '{print $2}' >> $LOG
+      #mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i ssl >> $LOG
       ((ENO=ENO+1))
    done 
 
 echo -e "\n --------- tls ssl of : $brk "
 cat tlsssl.$brk.$tag.14 | grep TLS -B1
 
+
 echo -e "\n-------------------------------------- File 15 : webconsole permissions"
 LOG=webconsole.$brk.$tag.15
 >$LOG
 mqsiwebuseradmin $brk -l >> $LOG
-
-echo -e "\n --------- mqsiwebuseradmin : $brk "
-cat webconsole.$brk.$tag.15
-
-echo -e "\n-------------------------------------- File 15.1 : Line number of brokerstart.sh"
-cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
 
 echo -e "\n-------------------------------------- File 16 : All SSL Properties"
 LOG=AllSSLProperties.$brk.$tag.16
@@ -254,8 +234,26 @@ ENO=1
       ((ENO=ENO+1))
    done 
 
-echo -e "\n-------------------------------------- File 17 : jks of Egs"
-LOG=jksOfEgs.$brk.$tag.17
+echo -e "\n-------------------------------------- File 17 : http and https ports"
+LOG=PortsHttpAndHttps.$brk.$tag.17
+>$LOG
+ENO=1
+bport1=`mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i port | awk -F"'" '{print $2}' | tr -d '\n'`
+bport2=`mqsireportproperties $brk -b httplistener -o HTTPConnector -r | grep -i port | awk -F"'" '{print $2}' | tr -d '\n'`
+echo "Broker:$brk-https:$bport1-http:$bport2" >> $LOG
+   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+      echo -e "Ports of  $brk - $eg($ENO)" >> $LOG
+      port1=`mqsireportproperties $brk -e  $eg  -o HTTPSConnector -n port|grep -v BIP8071I|tr -d '\n'`
+      port2=`mqsireportproperties $brk -e  $eg  -o HTTPSConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
+      port3=`mqsireportproperties $brk -e  $eg  -o HTTPConnector -n port|grep -v BIP8071I|tr -d '\n'`
+      port4=`mqsireportproperties $brk -e  $eg  -o HTTPConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
+      echo "HTTPS:$port1-HTTPSexpl:$port2-HTTP:$port3-HTTPexpl:$port4-$brk-$eg" >> $LOG
+
+      ((ENO=ENO+1))
+   done 
+
+echo -e "\n-------------------------------------- File 18 : jks of Egs"
+LOG=jksOfEgs.$brk.$tag.18
 >$LOG
 ENO=1
    for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
@@ -271,5 +269,6 @@ ENO=1
 
       ((ENO=ENO+1))
    done 
+
 
 echo "----> Completed <----"
