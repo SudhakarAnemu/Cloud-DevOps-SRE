@@ -1,8 +1,8 @@
-#js 
-#JS 
+#js sudha
+# Wanna to add - netstat of http, httpsports
+#
 #v10Prechecks.sh <broker> Tag 
 #/WebSphere/scripts/middleware/v10Prechecks.sh brk tag
-#js
 #!/bin/bash
 LOG=/tmp/log.log
 brk=$1
@@ -58,8 +58,8 @@ echo -e "\n --------- JKS of the broker : $brk"
 cat jks.$brk.$tag.7
 echo -e "\n --------- Truststore of Egs : $brk"
 /WebSphere/scripts/middleware/jksexists.sh $brk | grep -i trusts | grep -v Not
-
-
+echo -e "\n --------- Keystore and truststore of Egs : $brk"
+/WebSphere/scripts/middleware/jksexists.sh $brk
 
 echo -e "\n-------------------------------------- File 8 : Capturing http and https of all EG's"
 LOG=httpandhttpsports.$brk.$tag.8
@@ -247,5 +247,22 @@ ENO=1
       ((ENO=ENO+1))
    done 
 
+echo -e "\n-------------------------------------- File 17 : jks of Egs"
+LOG=jksOfEgs.$brk.$tag.17
+>$LOG
+ENO=1
+   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+      echo -e "Prop of  $brk - $eg($ENO)" >> $LOG
+
+        echo -e "SNO:$SNO--Broker:$brk--EG:$eg---------------------------------------------------------------" >> $LOG
+        echo -e "Store of ComIbmJVMManager"  >> $LOG
+        mqsireportproperties $brk -e $eg -o ComIbmJVMManager -r | grep store | grep .jks  >> $LOG
+        echo -e "Store of HTTPSConnector"  >> $LOG
+        mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i store  | grep .jks  >> $LOG
+        echo -e "Store of HTTPConnector"  >> $LOG
+        mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i store  | grep .jks  >> $LOG
+
+      ((ENO=ENO+1))
+   done 
 
 echo "----> Completed <----"

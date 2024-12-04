@@ -24,3 +24,7 @@ LOG=$brk.$(date +%Y-%m-%d_%H-%M-%S).jks
 		 ((SNO=SNO+1))
       done < /tmp/eg.list
 echo "----> Completed <----"
+
+# mqsireportproperties IIBDVBA34 -e esb_zuora_api -o ComIbmJVMManager -r | grep store | grep .jks
+# mqsireportproperties IIBDVBA34 -e esb_zuora_api -o HTTPSConnector -a | grep -i store  | grep .jks
+# mqsireportproperties IIBDVBA34 -e esb_zuora_api -o HTTPConnector -a | grep -i store  | grep .jks
