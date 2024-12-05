@@ -1,12 +1,13 @@
 Js-Om
 
-check this url : 
+check this url :
 https://stacksimplify.com/courses/stacksimplify-best-selling-courses-on-udemy/
 
 ---
 
+
 | S.No | Desc                | Url                                                                                         |                |
-| ---- | ------------------- | ------------------------------------------------------------------------------------------- | -------------- |
+| ------ | --------------------- | --------------------------------------------------------------------------------------------- | ---------------- |
 | 1    | Cloud Commands      | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/Cloud.md     |                |
 | 2    | Docker Commands     | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/Docker.md    |                |
 | 3    | Kubernetes Commands | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/Kubernets.md |                |
@@ -26,19 +27,27 @@ https://stacksimplify.com/courses/stacksimplify-best-selling-courses-on-udemy/
 | 17   |                     |                                                                                             |                |
 | 18   | Roadmap for Devops  | https://github.com/piyushsachdeva/DevOps-Roadmap                                            |                |
 | 19   |                     |                                                                                             |                |
-| 20     |                     |                                                                                             |                |
-| 21     |                     |                                                                                             |                |
-|  22    |                     |                                                                                             |                |
-|  23    |                     |                                                                                             |                |
-| 24     |                     |                                                                                             |                |
-| 25     |                     |                                                                                             |                |
-| 26     |                     |                                                                                             |                |
-|  27    |                     |                                                                                             |                |
-| 28     |                     |                                                                                             |                |
-|  29    |                     |                                                                                             |                |
+| 20   |                     |                                                                                             |                |
+| 21   |                     |                                                                                             |                |
+| 22   |                     |                                                                                             |                |
+| 23   |                     |                                                                                             |                |
+| 24   |                     |                                                                                             |                |
+| 25   |                     |                                                                                             |                |
+| 26   |                     |                                                                                             |                |
+| 27   |                     |                                                                                             |                |
+| 28   |                     |                                                                                             |                |
+| 29   |                     |                                                                                             |                |
 |      |                     |                                                                                             |                |
 |      | Project             | https://github.com/SudhakarAnemu/HackITOn2024                                               | AWS, Terraform |
 |      |                     |                                                                                             |                |
 |      |                     |                                                                                             |                |
 
 ---
+
+# Linux Script
+
+
+| S.No | Script | Comments |
+| ------ | -------- | ---------- |
+| 1    |        |          |
+|      |        |          |
