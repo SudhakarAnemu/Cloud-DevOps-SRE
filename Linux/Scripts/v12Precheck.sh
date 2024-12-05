@@ -4,6 +4,8 @@
 #/WebSphere/scripts/middleware/v12Prechecks.sh brk tag
 #js
 #!/bin/bash
+free -g
+sar
 LOG=/tmp/log.log
 brk=$1
 tag=$2

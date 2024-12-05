@@ -4,6 +4,8 @@
 #v10Prechecks.sh <broker> Tag 
 #/WebSphere/scripts/middleware/v10Prechecks.sh brk tag
 #!/bin/bash
+free -g
+sar
 LOG=/tmp/log.log
 brk=$1
 tag=$2
