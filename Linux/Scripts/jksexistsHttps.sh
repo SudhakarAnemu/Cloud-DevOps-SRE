@@ -18,33 +18,33 @@ BrkTrustFile=`mqsireportproperties $brk -o BrokerRegistry -n brokerTruststoreFil
         echo -e "Exists-Brk-File : $BrkTrustFile"
     fi
 for i in `mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' | sort -n`;   do
-    echo -e "HTTPSConnector for EG : $i"
+    #echo -e "HTTPSConnector for EG : $i"
     CkeystoreFile=`mqsireportproperties  $brk -e $i -o HTTPSConnector -n keystoreFile|grep -v BIP8071I|tr -d '\n'`
     if ! [[ -f $CkeystoreFile ]]; then
-        echo -e "Not exists-EG : $i : $CkeystoreFile-Keystore"
+        echo -e "Not exists-EG:https : $i : $CkeystoreFile-Keystore"
     else
-        echo -e "Exists-EG : $i : $CkeystoreFile-Keystore"
+        echo -e "Exists-EG:https : $i : $CkeystoreFile-Keystore"
     fi
     CTrustFile=`mqsireportproperties  $brk -e $i -o HTTPSConnector -n truststoreFile|grep -v BIP8071I|tr -d '\n'`
     if ! [[ -f $CTrustFile ]]; then
-        echo -e "Not exists-EG : $i : $CTrustFile-Truststore"
+        echo -e "Not exists-EG:https : $i : $CTrustFile-Truststore"
     else
-        echo -e "Exists-EG : $i : $CTrustFile-Truststore"
+        echo -e "Exists-EG:https : $i : $CTrustFile-Truststore"
     fi
 
-    echo -e "ComIbmJVMManager for EG : $i"
+    #echo -e "ComIbmJVMManager for EG : $i"
     CkeystoreFile=`mqsireportproperties  $brk -e $i -o ComIbmJVMManager -n keystoreFile|grep -v BIP8071I|tr -d '\n'`
     if ! [[ -f $CkeystoreFile ]]; then
-        echo -e "Not exists-EG : $i : $CkeystoreFile-Keystore"
+        echo -e "Not exists-EG:jvm : $i : $CkeystoreFile-Keystore"
     else
-        echo -e "Exists-EG : $i : $CkeystoreFile-Keystore"
+        echo -e "Exists-EG:jvm : $i : $CkeystoreFile-Keystore"
     fi    
     CTrustFile=`mqsireportproperties  $brk -e $i -o ComIbmJVMManager -n truststoreFile|grep -v BIP8071I|tr -d '\n'`
     #echo -e "CkeystoreFile - $CkeystoreFile"
     if ! [[ -f $CTrustFile ]]; then
-        echo -e "Not exists-EG : $i : $CTrustFile-Truststore"
+        echo -e "Not exists-EG:jvm : $i : $CTrustFile-Truststore"
     else
-        echo -e "Exists-EG : $i : $CTrustFile-Truststore"
+        echo -e "Exists-EG:jvm : $i : $CTrustFile-Truststore"
     fi
 
 
