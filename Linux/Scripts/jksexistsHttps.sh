@@ -18,23 +18,39 @@ BrkTrustFile=`mqsireportproperties $brk -o BrokerRegistry -n brokerTruststoreFil
         echo -e "Exists-Brk-File : $BrkTrustFile"
     fi
 for i in `mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' | sort -n`;   do
-    #echo -e " Brk : $brk EG : $i"
-    #CkeystoreFile=`mqsireportproperties  $brk -e $i -o ComIbmJVMManager -n keystoreFile|grep -v BIP8071I|tr -d '\n'`
+    echo -e "HTTPSConnector for EG : $i"
     CkeystoreFile=`mqsireportproperties  $brk -e $i -o HTTPSConnector -n keystoreFile|grep -v BIP8071I|tr -d '\n'`
-    #echo -e "CkeystoreFile - $CkeystoreFile"
     if ! [[ -f $CkeystoreFile ]]; then
-        echo -e "Not exists-EG : $i-File : $CkeystoreFile-Keystore"
+        echo -e "Not exists-EG : $i : $CkeystoreFile-Keystore"
     else
-        echo -e "Exists-EG : $i-File : $CkeystoreFile-Keystore"
+        echo -e "Exists-EG : $i : $CkeystoreFile-Keystore"
     fi
-    #echo -e " Brk : $brk EG : $i"
-    #CTrustFile=`mqsireportproperties  $brk -e $i -o ComIbmJVMManager -n truststoreFile|grep -v BIP8071I|tr -d '\n'`
     CTrustFile=`mqsireportproperties  $brk -e $i -o HTTPSConnector -n truststoreFile|grep -v BIP8071I|tr -d '\n'`
+    if ! [[ -f $CTrustFile ]]; then
+        echo -e "Not exists-EG : $i : $CTrustFile-Truststore"
+    else
+        echo -e "Exists-EG : $i : $CTrustFile-Truststore"
+    fi
+
+    echo -e "ComIbmJVMManager for EG : $i"
+    CkeystoreFile=`mqsireportproperties  $brk -e $i -o ComIbmJVMManager -n keystoreFile|grep -v BIP8071I|tr -d '\n'`
+    if ! [[ -f $CkeystoreFile ]]; then
+        echo -e "Not exists-EG : $i : $CkeystoreFile-Keystore"
+    else
+        echo -e "Exists-EG : $i : $CkeystoreFile-Keystore"
+    fi    
+    CTrustFile=`mqsireportproperties  $brk -e $i -o ComIbmJVMManager -n truststoreFile|grep -v BIP8071I|tr -d '\n'`
     #echo -e "CkeystoreFile - $CkeystoreFile"
     if ! [[ -f $CTrustFile ]]; then
-        echo -e "Not exists-EG : $i-File : $CTrustFile-Truststore"
+        echo -e "Not exists-EG : $i : $CTrustFile-Truststore"
     else
-        echo -e "Exists-EG : $i-File : $CTrustFile-Truststore"
+        echo -e "Exists-EG : $i : $CTrustFile-Truststore"
     fi
+
+
+
+
+
+
 done
 
