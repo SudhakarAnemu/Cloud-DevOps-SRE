@@ -21,7 +21,7 @@ mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > Config.$b
 echo -e "\n-------------------------------------- File 5 : Capturing Broker dbparms"
 mqsireportdbparms $brk -n \* > mqsireportdbparms.$brk.$tag.5
 echo -e "\n-------------------------------------- File 6 : Capturing d2 -r of the Broker"
-mqsilist $brk -d2 -r > $brk.d2.$tag.6
+#mqsilist $brk -d2 -r > $brk.d2.$tag.6
 echo -e "\n-------------------------------------- File 7 : Capturing jks of the Broker and EG"
 LOG=jks.$brk.$tag.7
 >$LOG
@@ -73,7 +73,7 @@ bport1=`mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i
 bport2=`mqsireportproperties $brk -b httplistener -o HTTPConnector -r | grep -i port | awk -F"'" '{print $2}' | tr -d '\n'`
 echo "Broker:$brk-https:$bport1-http:$bport2" >> $LOG
    for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      echo -e "Ports of  $brk - $eg($ENO)" >> $LOG
+      #echo -e "Ports of  $brk - $eg($ENO)" >> $LOG
       port1=`mqsireportproperties $brk -e  $eg  -o HTTPSConnector -n port|grep -v BIP8071I|tr -d '\n'`
       port2=`mqsireportproperties $brk -e  $eg  -o HTTPSConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
       port3=`mqsireportproperties $brk -e  $eg  -o HTTPConnector -n port|grep -v BIP8071I|tr -d '\n'`
