@@ -2,9 +2,11 @@
 # Wanna to add - netstat of http, httpsports
 #
 #v10Prechecks.sh <broker> Tag 
-#/WebSphere/scripts/middleware/v10Prechecks.sh brk tag
+#/WebSphere/scripts/middleware/BrkPretasks.sh brk tag
 #!/bin/bash
+echo -e "Status of free : "
 free -g
+echo -e "Status of sar : "
 sar
 LOG=/tmp/log.log
 brk=$1
@@ -65,6 +67,8 @@ echo -e "\n --------- Keystores of Egs : $brk"
 /WebSphere/scripts/middleware/jksexists.sh $brk | grep -i Keystore | grep -v Not
 echo -e "\n --------- Keystore and truststore of Egs : $brk"
 /WebSphere/scripts/middleware/jksexists.sh $brk
+echo -e "\n --------- Validating both jmv and https "
+/WebSphere/scripts/middleware/jksexistsHttps.sh $brk
 
 echo -e "\n-------------------------------------- File 8 : Capturing http and https of all EG's"
 LOG=httpandhttpsports.$brk.$tag.8
