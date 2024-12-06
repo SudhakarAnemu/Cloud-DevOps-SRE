@@ -16,3 +16,4 @@ for brkrs in ` mqsilist | grep -i running | sort -n | awk -F" " '{print $4}' | a
    mqsireportdbparms $brkrs -n \* | grep -v '::' >> $LOG
    ((SNO=SNO+1))
 done
+echo "Script successfully completed"
