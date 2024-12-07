@@ -44,7 +44,7 @@ mqsireportdbparms $brk -n \* > mqsireportdbparms.$brk.$tag.5
 mqsireportdbparms $brk -n \* | grep -v '::'
 echo -e "\n-------------------------------------------------------------------------------------------- 9-4. AllReportableEntityNames - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > AllReportableEntityNames.$brk.$tag.4
-echo -e "\n-------------------------------------------------------------------------------------------- 10-6. d2 (all Flows) - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\n-------------------------------------------------------------------------------------------- 10-6. d2 (Of entire $brk) - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsilist $brk -d2 -r > $brk.d2.$tag.6
 echo -e "\n-------------------------------------------------------------------------------------------- 11-7. jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=jksJvmHttps.$brk.$tag.7
@@ -56,68 +56,16 @@ echo -e "\n --------------------------------------------------------------------
 cat $LOG | grep -i Keystore | grep -v Not
 echo -e "\n ------------------------------------------------------------------------------------------- Key and Trust stores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
 cat $LOG
-
-
-
-echo -e "\nSuccessfully completed - Bye Bye"
-
-
-
-
-
-
-
- 
-
- 
-
-echo -e "\n-------------------------------------- File 8 : Capturing http and https of all EG's"
-LOG=httpandhttpsports.$brk.$tag.8
+echo -e "\n-------------------------------------------------------------------------------------------- 12-8. http and https - $(date +%Y-%m-%d_%H-%M-%S)"
+LOG=HttpHttpsPorts.$brk.$tag.8
 >$LOG
-echo -e "\n-------------------------------------- Capturing http and https of all EG's - Brk $brk" >> $LOG
-echo -e "\nBroker HTTPS port : " >> $LOG
-mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i port >> $LOG
-echo -e "\nBroker HTTP port : " >> $LOG
-mqsireportproperties $brk -b httplistener -o HTTPConnector -r | grep -i port >> $LOG
-mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' | sort -n> /tmp/eg.list
-SNO=1
-while IFS= read -r line
-do
-        port=`mqsireportproperties $brk -e  $line  -o HTTPSConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
-        echo  "$SNO:HTTPS--$brk--$line--$port" >> $LOG
-        port=`mqsireportproperties $brk -e  $line  -o HTTPConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
-        echo  "$SNO:HTTP--$brk--$line--$port" >> $LOG
-    ((SNO=SNO+1))
-done < /tmp/eg.list
-SNO=1
-
-echo -e "\n-------------------------------------- File 8.1 : http and https ports"
-LOG=PortsHttpAndHttps.$brk.$tag.8.1
+/WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh $brk 8 $tag > $LOG
+echo -e "\n ------------------------------------------------------------------------------------------- Http and Https ports"
+cat $LOG
+echo -e "\n-------------------------------------------------------------------------------------------- 13-9. jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)"
+LOG=jvmSystemPropertyJvmDPort.$brk.$tag.9
 >$LOG
-ENO=1
-bport1=`mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i port | awk -F"'" '{print $2}' | tr -d '\n'`
-bport2=`mqsireportproperties $brk -b httplistener -o HTTPConnector -r | grep -i port | awk -F"'" '{print $2}' | tr -d '\n'`
-echo "Broker:$brk-https:$bport1-http:$bport2" >> $LOG
-   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      #echo -e "Ports of  $brk - $eg($ENO)" >> $LOG
-      port1=`mqsireportproperties $brk -e  $eg  -o HTTPSConnector -n port|grep -v BIP8071I|tr -d '\n'`
-      port2=`mqsireportproperties $brk -e  $eg  -o HTTPSConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
-      port3=`mqsireportproperties $brk -e  $eg  -o HTTPConnector -n port|grep -v BIP8071I|tr -d '\n'`
-      port4=`mqsireportproperties $brk -e  $eg  -o HTTPConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
-      echo "HTTPS:$port1-HTTPSexpl:$port2-HTTP:$port3-HTTPexpl:$port4-$brk-$eg" >> $LOG
-
-      ((ENO=ENO+1))
-   done 
-
-echo -e "\n --------- Http and Https ports of the brokers & EG -- First form : $brk"
-cat httpandhttpsports.$brk.$tag.8
-echo -e "\n --------- Http and Https ports of the brokers & EG -- Second fortm : $brk"
-cat PortsHttpAndHttps.$brk.$tag.8.1
-
-echo -e "\n-------------------------------------- File 9 : Capturing jvmSystemProperty,jvmDebugPort of all EG's"
-LOG=jvmProp.$brk.$tag.9
->$LOG
-echo -e "\n-------------------------------------- Capturing jvmSystemProperty,jvmDebugPort of all EG's - Brk $brk" >> $LOG
+echo -e "\n--------------------------------------------------------------------------- Capturing jvmSystemProperty,jvmDebugPort of all EG's - Brk $brk" >> $LOG
 mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' | sort -n> /tmp/eg.list
 while IFS= read -r line
 do
@@ -127,23 +75,19 @@ do
     mqsireportproperties $brk -e $line -o ComIbmJVMManager -n jvmDebugPort | grep -v BIP8071I >> $LOG
     ((SNO=SNO+1))
 done < /tmp/eg.list
-
-echo -e "\n-------------------------------------- File 10 : Status of EGs"
+echo -e "\n-------------------------------------------------------------------------------------------- 14-10. Stopped EGs - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=EGStatus.$brk.$tag.10
 >$LOG
-echo -e "\n-------------------------------------- Running EGs - Brk $brk" >> $LOG
-mqsilist $brk | grep running | sort -n  >> $LOG
-echo -e "\n-------------------------------------- Stopped EGs - Brk $brk" >> $LOG
-mqsilist $brk | grep stopped | sort -n  >> $LOG
-
-echo -e "\n --------- Status of EGs : $brk"
-cat EGStatus.$brk.$tag.10
-
-echo -e "\n-------------------------------------- File 11 : Status of all Flows"
+echo -e "\n--------------------------------------------------------------------------- Capturing Status of EGs : " >> $LOG
+mqsilist $brk | sort -n >> $LOG
+echo -e "\n-------------------------------------------------------------------------------------------- Running EGs - Brk $brk"
+cat $LOG | grep -i runn
+echo -e "\n-------------------------------------------------------------------------------------------- Stopped EGs - Brk $brk"
+cat $LOG | grep -i stop
+echo -e "\n-------------------------------------------------------------------------------------------- 15-11 and 11.1. Status of Flows - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=AllFlowStatus.$brk.$tag.11
 >$LOG
-echo -e "\n-------------------------------------- Running EGs - Brk $brk" >> $LOG
-
+echo -e "\n-------------------------------------------------------------------------------------------- Flows from Running EGs - Brk $brk" >> $LOG
    for eg in `mqsilist $brk | sort -n  | grep BIP1286I | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
       for msgflw in `mqsilist $brk -e $eg | grep BIP1288I | sort -n | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
          echo "$brk,$eg,$msgflw" >> $LOG
@@ -154,26 +98,51 @@ echo -e "\n-------------------------------------- Running EGs - Brk $brk" >> $LO
          done
       done 
    done 
-
-echo -e "\n-------------------------------------- File 11 : Status of all Flows - Second set"
+echo -e "\n--------------------------------------------------------------------------------------------- Second set (#2) of Status of all Flows"
 
 LOG=AllFlowStatus.$brk.$tag.11.1
 >$LOG
+>$LOG.SecondFile
 echo -e "\n-------------------------------------- Running EGs - Brk $brk" >> $LOG
 
    for eg in `mqsilist $brk | sort -n  | grep BIP1286I | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      echo -e "\n---------------- apps on eg : "  >> $LOG
-      mqsilist $brk -e  $eg >> $LOG
-      echo -e "\n---------------- apps on eg with -r: "  >> $LOG
+      echo -e "\n----------------------------------------------------------------- Apps on eg : $eg"  >> $LOG.SecondFile
+      mqsilist $brk -e  $eg >> $LOG.SecondFile
+      echo -e "\n----------------------------------------------------------------- Apps on eg : $eg  with -r option "  >> $LOG
       mqsilist $brk -e  $eg -r >> $LOG
       echo "---------------" >> $LOG
    done 
 
-echo -e "\n --------- Count of stopped - EGs, flows  (Stopped) : $brk "
+echo -e "\n --------------------------------------------------------------  Count of stopped - EGs, flows  (Stopped) : $brk "
 cat -n AllFlowStatus.$brk.$tag.11.1 | grep -i stop | wc -l
 
-echo -e "\n --------- Stopped components - EGs, flows  (Stopped) : $brk "
+echo -e "\n --------------------------------------------------------------- List of Stopped components - EGs, flows  (Stopped) : $brk "
 cat -n AllFlowStatus.$brk.$tag.11.1 | grep -i stop
+
+
+
+
+
+echo -e "\nSuccessfully completed - Bye Bye"
+
+
+
+>/WebSphere/scripts/middleware/ace/BrkPretasks.sh
+ 
+/WebSphere/scripts/middleware/ace/BrkPretasks.sh IIBDVAA26 v10
+
+
+
+
+ 
+
+
+
+
+
+
+
+
 
 echo -e "\n-------------------------------------- File 12 : maxThreads of Egs"
 LOG=maxThreads.$brk.$tag.12

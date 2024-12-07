@@ -44,7 +44,7 @@ for i in `mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' | sort -n`;   do
     if ! [[ -f $CTrustFile ]]; then
         echo -e "Not-Exists:jvm:$i:Truststore:$CTrustFile" >> $LOG
     else
-        echo -e "Exists:jvm:$i::Truststore:$CTrustFile" >> $LOG
+        echo -e "Exists:jvm:$i:Truststore:$CTrustFile" >> $LOG
     fi
 done
 
