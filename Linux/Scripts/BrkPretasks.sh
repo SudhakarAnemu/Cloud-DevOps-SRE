@@ -99,7 +99,6 @@ echo -e "\n---------------------------------------------------------------------
       done 
    done 
 echo -e "\n--------------------------------------------------------------------------------------------- Second set (#2) of Status of all Flows"
-
 LOG=AllFlowStatus.$brk.$tag.11.1
 >$LOG
 >$LOG.SecondFile
@@ -112,15 +111,25 @@ echo -e "\n-------------------------------------- Running EGs - Brk $brk" >> $LO
       mqsilist $brk -e  $eg -r >> $LOG
       echo "---------------" >> $LOG
    done 
-
 echo -e "\n --------------------------------------------------------------  Count of stopped - EGs, flows  (Stopped) : $brk "
-cat -n AllFlowStatus.$brk.$tag.11.1 | grep -i stop | wc -l
-
+cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop | wc -l
 echo -e "\n --------------------------------------------------------------- List of Stopped components - EGs, flows  (Stopped) : $brk "
-cat -n AllFlowStatus.$brk.$tag.11.1 | grep -i stop
-
-
-
+cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop
+echo -e "\n-------------------------------------------------------------------------------------------- 16-12 - maxThreads of Egs $(date +%Y-%m-%d_%H-%M-%S)"
+LOG=maxThreads.$brk.$tag.12
+>$LOG
+echo -e "\n------------------------------------------------------------------------------------------- maxThreads of EGs - Brk $brk" >> $LOG
+ENO=1
+for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+   echo -e "HTTPConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPConnector -r | grep -i maxThreads  >> $LOG
+   echo -e "HTTPSConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxThreads  >> $LOG
+   ((ENO=ENO+1))
+done 
+ 
+echo -e "\n ----------------------------------------------------------------------------------------- maxThreads of all EGs of $brk "
+cat $LOG | grep maxThreads | grep -v HTTP
 
 
 echo -e "\nSuccessfully completed - Bye Bye"
@@ -144,21 +153,7 @@ echo -e "\nSuccessfully completed - Bye Bye"
 
 
 
-echo -e "\n-------------------------------------- File 12 : maxThreads of Egs"
-LOG=maxThreads.$brk.$tag.12
->$LOG
-echo -e "\n-------------------------------------- maxThreads of EGs - Brk $brk" >> $LOG
-   ENO=1
-   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      echo -e "HTTPConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPConnector -r | grep -i maxThreads  >> $LOG
-      echo -e "HTTPSConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxThreads  >> $LOG
-      ((ENO=ENO+1))
-   done 
- 
-echo -e "\n --------- maxThreads of : $brk "
-cat maxThreads.$brk.$tag.12 | grep maxThreads | grep -v HTTP
+
 
 
 echo -e "\n-------------------------------------- File 13 : maxHttpHeaderSize of Egs"
@@ -230,22 +225,6 @@ ENO=1
       ((ENO=ENO+1))
    done 
 
-echo -e "\n-------------------------------------- File 17 : jks of Egs"
-LOG=jksOfEgs.$brk.$tag.17
->$LOG
-ENO=1
-   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      echo -e "Prop of  $brk - $eg($ENO)" >> $LOG
-
-        echo -e "SNO:$SNO--Broker:$brk--EG:$eg---------------------------------------------------------------" >> $LOG
-        echo -e "Store of ComIbmJVMManager"  >> $LOG
-        mqsireportproperties $brk -e $eg -o ComIbmJVMManager -r | grep store | grep .jks  >> $LOG
-        echo -e "Store of HTTPSConnector"  >> $LOG
-        mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i store  | grep .jks  >> $LOG
-        echo -e "Store of HTTPConnector"  >> $LOG
-        mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i store  | grep .jks  >> $LOG
-
-      ((ENO=ENO+1))
-   done 
+ 
 
 echo "----> Completed <----"
