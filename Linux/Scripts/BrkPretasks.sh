@@ -126,10 +126,46 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    echo -e "HTTPSConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
    mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxThreads  >> $LOG
    ((ENO=ENO+1))
-done 
- 
-echo -e "\n ----------------------------------------------------------------------------------------- maxThreads of all EGs of $brk "
+done  
 cat $LOG | grep maxThreads | grep -v HTTP
+echo -e "\n-------------------------------------------------------------------------------------------- 17-13 - maxHttpHeaderSize of Egs $(date +%Y-%m-%d_%H-%M-%S)"
+LOG=maxHttpHeaderSize.$brk.$tag.13
+>$LOG
+echo -e "\n ------------------------------------------------------------------------------------------ maxHttpHeaderSize of : $brk " >>$LOG
+ENO=1
+for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do    
+   echo -e "HTTPConnector - maxHttpHeaderSize - $brk - $eg($ENO)" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPConnector -r | grep -i maxHttpHeaderSize  >> $LOG
+   echo -e "HTTPSConnector - maxHttpHeaderSize - $brk - $eg($ENO)"  >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxHttpHeaderSize  >> $LOG
+   ((ENO=ENO+1))
+done 
+echo -e "\n ------------------------------------------------------------------------------------------ maxHttpHeaderSize of EGs : $brk "
+cat maxHttpHeaderSize.$brk.$tag.13 | grep maxHttpHeaderSize | grep -v "=''" | grep -v HTTP -B1
+echo -e "\n ------------------------------------------------------------------------------------------ maxHttpHeaderSize of All EGs : $brk "
+cat maxHttpHeaderSize.$brk.$tag.13 | grep "maxHttpHeaderSize=''"
+echo -e "\n-------------------------------------------------------------------------------------------- 18-14 - tls of all EGs $(date +%Y-%m-%d_%H-%M-%S)"
+LOG=tlsssl.$brk.$tag.14
+>$LOG
+echo -e "---------------------------------------------------------------------------------------------- Broker Prop of tls $brk " >> $LOG
+echo -e "---------------------------------------------------------------------------------------------- Broker $brk - ssl " >> $LOG
+mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i ssl >> $LOG
+echo -e "---------------------------------------------------------------------------------------------- Broker $brk - tls " >> $LOG
+mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i tls >> $LOG
+ENO=1
+echo -e "---------------------------------------------------------------------------------------------- Collecting for tls, ssl for EGs" >> $LOG
+for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+   echo -e "Prop of tls $brk - $eg($ENO)" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i tls >> $LOG
+   echo -e "Prop of ssl $brk - $eg($ENO)" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i ssl >> $LOG
+   ((ENO=ENO+1))
+done 
+echo -e "\n -------------------------------------------------------------------------  Content of tlsssl file "
+cat $LOG | grep TLS -B1
+echo -e "\n --------------------------------------------------------------------------------------------------------  tls ssl of : $brk "
+cat $LOG | grep TLS -B1
+
 
 
 echo -e "\nSuccessfully completed - Bye Bye"
@@ -156,40 +192,10 @@ echo -e "\nSuccessfully completed - Bye Bye"
 
 
 
-echo -e "\n-------------------------------------- File 13 : maxHttpHeaderSize of Egs"
-LOG=maxHttpHeaderSize.$brk.$tag.13
->$LOG
-   ENO=1
-   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do    
-      echo -e "HTTPConnector - maxHttpHeaderSize - $brk - $eg($ENO)" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPConnector -r | grep -i maxHttpHeaderSize  >> $LOG
-      echo -e "HTTPSConnector - maxHttpHeaderSize - $brk - $eg($ENO)"  >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxHttpHeaderSize  >> $LOG
-      ((ENO=ENO+1))
-   done 
-
-echo -e "\n --------- maxHttpHeaderSize of : $brk "
-cat maxHttpHeaderSize.$brk.$tag.13 | grep maxHttpHeaderSize | grep -v "=''" | grep -v HTTP -B1
 
 
-echo -e "\n-------------------------------------- File 14 : tls of Egs"
-LOG=tlsssl.$brk.$tag.14
->$LOG
-echo -e "Broker Prop of tls $brk " >> $LOG
 
-mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i ssl >> $LOG
 
-ENO=1
-   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      echo -e "Prop of tls $brk - $eg($ENO)" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i tls >> $LOG
-      echo -e "Prop of ssl $brk - $eg($ENO)" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i ssl >> $LOG
-      ((ENO=ENO+1))
-   done 
-
-echo -e "\n --------- tls ssl of : $brk "
-cat tlsssl.$brk.$tag.14 | grep TLS -B1
 
 echo -e "\n-------------------------------------- File 15 : webconsole permissions"
 LOG=webconsole.$brk.$tag.15
