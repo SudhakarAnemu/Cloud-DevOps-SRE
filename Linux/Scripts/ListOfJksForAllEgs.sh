@@ -1,6 +1,6 @@
 #js
 #!/bin/bash
-#/WebSphere/scripts/middleware/ListOfJksForAllEgs.sh
+#/WebSphere/scripts/middleware/ace/ListOfJksForAllEgs.sh
 brk=$1
 echo -e "Broker name : $brk"
 LOG=$brk.$(date +%Y-%m-%d_%H-%M-%S).jks

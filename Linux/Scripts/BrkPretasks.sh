@@ -13,7 +13,6 @@ echo -e "\n---------------------------------------------------------------------
 echo -e "Status of sar at $(date +%Y-%m-%d_%H-%M-%S)"
 sar
 LOG=/tmp/log.log
-echo -e "\n-------------------------------------- Name of the Broker : $brk "
 echo -e "\n-------------------------------------------------------------------------------------------- 3. $brk processes - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsilist | grep $brk
 ps -ef | grep $brk
@@ -23,56 +22,54 @@ echo -e "\n---------------------------------------------------------------------
 mqsiservice $brk > mqsiservice.$brk.$tag.2
 echo -e "\n-------------------------------------------------------------------------------------------- 6-3. $brk mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsicvp $brk > mqsicvp.$brk.$tag.3
-echo -e "\n Verification passed for User Datasource"
+echo -e "\n Verification passed for User Datasource -------------------------------------------------"
 cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource'
-echo -e "\n One or more problems have been detected with User Datasource"
+echo -e "\n One or more problems have been detected with User Datasource -------------------------------------------------"
 cat mqsicvp.$brk.$tag.3 | grep 'One or more problems have been detected with User Datasource'
 echo -e "\n-------------------------------------------------------------------------------------------- 7. Verification of dsn at v12 file - $(date +%Y-%m-%d_%H-%M-%S)"
 cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource' | awk -F"'" '{print $2}' > /tmp/dsn
 SNO=1
 while IFS= read -r line
 do
-   echo -e "\n Brk : $brk - DSN : $line - SNO : $SNO"
+   echo -e "\n Vrfcton of dsn(mqsicvp) - Brk : $brk - DSN : $line - SNO : $SNO ------------------------------------------------------- "
    mqsicvp $brk -n $line | wc -l
+   echo -e "\n Line number of the dsn(.v10_odbc.ini) - Brk : $brk - DSN : $line - SNO : $SNO ----------------------------------------- "
+   cat -n /var/mqsi/odbc/.v10_odbc.ini | grep $line
+   echo -e "\n Line number of the dsn(.v12_odbc.ini) - Brk : $brk - DSN : $line - SNO : $SNO ----------------------------------------- "
    cat -n /var/mqsi/odbc/.v12_odbc.ini | grep $line
    ((SNO=SNO+1))
 done < /tmp/dsn
-
-
-
-
-
-echo -e "\n-------------------------------------- File 4 : Capturing Broker propertes"
-mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > Config.$brk.$tag.4
-echo -e "\n-------------------------------------- File 5 : Capturing Broker dbparms"
+echo -e "\n-------------------------------------------------------------------------------------------- 8-5. mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsireportdbparms $brk -n \* > mqsireportdbparms.$brk.$tag.5
 mqsireportdbparms $brk -n \* | grep -v '::'
-echo -e "\n-------------------------------------- File 6 : Capturing d2 -r of the Broker"
+echo -e "\n-------------------------------------------------------------------------------------------- 9-4. AllReportableEntityNames - $(date +%Y-%m-%d_%H-%M-%S)"
+mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > AllReportableEntityNames.$brk.$tag.4
+echo -e "\n-------------------------------------------------------------------------------------------- 10-6. d2 (all Flows) - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsilist $brk -d2 -r > $brk.d2.$tag.6
-echo -e "\n-------------------------------------- File 7 : Capturing jks of the Broker and EG"
-LOG=jks.$brk.$tag.7
+echo -e "\n-------------------------------------------------------------------------------------------- 11-7. jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)"
+LOG=jksJvmHttps.$brk.$tag.7
 >$LOG
-echo -e "\n-------------------------------------- File 7 : Capturing jks of the Broker and EGs" >> $LOG
-mqsireportproperties  $brk -o BrokerRegistry -r | grep storeFile >> $LOG
-mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' | sort -n> /tmp/eg.list
-SNO=1
-while IFS= read -r line
-do
-    echo "Broker : $brk -- EG : $line --- SNO : $SNO" >> $LOG
-    mqsireportproperties $brk -e $line -o ComIbmJVMManager -r | grep -i storeFile >> $LOG
-    ((SNO=SNO+1))
-done < /tmp/eg.list
-SNO=1
-echo -e "\n --------- JKS of the broker : $brk"
-cat jks.$brk.$tag.7
-echo -e "\n --------- Truststore of Egs : $brk"
-/WebSphere/scripts/middleware/jksexists.sh $brk | grep -i trusts | grep -v Not
-echo -e "\n --------- Keystores of Egs : $brk"
-/WebSphere/scripts/middleware/jksexists.sh $brk | grep -i Keystore | grep -v Not
-echo -e "\n --------- Keystore and truststore of Egs : $brk"
-/WebSphere/scripts/middleware/jksexists.sh $brk
-echo -e "\n --------- Validating both jmv and https "
-/WebSphere/scripts/middleware/jksexistsHttps.sh $brk
+/WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 7 $tag > $LOG
+echo -e "\n ------------------------------------------------------------------------------------------- Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
+cat $LOG | grep -i trusts | grep -v Not
+echo -e "\n ------------------------------------------------------------------------------------------- Keystores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
+cat $LOG | grep -i Keystore | grep -v Not
+echo -e "\n ------------------------------------------------------------------------------------------- Key and Trust stores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
+cat $LOG
+
+
+
+echo -e "\nSuccessfully completed - Bye Bye"
+
+
+
+
+
+
+
+ 
+
+ 
 
 echo -e "\n-------------------------------------- File 8 : Capturing http and https of all EG's"
 LOG=httpandhttpsports.$brk.$tag.8
