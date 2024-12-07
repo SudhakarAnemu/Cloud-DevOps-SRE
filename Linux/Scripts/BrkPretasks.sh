@@ -165,72 +165,37 @@ echo -e "\n --------------------------------------------------------------------
 cat $LOG | grep TLS -B1
 echo -e "\n --------------------------------------------------------------------------------------------------------  tls ssl of : $brk "
 cat $LOG | grep TLS -B1
-
-
-
-echo -e "\nSuccessfully completed - Bye Bye"
-
-
-
->/WebSphere/scripts/middleware/ace/BrkPretasks.sh
- 
-/WebSphere/scripts/middleware/ace/BrkPretasks.sh IIBDVAA26 v10
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-echo -e "\n-------------------------------------- File 15 : webconsole permissions"
+echo -e "\n-------------------------------------------------------------------------------------------- 19-15 - webconsole $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=webconsole.$brk.$tag.15
 >$LOG
 mqsiwebuseradmin $brk -l >> $LOG
-
-echo -e "\n --------- mqsiwebuseradmin : $brk "
-cat webconsole.$brk.$tag.15
-
-echo -e "\n-------------------------------------- File 15.1 : Line number of brokerstart.sh"
+echo -e "\n -------------------------------------------------------- mqsiwebuseradmin : $brk "
+cat $LOG
+echo -e "\n-------------------------------------------------------------------------------------------- 20-16 - Line number of brokerstart.sh"
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
-
-echo -e "\n-------------------------------------- File 16 : All SSL Properties"
+echo -e "\n-------------------------------------------------------------------------------------------- 21-17 - Collecting all SSL prop of all EGs"
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
 ENO=1
-   for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      echo -e "Prop of  $brk - $eg($ENO)" >> $LOG
-      echo -e "mqsireportproperties brk -e eg -o ComIbmJVMManager -r | grep store"  >> $LOG
-      mqsireportproperties $brk -e $eg -o ComIbmJVMManager -r | grep store >> $LOG
-      echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a | grep -i port" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i port >> $LOG
-      echo -e "mqsireportproperties brk -e eg -o HTTPConnector -a | grep -i Port" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i Port  >> $LOG
-      echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a | grep -i store" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i store >> $LOG
-      echo -e "mqsireportproperties brk -e eg -o HTTPConnector -a | grep -i store" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i store >> $LOG
-      echo -e "mqsireportproperties brk -e eg -o ExecutionGroup -a | grep httpNodesUseEmbeddedListener" >> $LOG
-      mqsireportproperties $brk -e $eg -o ExecutionGroup -a | grep httpNodesUseEmbeddedListener >> $LOG
-      echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a  | grep -i ssl" >> $LOG
-      mqsireportproperties $brk -e $eg -o HTTPSConnector -a  | grep -i ssl >> $LOG
-      ((ENO=ENO+1))
-   done 
+for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+   echo -e "--------------------------------------------------------------------------------------------------------Prop of  $brk - $eg($ENO)" >> $LOG
+   echo -e "mqsireportproperties brk -e eg -o ComIbmJVMManager -r | grep store"  >> $LOG
+   mqsireportproperties $brk -e $eg -o ComIbmJVMManager -r | grep store >> $LOG
+   echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a | grep -i port" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i port >> $LOG
+   echo -e "mqsireportproperties brk -e eg -o HTTPConnector -a | grep -i Port" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i Port  >> $LOG
+   echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a | grep -i store" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i store >> $LOG
+   echo -e "mqsireportproperties brk -e eg -o HTTPConnector -a | grep -i store" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i store >> $LOG
+   echo -e "mqsireportproperties brk -e eg -o ExecutionGroup -a | grep httpNodesUseEmbeddedListener" >> $LOG
+   mqsireportproperties $brk -e $eg -o ExecutionGroup -a | grep httpNodesUseEmbeddedListener >> $LOG
+   echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a  | grep -i ssl" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -a  | grep -i ssl >> $LOG
+   ((ENO=ENO+1))
+done 
 
- 
+echo -e "\nSuccessfully completed - Bye Bye"
 
 echo "----> Completed <----"
