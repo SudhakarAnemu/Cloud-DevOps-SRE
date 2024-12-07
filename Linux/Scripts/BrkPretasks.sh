@@ -2,16 +2,19 @@
 # Wanna to add - netstat of http, httpsports
 #
 #v10Prechecks.sh <broker> Tag 
-#/WebSphere/scripts/middleware/BrkPretasks.sh brk tag
+#/WebSphere/scripts/middleware/ace/BrkPretasks.sh brk tag
 #!/bin/bash
-echo -e "Status of free : "
-free -g
-echo -e "Status of sar : "
-sar
-LOG=/tmp/log.log
 brk=$1
 tag=$2
+echo -e "\n-------------------------------------------------------------------------------------------- 1. Collecting memory"
+echo -e "Status of free at $(date +%Y-%m-%d_%H-%M-%S)"
+free -g
+echo -e "\n-------------------------------------------------------------------------------------------- 2. Collecting sar"
+echo -e "Status of sar at $(date +%Y-%m-%d_%H-%M-%S)"
+sar
+LOG=/tmp/log.log
 echo -e "\n-------------------------------------- Name of the Broker : $brk "
+echo -e "\n-------------------------------------------------------------------------------------------- 3. $brk processes"
 mqsilist | grep $brk
 ps -ef | grep $brk
 echo -e "\n-------------------------------------- File 1 : Capturing mqsireportbroker"
