@@ -6,38 +6,39 @@
 #!/bin/bash
 brk=$1
 tag=$2
-echo -e "\n-------------------------------------------------------------------------------------------- 1. Collecting memory"
+echo -e "\n-------------------------------------------------------------------------------------------- 1. Collecting memory - $(date +%Y-%m-%d_%H-%M-%S)"
 echo -e "Status of free at $(date +%Y-%m-%d_%H-%M-%S)"
 free -g
-echo -e "\n-------------------------------------------------------------------------------------------- 2. Collecting sar"
+echo -e "\n-------------------------------------------------------------------------------------------- 2. Collecting sar - $(date +%Y-%m-%d_%H-%M-%S)"
 echo -e "Status of sar at $(date +%Y-%m-%d_%H-%M-%S)"
 sar
 LOG=/tmp/log.log
 echo -e "\n-------------------------------------- Name of the Broker : $brk "
-echo -e "\n-------------------------------------------------------------------------------------------- 3. $brk processes"
+echo -e "\n-------------------------------------------------------------------------------------------- 3. $brk processes - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsilist | grep $brk
 ps -ef | grep $brk
-echo -e "\n-------------------------------------- File 1 : Capturing mqsireportbroker"
+echo -e "\n-------------------------------------------------------------------------------------------- 4-1. $brk properties - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsireportbroker $brk > mqsireportbroker.$brk.$tag.1
-echo -e "\n-------------------------------------- File 2 : Capturing mqsiservice"
+echo -e "\n-------------------------------------------------------------------------------------------- 5-2. $brk mqsiservice - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsiservice $brk > mqsiservice.$brk.$tag.2
-echo -e "\n-------------------------------------- File 3 : Capturing mqsicvp"
+echo -e "\n-------------------------------------------------------------------------------------------- 6-3. $brk mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsicvp $brk > mqsicvp.$brk.$tag.3
 echo -e "\n Verification passed for User Datasource"
 cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource'
 echo -e "\n One or more problems have been detected with User Datasource"
 cat mqsicvp.$brk.$tag.3 | grep 'One or more problems have been detected with User Datasource'
-
+echo -e "\n-------------------------------------------------------------------------------------------- 7. Verification of dsn at v12 file - $(date +%Y-%m-%d_%H-%M-%S)"
 cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource' | awk -F"'" '{print $2}' > /tmp/dsn
 SNO=1
 while IFS= read -r line
 do
    echo -e "\n Brk : $brk - DSN : $line - SNO : $SNO"
-   #mqsicvp $brk -n $line | grep datasourceServerName
    mqsicvp $brk -n $line | wc -l
    cat -n /var/mqsi/odbc/.v12_odbc.ini | grep $line
    ((SNO=SNO+1))
 done < /tmp/dsn
+
+
 
 
 
