@@ -33,12 +33,30 @@ while IFS= read -r line
 do
    echo -e "\n Vrfcton of dsn(mqsicvp) - Brk : $brk - DSN : $line - SNO : $SNO ------------------------------------------------------- "
    mqsicvp $brk -n $line | wc -l
+   ((SNO=SNO+1))
+done < /tmp/dsn
+SNO=1
+while IFS= read -r line
+do
    echo -e "\n Line number of the dsn(.v10_odbc.ini) - Brk : $brk - DSN : $line - SNO : $SNO ----------------------------------------- "
    cat -n /var/mqsi/odbc/.v10_odbc.ini | grep $line
+   ((SNO=SNO+1))
+done < /tmp/dsn
+SNO=1
+while IFS= read -r line
+do
    echo -e "\n Line number of the dsn(.v12_odbc.ini) - Brk : $brk - DSN : $line - SNO : $SNO ----------------------------------------- "
    cat -n /var/mqsi/odbc/.v12_odbc.ini | grep $line
    ((SNO=SNO+1))
 done < /tmp/dsn
+echo -e "\n All mqsicvp commands : "
+SNO=1
+while IFS= read -r line
+do
+   echo "mqsicvp $brk -n $line | wc -l"
+   ((SNO=SNO+1))
+done < /tmp/dsn
+
 echo -e "\n-------------------------------------------------------------------------------------------- 8-5. mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsireportdbparms $brk -n \* > mqsireportdbparms.$brk.$tag.5
 mqsireportdbparms $brk -n \* | grep -v '::'
@@ -62,6 +80,18 @@ LOG=HttpHttpsPorts.$brk.$tag.8
 /WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh $brk 8 $tag > $LOG
 echo -e "\n ------------------------------------------------------------------------------------------- Http and Https ports"
 cat $LOG
+echo -e "----------Syntax to change ports : "
+echo -e "mqsichangeproperties brk -e eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+echo -e "mqsichangeproperties brk -e eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+echo -e "----------List of EGs ---------"
+>/tmp/del
+cat $LOG | awk -F":" '{print $2}' | awk -F"-" '{print $1}' > /tmp/del
+while IFS= read -r line
+do
+   echo -e "mqsichangeproperties $brk -e $eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+   echo -e "mqsichangeproperties $brk -e $eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+done < /tmp/del
+
 echo -e "\n-------------------------------------------------------------------------------------------- 13-9. jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=jvmSystemPropertyJvmDPort.$brk.$tag.9
 >$LOG
@@ -165,6 +195,17 @@ echo -e "\n --------------------------------------------------------------------
 cat $LOG | grep TLS -B1
 echo -e "\n --------------------------------------------------------------------------------------------------------  tls ssl of : $brk "
 cat $LOG | grep TLS -B1
+echo -e "List of all commands for all EGs : "
+>/tmp/del
+cat $LOG | grep 'Prop of ssl' | awk -F "-" '{print $2}' | awk -F "(" '{print $1}' > /tmp/del
+echo -e "--- Broker tls command"
+echo -e "mqsichangeproperties $brk -b httplistener -o HTTPSConnector -n TLSProtocols -v 'TLSv1.2'"
+echo -e "--- EG's tls commands"
+while IFS= read -r line
+do
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n TLSProtocols -v 'TLSv1.2'"
+done < /tmp/del
+
 echo -e "\n-------------------------------------------------------------------------------------------- 19-15 - webconsole $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=webconsole.$brk.$tag.15
 >$LOG
