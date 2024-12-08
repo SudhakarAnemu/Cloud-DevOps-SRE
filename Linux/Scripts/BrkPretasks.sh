@@ -88,8 +88,8 @@ echo -e "----------List of EGs ---------"
 cat $LOG | awk -F":" '{print $2}' | awk -F"-" '{print $1}' > /tmp/del
 while IFS= read -r line
 do
-   echo -e "mqsichangeproperties $brk -e $eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
-   echo -e "mqsichangeproperties $brk -e $eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
 done < /tmp/del
 
 echo -e "\n-------------------------------------------------------------------------------------------- 13-9. jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)"
