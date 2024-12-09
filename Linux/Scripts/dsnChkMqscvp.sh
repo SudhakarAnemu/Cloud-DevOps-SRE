@@ -2,7 +2,7 @@
 #js
 #Input : 
 #Output : 
-#/WebSphere/scripts/middleware/dsnChkMqscvp.sh
+#/WebSphere/scripts/middleware/ace/dsnChkMqscvp.sh
 #!/bin/bash
 SNO=1
 file=$1
@@ -38,3 +38,4 @@ do
     ((SNO=SNO+1))
 
 done < $file
+echo "Successfully Completed - Bye Bye"

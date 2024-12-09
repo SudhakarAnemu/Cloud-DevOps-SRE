@@ -6,6 +6,9 @@
 #!/bin/bash
 brk=$1
 tag=$2
+echo -e "\n---------------------- Stop and Start commands for the broker : $brk"
+echo -e "perl /WebSphere/scripts/middleware/wmbRestart.pl $brk stop;perl /WebSphere/scripts/middleware/wmbRestart.pl $brk start;"
+echo -e "/WebSphere/scripts/middleware/brkrestart.sh $brk"
 echo -e "\n-------------------------------------------------------------------------------------------- 1. Collecting memory - $(date +%Y-%m-%d_%H-%M-%S)"
 echo -e "Status of free at $(date +%Y-%m-%d_%H-%M-%S)"
 free -g
