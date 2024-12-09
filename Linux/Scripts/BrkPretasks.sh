@@ -217,7 +217,7 @@ echo -e "\n -------------------------------------------------------- mqsiwebuser
 cat $LOG
 echo -e "\n-------------------------------------------------------------------------------------------- 20-16 - Line number of brokerstart.sh"
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
-echo -e "\n-------------------------------------------------------------------------------------------- 21-17 - Collecting all SSL prop of all EGs"
+echo -e "\n-------------------------------------------------------------------------------------------- 21-16 - Collecting all SSL prop of all EGs"
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
 ENO=1
@@ -239,6 +239,10 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    mqsireportproperties $brk -e $eg -o HTTPSConnector -a  | grep -i ssl >> $LOG
    ((ENO=ENO+1))
 done 
+echo -e "\n-------------------------------------------------------------------------------------------- 22 - List of all Files"
+pwd
+ls -lrt *
+
 
 echo -e "\nSuccessfully completed - Bye Bye"
 
