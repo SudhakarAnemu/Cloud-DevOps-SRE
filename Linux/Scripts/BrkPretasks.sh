@@ -4,6 +4,12 @@
 #v10Prechecks.sh <broker> Tag 
 #/WebSphere/scripts/middleware/ace/BrkPretasks.sh brk tag
 #!/bin/bash
+echo -e "-------------------------------------------------------------------------- Current directory (Backup Dir) "
+pwd
+echo -e "-------------------------------------------------------------------------- Broker and QMGR "
+mqsilist | grep $brk
+dspmq -o all | grep $brk
+echo -e "-------------------------- Configuring env variables "
 pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
 brk=$1
 tag=$2
