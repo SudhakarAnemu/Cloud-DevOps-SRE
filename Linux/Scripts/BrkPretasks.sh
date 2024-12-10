@@ -95,13 +95,18 @@ do
    echo -e "mqsisetdbparms $brk -n $eg::truststorePass -u ignore -p wmbtruststore"
 done < /tmp/del
 echo -e "\n ------------------------------------------------------------------------------------------- Keystores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
-cat $LOG | grep -i Keystore | grep -v Not | grep -v truststore
+cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore
 
 echo -e "\n-------------------------------------------------------------------------------------------- Commands of Kestore to execute"
 cat $LOG | grep -i ":Keystore" | grep -v Not | awk -F ":" '{print "mqsichangeproperties BROKER -e " $3 " -o ComIbmJVMManager -n keystoreFile -v " $5}'
 
 echo -e "\n ------------------------------------------------------------------------------------------- Key and Trust stores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
 cat $LOG
+
+echo -e "\n ------------------------------------------------------------------------------------------- Key and Trust stores of Egs(Only Exists) - $(date +%Y-%m-%d_%H-%M-%S)"
+cat $LOG | grep -v 'Not-Exists'
+
+
 echo -e "\n-------------------------------------------------------------------------------------------- 12-8. http and https - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=HttpHttpsPorts.$brk.$tag.8
 >$LOG
