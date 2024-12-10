@@ -4,6 +4,9 @@
 #v10Prechecks.sh <broker> Tag 
 #/WebSphere/scripts/middleware/ace/BrkPretasks.sh brk tag
 #!/bin/bash
+brk=$1
+tag=$2
+
 echo -e "-------------------------------------------------------------------------- Current directory (Backup Dir) "
 pwd
 echo -e "-------------------------------------------------------------------------- Broker and QMGR "
@@ -11,8 +14,7 @@ mqsilist | grep $brk
 dspmq -o all | grep $brk
 echo -e "-------------------------- Configuring env variables "
 pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
-brk=$1
-tag=$2
+
 echo -e "\n---------------------- Stop and Start commands for the broker : $brk"
 echo -e "perl /WebSphere/scripts/middleware/wmbRestart.pl $brk stop;perl /WebSphere/scripts/middleware/wmbRestart.pl $brk start;"
 echo -e "/WebSphere/scripts/middleware/brkrestart.sh $brk"
