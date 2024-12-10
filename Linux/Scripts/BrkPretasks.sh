@@ -251,6 +251,7 @@ echo -e "\n -------------------------------------------------------- mqsiwebuser
 cat $LOG
 echo -e "\n-------------------------------------------------------------------------------------------- 20-16 - Line number of brokerstart.sh"
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
+echo -e "/WebSphere/scripts/middleware/brokerstart.sh -> This script needs to be update"
 echo -e "\n-------------------------------------------------------------------------------------------- 21-16 - Collecting all SSL prop of all EGs"
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
