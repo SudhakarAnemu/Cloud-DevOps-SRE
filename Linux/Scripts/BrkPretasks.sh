@@ -4,6 +4,7 @@
 #v10Prechecks.sh <broker> Tag 
 #/WebSphere/scripts/middleware/ace/BrkPretasks.sh brk tag
 #!/bin/bash
+pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
 brk=$1
 tag=$2
 echo -e "\n---------------------- Stop and Start commands for the broker : $brk"
@@ -73,8 +74,23 @@ LOG=jksJvmHttps.$brk.$tag.7
 /WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 7 $tag > $LOG
 echo -e "\n ------------------------------------------------------------------------------------------- Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
 cat $LOG | grep -i trusts | grep -v Not
+#testing
+#LOG=jksJvmHttps.IIBT1AA26.v10.7
+echo -e "\n-------------------------------------------------------------------------------------------- Trustsore commands to be execute--"
+>/tmp/del
+cat $LOG | grep -i trusts | grep -v Not | awk -F":" '{print $3}' > /tmp/del
+
+while IFS= read -r eg
+do
+   echo -e "mqsichangeproperties $brk -e $eg  -o ComIbmJVMManager -n truststoreType,truststoreFile,truststorePass -v JKS,$pathtrust,$eg::truststorePass"
+   echo -e "mqsisetdbparms $brk -n $eg::truststorePass -u ignore -p wmbtruststore"
+done < /tmp/del
 echo -e "\n ------------------------------------------------------------------------------------------- Keystores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
-cat $LOG | grep -i Keystore | grep -v Not
+cat $LOG | grep -i Keystore | grep -v Not | grep -v truststore
+
+echo -e "\n-------------------------------------------------------------------------------------------- Commands of Kestore to execute"
+cat $LOG | grep -i ":Keystore" | grep -v Not | awk -F ":" '{print "mqsichangeproperties BROKER -e " $3 " -o ComIbmJVMManager -n keystoreFile -v " $5}'
+
 echo -e "\n ------------------------------------------------------------------------------------------- Key and Trust stores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
 cat $LOG
 echo -e "\n-------------------------------------------------------------------------------------------- 12-8. http and https - $(date +%Y-%m-%d_%H-%M-%S)"
