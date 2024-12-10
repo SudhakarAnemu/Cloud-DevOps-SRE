@@ -4,7 +4,7 @@
 
 #!/bin/bash
 brk=$1
-free -g
+free -h
 echo -e "\n------------------------------------------------ Broker $brk is going to restart - $(date +%Y-%m-%d_%H-%M-%S)"
 echo -e "\n------------------------------------------------Processes of the broker : - $(date +%Y-%m-%d_%H-%M-%S)"
 ps -ef | grep $brk | grep bip
@@ -25,4 +25,4 @@ echo -e "\n------------------------------------------------Processes of the Exec
 ps -ef | grep $brk | grep -i dataflow | sort -n
 echo -e "\n------------------------------------------------Number of Execution groups : - $(date +%Y-%m-%d_%H-%M-%S)"
 ps -ef | grep $brk | grep -i dataflow | sort -n | wc -l
-free -g
+free -h
