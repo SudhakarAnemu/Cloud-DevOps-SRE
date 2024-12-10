@@ -69,7 +69,7 @@ do
    echo "mqsicvp $brk -n $line | wc -l"
    ((SNO=SNO+1))
 done < /tmp/dsn
-
+echo -e "/WebSphere/scripts/middleware/ace/dsnChkMqscvp.sh  Use this script validate uname and pwd"
 echo -e "\n-------------------------------------------------------------------------------------------- 8-5. mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsireportdbparms $brk -n \* > mqsireportdbparms.$brk.$tag.5
 mqsireportdbparms $brk -n \* | grep -v '::'
