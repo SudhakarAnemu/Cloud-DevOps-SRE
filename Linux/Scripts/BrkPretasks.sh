@@ -178,6 +178,10 @@ echo -e "\n --------------------------------------------------------------  Coun
 cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop | wc -l
 echo -e "\n --------------------------------------------------------------- List of Stopped components - EGs, flows  (Stopped) : $brk "
 cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop
+echo -e "\n --------------------------------------------------------------- mqsistop commands for V12"
+cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop > /tmp/stop
+cat /tmp/stop | grep 'Message flow' | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k App -m "$2}'
+
 echo -e "\n-------------------------------------------------------------------------------------------- 16-12 - maxThreads of Egs $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=maxThreads.$brk.$tag.12
 >$LOG
