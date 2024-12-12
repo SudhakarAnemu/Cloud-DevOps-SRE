@@ -34,7 +34,7 @@ echo -e "\n---------------------------------------------------------------------
 mqsiservice $brk > mqsiservice.$brk.$tag.2
 echo -e "\n-------------------------------------------------------------------------------------------- 6-3. $brk mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsicvp $brk > mqsicvp.$brk.$tag.3
-echo -e "\n Verification passed for User Datasource -------------------------------------------------"
+echo -e "\n Verification passed for User Datasource $tag -------------------------------------------------"
 cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource'
 echo -e "\n One or more problems have been detected with User Datasource -------------------------------------------------"
 cat mqsicvp.$brk.$tag.3 | grep 'One or more problems have been detected with User Datasource'
