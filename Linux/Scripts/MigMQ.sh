@@ -14,6 +14,8 @@ echo -e "Setting v10 profile -------------------------------------------"
 
 echo -e "dspmq of the qmgr"
 dspmq -o all | grep $qmgr
+
+echo -e "Health of the qmgr : -------------------------------------------"
 /WebSphere/scripts/middleware/mqhealth.sh | grep $qmgr
 
 echo -e "Stopping the Broker -------------------------------------------"
