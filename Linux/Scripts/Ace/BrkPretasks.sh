@@ -34,13 +34,15 @@ mqsireportbroker $brk > mqsireportbroker.$brk.$tag.1
 echo -e "\n-------------------------------------------------------------------------------------------- $tag 5-2. $brk mqsiservice - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsiservice $brk > mqsiservice.$brk.$tag.2
 echo -e "\n-------------------------------------------------------------------------------------------- $tag 6-3. $brk mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)"
+LOG=mqsicvp.$brk.$tag.3
+>$LOG
 mqsicvp $brk > mqsicvp.$brk.$tag.3
 echo -e "\n Verification passed for User Datasource $tag -------------------------------------------------$tag "
-cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource'
+cat $LOG | grep 'Verification passed for User Datasource'
 echo -e "\n One or more problems have been detected with User Datasource -------------------------------------------------$tag "
-cat mqsicvp.$brk.$tag.3 | grep 'One or more problems have been detected with User Datasource'
+cat $LOG | grep 'One or more problems have been detected with User Datasource'
 echo -e "\n-------------------------------------------------------------------------------------------- 7. Verification of dsn at v12 file - $(date +%Y-%m-%d_%H-%M-%S)"
-cat mqsicvp.$brk.$tag.3 | grep 'Verification passed for User Datasource' | awk -F"'" '{print $2}' > /tmp/dsn
+cat $LOG | grep 'Verification passed for User Datasource' | awk -F"'" '{print $2}' > /tmp/dsn
 echo -e "\nmqscvp for $tag - It must be a version. "
 SNO=1
 while IFS= read -r line
@@ -72,10 +74,22 @@ do
 done < /tmp/dsn
 echo -e "/WebSphere/scripts/middleware/ace/dsnChkMqscvp.sh  Use this script validate uname and pwd"
 echo -e "\n--------------------------------------------------------------------------------------------$tag  8-5. mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)"
-mqsireportdbparms $brk -n \* > mqsireportdbparms.$brk.$tag.5
-mqsireportdbparms $brk -n \* | grep -v '::'
+LOG=mqsireportdbparms.$brk.$tag.5
+>$LOG
+mqsireportdbparms $brk -n \* > $LOG
+echo -e "\n--------------------------------------------------------------------------------------------mqsireportdbparms for all"
+cat $LOG
+echo -e "\n--------------------------------------------------------------------------------------------mqsireportdbparms for all DSN"
+cat $LOG | grep -v '::' | awk -F" " '{print $5":"$8}' | awk -F"'" '{print $2":"$4}'
 echo -e "\n--------------------------------------------------------------------------------------------$tag  9-4. AllReportableEntityNames - $(date +%Y-%m-%d_%H-%M-%S)"
-mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > AllReportableEntityNames.$brk.$tag.4
+LOG=AllReportableEntityNames.$brk.$tag.4
+mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > $LOG
+
+mqsireportproperties $brk -o BrokerRegistry -r > $LOG.1
+mqsireportproperties $brk -o SecurityCache -r > $LOG.2
+
+
+
 echo -e "\n--------------------------------------------------------------------------------------------$tag  10-6. d2 (Of entire $brk) - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsilist $brk -d2 -r > $brk.d2.$tag.6
 echo -e "\n--------------------------------------------------------------------------------------------$tag  11-7. jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)"
@@ -84,8 +98,7 @@ LOG=jksJvmHttps.$brk.$tag.7
 /WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 7 $tag > $LOG
 echo -e "\n -------------------------------------------------------------------------------------------$tag  Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
 cat $LOG | grep -i trusts | grep -v Not
-#testing
-#LOG=jksJvmHttps.IIBT1AA26.v10.7
+
 echo -e "\n--------------------------------------------------------------------------------------------$tag  Trustsore commands to be execute--"
 >/tmp/del
 cat $LOG | grep -i trusts | grep -v Not | awk -F":" '{print $3}' > /tmp/del
@@ -161,10 +174,10 @@ echo -e "\n --------------------------------------------------------------------
 cat $LOG | grep -i stop
 
 echo -e "\n ------------------------------------------------------------------------------------------------------- mqsistop commands(flows) for V12"
-cat $LOG| grep -i stop | grep 'Message flow' | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
+cat $LOG| grep -i stop | grep BIP1278I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
 
 echo -e "\n ------------------------------------------------------------------------------------------------------- mqsistop commands(Applications) for V12"
-cat $LOG| grep -i stop | grep grep BIP1276I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $2}'
+cat $LOG| grep -i stop | grep BIP1276I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $2}'
 
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  16-12 - maxThreads of Egs $(date +%Y-%m-%d_%H-%M-%S)"
@@ -238,6 +251,9 @@ echo -e "\n---------------------------------------------------------------------
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
 echo -e "/WebSphere/scripts/middleware/brokerstart.sh -> This script needs to be update"
 echo -e "\n--------------------------------------------------------------------------------------------$tag  21-16 - Collecting all SSL prop of all EGs"
+
+
+
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
 ENO=1
