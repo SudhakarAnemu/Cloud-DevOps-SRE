@@ -148,40 +148,24 @@ echo -e "\n---------------------------------------------------------------------
 cat $LOG | grep -i runn
 echo -e "\n--------------------------------------------------------------------------------------------$tag  Stopped EGs - Brk $brk"
 cat $LOG | grep -i stop
-echo -e "\n--------------------------------------------------------------------------------------------$tag  15-11 and 11.1. Status of Flows - $(date +%Y-%m-%d_%H-%M-%S)"
+
+echo -e "\n--------------------------------------------------------------------------------------------$tag  15-11 Status of Flows - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=AllFlowStatus.$brk.$tag.11
 >$LOG
-echo -e "\n--------------------------------------------------------------------------------------------$tag  Flows from Running EGs - Brk $brk" >> $LOG
-   for eg in `mqsilist $brk | sort -n  | grep BIP1286I | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      for msgflw in `mqsilist $brk -e $eg | grep BIP1288I | sort -n | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-         echo "$brk,$eg,$msgflw" >> $LOG
-      done 
-      for app in `mqsilist $brk -e $eg | grep BIP1275I | awk -F" " '{print $3}' | awk -F"'" '{print $2}'`; do
-         for appmsgflow in `mqsilist $brk -e $eg -k $app | grep BIP1277I | sort -n | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-            echo "$brk,$eg,$app,$appmsgflow" >> $LOG
-         done
-      done 
-   done 
-echo -e "\n---------------------------------------------------------------------------------------------$tag  Second set (#2) of Status of all Flows"
-LOG=AllFlowStatus.$brk.$tag.11.1
->$LOG
->$LOG.SecondFile
-echo -e "\n-------------------------------------- Running EGs - Brk $brk" >> $LOG
+mqsilist $brk -r > $LOG
 
-   for eg in `mqsilist $brk | sort -n  | grep BIP1286I | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-      echo -e "\n----------------------------------------------------------------- Apps on eg : $eg"  >> $LOG.SecondFile
-      mqsilist $brk -e  $eg >> $LOG.SecondFile
-      echo -e "\n----------------------------------------------------------------- Apps on eg : $eg  with -r option "  >> $LOG
-      mqsilist $brk -e  $eg -r >> $LOG
-      echo "---------------" >> $LOG
-   done 
-echo -e "\n --------------------------------------------------------------  Count of stopped - EGs, flows  (Stopped) : $brk "
-cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop | wc -l
+echo -e "\n --------------------------------------------------------------  Count of stopped - WMB Components  (Stopped) : $brk "
+cat $LOG | grep -i stop | wc -l
+
 echo -e "\n --------------------------------------------------------------- List of Stopped components - EGs, flows  (Stopped) : $brk "
-cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop
+cat $LOG | grep -i stop
+
 echo -e "\n --------------------------------------------------------------- mqsistop commands for V12"
-cat AllFlowStatus.$brk.$tag.11.1 | grep -i stop > /tmp/stop
-cat /tmp/stop | grep 'Message flow' | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k App -m "$2}'
+cat $LOG| grep -i stop | grep 'Message flow' | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
+
+#cat /tmp/stop | grep 'Message flow' | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
+#cat a | grep 'Message flow' | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
+
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  16-12 - maxThreads of Egs $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=maxThreads.$brk.$tag.12
