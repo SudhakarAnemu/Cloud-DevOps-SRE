@@ -257,13 +257,8 @@ echo -e "\n---------------------------------------------------------------------
 LOG=AllPropEgs.$brk.$tag.17
 >$LOG
 /WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
-
-
 echo -e "\n--------------------------------------------------------------------------------------------$tag  23 - List of all Files"
 pwd
 ls -lrt *
-
-
 echo -e "\nSuccessfully completed - Bye Bye"
-
 echo "----> Completed <----"
