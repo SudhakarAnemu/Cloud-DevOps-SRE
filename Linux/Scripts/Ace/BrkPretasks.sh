@@ -89,7 +89,6 @@ mqsireportproperties $brk -o BrokerRegistry -r > $LOG.1
 mqsireportproperties $brk -o SecurityCache -r > $LOG.2
 
 
-
 echo -e "\n--------------------------------------------------------------------------------------------$tag  10-6. d2 (Of entire $brk) - $(date +%Y-%m-%d_%H-%M-%S)"
 mqsilist $brk -d2 -r > $brk.d2.$tag.6
 echo -e "\n--------------------------------------------------------------------------------------------$tag  11-7. jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)"
