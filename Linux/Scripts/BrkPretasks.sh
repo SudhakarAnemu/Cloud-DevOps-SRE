@@ -7,7 +7,7 @@
 brk=$1
 tag=$2
 echo -e "Migration command"
-echo -e "mqsiextractcomponents --backup-file zzzip.zip --source-integration-node $brk --target-integration-node $brk > $brk.migration.ace
+echo -e "mqsiextractcomponents --backup-file zzzip.zip --source-integration-node $brk --target-integration-node $brk > $brk.migration.ace"
 echo -e "-------------------------------------------------------------------------- $tag Current directory (Backup Dir) "
 pwd
 echo -e "-------------------------------------------------------------------------- $tag Broker and QMGR "
