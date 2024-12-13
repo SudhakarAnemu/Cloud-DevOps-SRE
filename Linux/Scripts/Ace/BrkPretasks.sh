@@ -247,35 +247,20 @@ LOG=webconsole.$brk.$tag.15
 mqsiwebuseradmin $brk -l >> $LOG
 echo -e "\n -------------------------------------------------------- mqsiwebuseradmin : $brk "
 cat $LOG
-echo -e "\n--------------------------------------------------------------------------------------------$tag  20-16 - Line number of brokerstart.sh"
+echo -e "\n--------------------------------------------------------------------------------------------$tag  20 - Line number of brokerstart.sh"
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
 echo -e "/WebSphere/scripts/middleware/brokerstart.sh -> This script needs to be update"
 echo -e "\n--------------------------------------------------------------------------------------------$tag  21-16 - Collecting all SSL prop of all EGs"
-
-
-
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
-ENO=1
-for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-   echo -e "--------------------------------------------------------------------------------------------------------$tag Prop of  $brk - $eg($ENO)" >> $LOG
-   echo -e "mqsireportproperties brk -e eg -o ComIbmJVMManager -r | grep store"  >> $LOG
-   mqsireportproperties $brk -e $eg -o ComIbmJVMManager -r | grep store >> $LOG
-   echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a | grep -i port" >> $LOG
-   mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i port >> $LOG
-   echo -e "mqsireportproperties brk -e eg -o HTTPConnector -a | grep -i Port" >> $LOG
-   mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i Port  >> $LOG
-   echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a | grep -i store" >> $LOG
-   mqsireportproperties $brk -e $eg -o HTTPSConnector -a | grep -i store >> $LOG
-   echo -e "mqsireportproperties brk -e eg -o HTTPConnector -a | grep -i store" >> $LOG
-   mqsireportproperties $brk -e $eg -o HTTPConnector -a | grep -i store >> $LOG
-   echo -e "mqsireportproperties brk -e eg -o ExecutionGroup -a | grep httpNodesUseEmbeddedListener" >> $LOG
-   mqsireportproperties $brk -e $eg -o ExecutionGroup -a | grep httpNodesUseEmbeddedListener >> $LOG
-   echo -e "mqsireportproperties brk -e eg -o HTTPSConnector -a  | grep -i ssl" >> $LOG
-   mqsireportproperties $brk -e $eg -o HTTPSConnector -a  | grep -i ssl >> $LOG
-   ((ENO=ENO+1))
-done 
-echo -e "\n--------------------------------------------------------------------------------------------$tag  22 - List of all Files"
+/WebSphere/scripts/middleware/ace/AllSslPropEgs.sh $brk 16 $tag > $LOG
+echo -e "\n--------------------------------------------------------------------------------------------$tag  22-17 - Collecting all prop of all EGs"
+LOG=AllPropEgs.$brk.$tag.17
+>$LOG
+/WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
+
+
+echo -e "\n--------------------------------------------------------------------------------------------$tag  23 - List of all Files"
 pwd
 ls -lrt *
 
