@@ -1,11 +1,36 @@
-#js sudha
+#js
 # Wanna to add - netstat of http, httpsports
-#
+# Developer : "Sudhakar Anemu" <sanemu_consultant@cusa.canon.com>
+
 #v10Prechecks.sh <broker> Tag 
 #/WebSphere/scripts/middleware/ace/BrkPretasks.sh brk tag
 #!/bin/bash
+
+#
+# Mandatory properties which needs to send
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+
 brk=$1
 tag=$2
+pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
+
+#
+# Below are all activites will be performed by this script
+#
+
 echo -e "Migration command"
 echo -e "mqsiextractcomponents --backup-file zzzip.zip --source-integration-node $brk --target-integration-node $brk > $brk.migration.ace"
 echo -e "-------------------------------------------------------------------------- $tag Current directory (Backup Dir) "
@@ -14,7 +39,7 @@ echo -e "-----------------------------------------------------------------------
 mqsilist | grep $brk
 dspmq -o all | grep $brk
 echo -e "-------------------------- Configuring env variables "
-pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
+
 
 echo -e "\n---------------------- Stop and Start commands for the broker : $brk"
 echo -e "perl /WebSphere/scripts/middleware/wmbRestart.pl $brk stop;perl /WebSphere/scripts/middleware/wmbRestart.pl $brk start;"
