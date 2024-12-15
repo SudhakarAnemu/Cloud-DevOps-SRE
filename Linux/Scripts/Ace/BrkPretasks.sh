@@ -150,7 +150,6 @@ cat $LOG | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g'
 #do
 #   ls -l $line
 #done < /tmp/del
-
 echo -e "\n--------------------------------------------------------------------------------------------$tag  Commands of Kestore to execute"
 cat $LOG | grep -i ":Keystore" | grep -v Not | awk -F ":" '{print "mqsichangeproperties BROKER -e " $3 " -o ComIbmJVMManager -n keystoreFile -v " $5}'
 
@@ -302,6 +301,8 @@ do
 done < /tmp/del
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  19-15 - webconsole $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\n--------------------------------------------------------------------------------------------$tag - Broker port"
+mqsilist | grep $brk
 LOG=webconsole.$brk.$tag.15
 >$LOG
 mqsiwebuseradmin $brk -l >> $LOG
