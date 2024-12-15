@@ -96,7 +96,10 @@ LOG=jksJvmHttps.$brk.$tag.7
 >$LOG
 /WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 7 $tag > $LOG
 echo -e "\n -------------------------------------------------------------------------------------------$tag  Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\n-------------------- All trusts"
 cat $LOG | grep -i trusts | grep -v Not
+echo -e "\n-------------------- All Uniq Trusts"
+cat $LOG | grep -i trusts | grep -v Not | awk -F ":" '{print $5}' | uniq
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  Trustsore commands to be execute--"
 >/tmp/del
