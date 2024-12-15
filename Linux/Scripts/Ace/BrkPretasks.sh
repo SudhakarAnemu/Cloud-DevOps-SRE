@@ -125,6 +125,8 @@ echo -e "\n-------------------- All trusts"
 cat $LOG | grep -i trusts | grep -v Not
 echo -e "\n-------------------- All Uniq Trusts"
 cat $LOG | grep -i trusts | grep -v Not | awk -F ":" '{print $5}' | uniq
+echo -e "\nChk exits : /WebSphere/scripts/middleware/CompareTwoJKS.sh /WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks wmbtruststore /WebSphere/wmbconfig/tst1/keystore/v10/esbtst/esbtst.jks esbtst | grep 'not exist'
+"
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  Trustsore commands to be execute--"
 >/tmp/del
@@ -268,6 +270,8 @@ echo -e "\n --------------------------------------------------------------------
 cat $LOG | grep TLS -B1
 echo -e "\n --------------------------------------------------------------------------------------------------------$tag   tls ssl of : $brk "
 cat $LOG | grep TLS -B1
+echo -e "\n --------------------------------------------------------------------------------------------------------$tag   Total EGs to execute (#/2 pls) $brk "
+cat $LOG | grep "sslProtocol='TLSv1.2'" | wc -l
 echo -e "List of all commands for all EGs : "
 >/tmp/del
 cat $LOG | grep 'Prop of ssl' | awk -F "-" '{print $2}' | awk -F "(" '{print $1}' > /tmp/del
