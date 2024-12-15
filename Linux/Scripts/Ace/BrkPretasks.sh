@@ -230,12 +230,14 @@ cat $LOG | grep -i stop | wc -l
 echo -e "\n ------------------------------------------------------------------------------------------------------- List of Stopped components - EGs, flows  (Stopped) : $brk "
 cat $LOG | grep -i stop
 
-echo -e "\n ------------------------------------------------------------------------------------------------------- mqsistop commands(flows) for V12"
+echo -e "\n ------------------------------------------------------------------------------------------------------- BIP1278I - mqsistop commands(flows) for V12"
 cat $LOG| grep -i stop | grep BIP1278I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
+
+echo -e "\n ------------------------------------------------------------------------------------------------------- BIP1289I(no App) - mqsistop commands(flows) for V12"
+cat $LOG| grep -i stop | grep BIP1289I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k  App" " -m "$2}'
 
 echo -e "\n ------------------------------------------------------------------------------------------------------- mqsistop commands(Applications) for V12"
 cat $LOG| grep -i stop | grep BIP1276I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $2}'
-
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  16-12 - maxThreads of Egs $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=maxThreads.$brk.$tag.12
