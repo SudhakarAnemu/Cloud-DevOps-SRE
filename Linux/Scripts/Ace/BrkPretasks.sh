@@ -165,6 +165,20 @@ echo -e "\n---------------------------------------------------------------------
 LOG=HttpHttpsPorts.$brk.$tag.8
 >$LOG
 /WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh $brk 8 $tag > $LOG
+echo -e "\n-----------------------------------------------------------netstat of http ports"
+cat $LOG | awk -F"-" '{print $4}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
+while IFS= read -r line
+do
+   echo -e "Testing the HTTP port : ***$line***"
+   netstat -an | grep $line
+done < /tmp/del
+echo -e "\n-----------------------------------------------------------netstat of https ports"
+cat $LOG | awk -F"-" '{print $2}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
+while IFS= read -r line
+do
+   echo -e "Testing the HTTPS port : ***$line***"
+   netstat -an | grep $line
+done < /tmp/del
 echo -e "\n -------------------------------------------------------------------------------------------$tag  Http and Https ports"
 cat $LOG
 echo -e "----------Syntax to change ports : "
