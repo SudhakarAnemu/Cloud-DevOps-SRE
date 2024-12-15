@@ -136,7 +136,18 @@ do
    echo -e "mqsisetdbparms $brk -n $eg::truststorePass -u ignore -p wmbtruststore"
 done < /tmp/del
 echo -e "\n -------------------------------------------------------------------------------------------$tag  Keystores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "------------------------------------------------- Keystores of the EG"
 cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore
+echo -e "------------------------------------------------- Uniq - Keystores of the EG"
+cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore | awk -F":" '{print $5}' | uniq
+echo -e "------------------------------------------------- v9/v10 to ace"
+cat $LOG | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g'
+echo -e "------------------------------------------------- ls -l of v9/v10 to ace"
+cat $LOG | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g' > /tmp/del
+while IFS= read -r line
+do
+   ls -l $line
+done < /tmp/del
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  Commands of Kestore to execute"
 cat $LOG | grep -i ":Keystore" | grep -v Not | awk -F ":" '{print "mqsichangeproperties BROKER -e " $3 " -o ComIbmJVMManager -n keystoreFile -v " $5}'
