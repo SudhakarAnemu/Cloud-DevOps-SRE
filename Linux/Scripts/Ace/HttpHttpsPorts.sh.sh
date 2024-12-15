@@ -19,36 +19,6 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    ((ENO=ENO+1))
 done 
 
-echo -e "\n-----------------------------------------------------------netstat of http ports"
-cat $LOG | awk -F"-" '{print $4}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
-while IFS= read -r line
-do
-   echo -e "Testing the HTTP port : ***$line***"
-   netstat -an | grep $line
-done < /tmp/del
-echo -e "\n-----------------------------------------------------------netstat of https ports"
-cat $LOG | awk -F"-" '{print $2}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
-while IFS= read -r line
-do
-   echo -e "Testing the HTTPS port : ***$line***"
-   netstat -an | grep $line
-done < /tmp/del
-
-
-echo -e "\n -------------------------------------------------------------------------------------------$tag  Http and Https ports"
-cat $LOG
-echo -e "----------Syntax to change ports : "
-echo -e "mqsichangeproperties brk -e eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
-echo -e "mqsichangeproperties brk -e eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
-echo -e "----------List of EGs ---------"
->/tmp/del
-cat $LOG | awk -F":" '{print $2}' | awk -F"-" '{print $1}' > /tmp/del
-while IFS= read -r line
-do
-   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
-   echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
-done < /tmp/del
-
 
    #brk=
    #eg=

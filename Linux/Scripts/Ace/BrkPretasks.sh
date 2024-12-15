@@ -72,7 +72,7 @@ echo -e "\nmqscvp for $tag - It must be a version. "
 SNO=1
 while IFS= read -r line
 do
-   echo -e "\n Vrfcton of dsn(mqsicvp) - Brk : $brk - DSN : $line - SNO : $SNO ---------------------------------$tag ---------------------- "
+   echo -e "\n Verification of dsn(mqsicvp) - Brk : $brk - DSN : $line - SNO : $SNO ---------------------------------$tag ---------------------- "
    mqsicvp $brk -n $line | wc -l
    ((SNO=SNO+1))
 done < /tmp/dsn
@@ -138,18 +138,18 @@ do
    echo -e "mqsisetdbparms $brk -n $eg::truststorePass -u ignore -p wmbtruststore"
 done < /tmp/del
 echo -e "\n -------------------------------------------------------------------------------------------$tag  Keystores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
-echo -e "------------------------------------------------- Keystores of the EG"
+echo -e "\n-------------------------------------------------------------------------------------------$tag -  Keystores of the EG"
 cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore
-echo -e "------------------------------------------------- Uniq - Keystores of the EG"
+echo -e "\n-------------------------------------------------------------------------------------------$tag -  Uniq - Keystores of the EG"
 cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore | awk -F":" '{print $5}' | uniq
-echo -e "------------------------------------------------- v9/v10 to ace"
+echo -e "\n-------------------------------------------------------------------------------------------$tag -  v9/v10 to ace"
 cat $LOG | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g'
-echo -e "------------------------------------------------- ls -l of v9/v10 to ace"
-cat $LOG | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g' > /tmp/del
-while IFS= read -r line
-do
-   ls -l $line
-done < /tmp/del
+#echo -e "------------------------------------------------- ls -l of v9/v10 to ace"
+#cat $LOG | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g' > /tmp/del
+#while IFS= read -r line
+#do
+#   ls -l $line
+#done < /tmp/del
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  Commands of Kestore to execute"
 cat $LOG | grep -i ":Keystore" | grep -v Not | awk -F ":" '{print "mqsichangeproperties BROKER -e " $3 " -o ComIbmJVMManager -n keystoreFile -v " $5}'
@@ -165,6 +165,37 @@ echo -e "\n---------------------------------------------------------------------
 LOG=HttpHttpsPorts.$brk.$tag.8
 >$LOG
 /WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh $brk 8 $tag > $LOG
+
+
+echo -e "\n-----------------------------------------------------------netstat of http ports"
+cat $LOG | awk -F"-" '{print $4}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
+while IFS= read -r line
+do
+   echo -e "Testing the HTTP port : ***$line***"
+   netstat -an | grep $line
+done < /tmp/del
+echo -e "\n-----------------------------------------------------------netstat of https ports"
+cat $LOG | awk -F"-" '{print $2}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
+while IFS= read -r line
+do
+   echo -e "Testing the HTTPS port : ***$line***"
+   netstat -an | grep $line
+done < /tmp/del
+
+echo -e "\n -------------------------------------------------------------------------------------------$tag  Http and Https ports"
+cat $LOG
+echo -e "----------Syntax to change ports : "
+echo -e "mqsichangeproperties brk -e eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+echo -e "mqsichangeproperties brk -e eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+echo -e "----------List of EGs ---------"
+>/tmp/del
+cat $LOG | awk -F":" '{print $2}' | awk -F"-" '{print $1}' > /tmp/del
+while IFS= read -r line
+do
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+done < /tmp/del
+
 
 echo -e "\n--------------------------------------------------------------------------------------------$tag  13-9. jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=jvmSystemPropertyJvmDPort.$brk.$tag.9
