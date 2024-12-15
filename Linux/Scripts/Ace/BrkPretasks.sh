@@ -230,6 +230,12 @@ cat $LOG | grep -i stop | wc -l
 echo -e "\n ------------------------------------------------------------------------------------------------------- List of Stopped components - EGs, flows  (Stopped) : $brk "
 cat $LOG | grep -i stop
 
+echo -e "\n ------------------------------------------------------------------------------------------------------- stopped commands - EG : $brk "
+cat $LOG | grep -i stop
+
+echo -e "\n ------------------------------------------------------------------------------------------------------- mqsistop commands(EGs) for V12"
+mqsilist $brk | grep -i stop | awk -F "'" '{print "mqsistop BRK -e "$2}'
+
 echo -e "\n ------------------------------------------------------------------------------------------------------- BIP1278I - mqsistop commands(flows) for V12"
 cat $LOG| grep -i stop | grep BIP1278I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
 
