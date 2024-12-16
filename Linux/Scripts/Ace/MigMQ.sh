@@ -12,6 +12,9 @@ echo -e "Setting v10 profile -------------------------------------------"
 #setwmb 10
 . /WebSphere/scripts/middleware/wmbprofile 10
 
+echo -e "mqsilist of the brk"
+mqsilist | grep $brk 
+
 echo -e "dspmq of the qmgr"
 dspmq -o all | grep $qmgr
 
