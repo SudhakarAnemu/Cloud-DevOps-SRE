@@ -327,7 +327,27 @@ echo -e "\n---------------------------------------------------------------------
 LOG=AllPropEgs.$brk.$tag.17
 >$LOG
 /WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
-echo -e "\n--------------------------------------------------------------------------------------------$tag  23 - List of all Files"
+echo -e "\n--------------------------------------------------------------------------------------------$tag  23-18 - Collecting all flows with status"
+LOG=AllFlowStatus.$brk.$tag.18
+>$LOG
+#echo -e "\n---------------------------------------------------------------------------------------Collecting all running components"
+
+#   for eg in `mqsilist $brk | sort -n  | grep BIP1286I | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+#      for msgflw in `mqsilist $brk -e $eg | grep BIP1288I | sort -n | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+#         echo "$brk,$eg,$msgflw" >> $LOG
+#      done 
+#      for app in `mqsilist $brk -e $eg | grep BIP1275I | awk -F" " '{print $3}' | awk -F"'" '{print $2}'`; do
+#         for appmsgflow in `mqsilist $brk -e $eg -k $app | grep BIP1277I | sort -n | awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+#            echo "$brk,$eg,$app,$appmsgflow" >> $LOG
+#         done
+#      done 
+#   done 
+
+echo -e "\n--------------------------------------------------------------------------------------------$tag  24 - MQTT properties"
+mqsireportproperties $brk -b pubsub -o MQTTServer -r
+
+
+echo -e "\n--------------------------------------------------------------------------------------------$tag  25 - List of all Files"
 pwd
 ls -lrt *
 echo -e "\nSuccessfully completed - Bye Bye"

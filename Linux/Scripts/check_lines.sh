@@ -21,13 +21,15 @@ fi
 # Read lines from file1 into an array
 lines1=($(cat "$file1"))
 
+ENO=1
 # Iterate over lines in file2
 while IFS= read -r line2;
 do
     # Check if the line from file2 exists in the array from file1
     if [[ " ${lines1[*]} " =~ " $line2 " ]]; then
-        echo "$line2 exists in both files."
+        echo "$line2 exists in both files. - $ENO"
     else
-        echo "$line2 does not exist in file1."
+        echo "$line2 does not exist in file1. - $ENO"
     fi
+    ((ENO=ENO+1))
 done < "$file2"
