@@ -31,8 +31,10 @@ pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
 # Below are all activites will be performed by this script
 #
 
-echo -e "Migration command"
+echo -e "ACE, MQ9* Migrate commands"
 echo -e "mqsiextractcomponents --backup-file zzzip.zip --source-integration-node $brk --target-integration-node $brk > $brk.migration.ace"
+echo -e "/WebSphere/scripts/middleware/ace/MigMQ.sh qmgr brk ver"
+
 echo -e "-------------------------------------------------------------------------- 1. $tag Current directory (Backup Dir) "
 pwd
 echo -e "-------------------------------------------------------------------------- 2. $tag Broker and QMGR "
