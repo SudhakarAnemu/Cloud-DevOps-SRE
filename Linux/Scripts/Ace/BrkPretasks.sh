@@ -346,9 +346,13 @@ LOG=AllFlowStatus.$brk.$tag.18
 #      done 
 #   done 
 
-echo -e "\n--------------------------------------------------------------------------------------------66. $tag  24 - MQTT properties"
+echo -e "\n--------------------------------------------------------------------------------------------66. $tag  24 - MQTT properties and commands"
 mqsireportproperties $brk -b pubsub -o MQTTServer -r
 
+echo "mqsireportproperties $brk -b pubsub -o MQTTServer -r"
+echo "mqsichangeproperties $brk -b pubsub -o MQTTServer -n enabled -v false"
+echo "mqsichangeproperties $brk -b pubsub -o MQTTServer -n port -v '0'"
+echo "mqsireportproperties $brk -b pubsub -o MQTTServer -r"
 
 echo -e "\n--------------------------------------------------------------------------------------------67. $tag  25 - List of all Files"
 pwd
