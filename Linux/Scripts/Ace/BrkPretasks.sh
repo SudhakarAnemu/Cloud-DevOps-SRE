@@ -322,7 +322,7 @@ cat $LOG
 echo -e "\n---------------------------------------------------------------------------$brk-----------------62. $tag  20 - Line number of brokerstart.sh"
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
 echo -e "/WebSphere/scripts/middleware/brokerstart.sh -> This script needs to be update"
-echo -e "\n------------------------------------------------------------------------------$brk--------------63. $tag  21-16 - Collecting all SSL prop of all EGs"
+echo -e "\n------------------------------------------------------------------------------$brk-------------63. $tag  21-16 - Collecting all SSL prop of all EGs"
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
 /WebSphere/scripts/middleware/ace/AllSslPropEgs.sh $brk 16 $tag > $LOG
@@ -330,7 +330,7 @@ echo -e "\n---------------------------------------------------------------------
 LOG=AllPropEgs.$brk.$tag.17
 >$LOG
 /WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
-echo -e "\n----------------------------------------------------------------------------$brk----------------65. $tag  23-18 - Collecting all flows with status"
+echo -e "\n----------------------------------------------------------------------------$brk----Commented------------65. $tag  23-18 - Collecting all flows with status"
 LOG=AllFlowStatus.$brk.$tag.18
 >$LOG
 #echo -e "\n---------------------------------------------------------------------------------------Collecting all running components"
