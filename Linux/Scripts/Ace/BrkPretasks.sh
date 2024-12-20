@@ -227,25 +227,25 @@ LOG=AllFlowStatus.$brk.$tag.11
 >$LOG
 mqsilist $brk -r > $LOG
 
-echo -e "\n ------------------------------------------------------------------------------$brk-------------------------39.  Count of stopped - WMB Components  (Stopped) : $brk "
+echo -e "\n ------------------------------------------------------------------------------$brk-------------------------39. $tag Count of stopped - WMB Components  (Stopped) : $brk "
 cat $LOG | grep -i stop | wc -l
 
-echo -e "\n -------------------------------------------------------------------------------$brk------------------------40. List of Stopped components - EGs, flows  (Stopped) : $brk "
+echo -e "\n -------------------------------------------------------------------------------$brk------------------------40. $tag List of Stopped components - EGs, flows  (Stopped) : $brk "
 cat $LOG | grep -i stop
 
 #echo -e "\n ---------------------------------------------------------------------------$brk----------------------------41 stopped commands - EG : $brk "
 #cat $LOG | grep -i stop
 
-echo -e "\n ----------------------------------------------------------------------------$brk---------------------------41-42 mqsistop commands(EGs) for V12"
+echo -e "\n ----------------------------------------------------------------------------$brk---------------------------41-42 $tag mqsistop commands(EGs) for V12"
 mqsilist $brk | grep -i stop | awk -F "'" '{print "mqsistop BRK -e "$2}'
 
-echo -e "\n ---------------------------------------------------------------------------$brk----------------------------43. BIP1278I - mqsistop commands(flows) for V12"
+echo -e "\n ---------------------------------------------------------------------------$brk----------------------------43. $tag BIP1278I - mqsistop commands(flows) for V12"
 cat $LOG| grep -i stop | grep BIP1278I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
 
-echo -e "\n -----------------------------------------------------------------------------$brk--------------------------44. BIP1289I(no App) - mqsistop commands(flows) for V12"
+echo -e "\n -----------------------------------------------------------------------------$brk--------------------------44. $tag BIP1289I(no App) - mqsistop commands(flows) for V12"
 cat $LOG| grep -i stop | grep BIP1289I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k  App" " -m "$2}'
 
-echo -e "\n -----------------------------------------------------------------------------$brk--------------------------45.  mqsistop commands(Applications) for V12"
+echo -e "\n -----------------------------------------------------------------------------$brk--------------------------45. $tag mqsistop commands(Applications) for V12"
 cat $LOG| grep -i stop | grep BIP1276I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $2}'
 
 echo -e "\n---------------------------------------------------------------------------------$brk-----------------------46. $tag  16-12 - maxThreads of Egs $(date +%Y-%m-%d_%H-%M-%S)"
@@ -326,11 +326,8 @@ echo -e "\n---------------------------------------------------------------------
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
 /WebSphere/scripts/middleware/ace/AllSslPropEgs.sh $brk 16 $tag > $LOG
-echo -e "\n-------------------------------------------------------------------------$brk-------------------64. $tag  22-17 - Collecting all prop of all EGs"
-LOG=AllPropEgs.$brk.$tag.17
->$LOG
-/WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
-echo -e "\n----------------------------------------------------------------------------$brk----Commented------------65. $tag  23-18 - Collecting all flows with status"
+
+echo -e "\n----------------------------------------------------------------------------$brk----Commented------------64. $tag  23-18 - Collecting all flows with status"
 LOG=AllFlowStatus.$brk.$tag.18
 >$LOG
 #echo -e "\n---------------------------------------------------------------------------------------Collecting all running components"
@@ -346,7 +343,7 @@ LOG=AllFlowStatus.$brk.$tag.18
 #      done 
 #   done 
 
-echo -e "\n-----------------------------------------------------------------------------$brk---------------66. $tag  24 - MQTT properties and commands"
+echo -e "\n-----------------------------------------------------------------------------$brk---------------65. $tag  24 - MQTT properties and commands"
 mqsireportproperties $brk -b pubsub -o MQTTServer -r
 
 echo "mqsireportproperties $brk -b pubsub -o MQTTServer -r"
@@ -354,10 +351,14 @@ echo "mqsichangeproperties $brk -b pubsub -o MQTTServer -n enabled -v false"
 echo "mqsichangeproperties $brk -b pubsub -o MQTTServer -n port -v '0'"
 echo "mqsireportproperties $brk -b pubsub -o MQTTServer -r"
 
-echo -e "\n---------------------------------------------------------------------------------$brk-----------67. $tag  Health of the qmgr"
+echo -e "\n---------------------------------------------------------------------------------$brk-----------66. $tag  Health of the qmgr"
 health | grep $brk
 pwd
 
+echo -e "\n-------------------------------------------------------------------------$brk-------------------67. $tag  22-17 - Collecting all prop of all EGs"
+LOG=AllPropEgs.$brk.$tag.17
+>$LOG
+/WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
 
 echo -e "\n---------------------------------------------------------------------------------$brk-----------68. $tag  25 - List of all Files"
 pwd
