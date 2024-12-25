@@ -22,10 +22,19 @@
 #
 #
 
-
 brk=$1
 tag=$2
 pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
+
+echo -e "IMP Config variables\nBroker : --$brk--\nTag : --$tag--\nTrust store path : --$pathtrust--"
+
+echo "Do you want to proceed? (y/n)"
+read -r answer
+
+if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
+  echo "Exiting..... Please cross check above variables."
+  exit 1
+fi
 
 #
 # Below are all activites will be performed by this script
@@ -34,50 +43,48 @@ pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
 echo -e "ACE, MQ9* Migrate commands"
 echo -e "mqsiextractcomponents --backup-file zzzip.zip --source-integration-node $brk --target-integration-node $brk > $brk.migration.ace"
 echo -e "/WebSphere/scripts/middleware/ace/MigMQ.sh qmgr brk ver"
-
-echo -e "-------------------------------------------------------------------------- 1. $tag Current directory (Backup Dir) "
+echo -e "\n------------------------------------------------------------------------------------Command to validate DSNs - uname and pwd"
+echo -e "/WebSphere/scripts/middleware/ace/dsnChkMqscvp.sh  Use this script validate uname and pwd"
+echo -e "\nS.No - 1 : $brk : $tag-Current directory (Backup Dir)--------------------------------------------------------------------------"
 pwd
-echo -e "-------------------------------------------------------------------------- 2. $tag Broker and QMGR "
+echo -e "\nS.No - 2 : $brk : $tag-Broker and QMGR ----------------------------------------------------------------------------------------"
 mqsilist | grep $brk
 dspmq -o all | grep $brk
-echo -e "-------------------------- Configuring env variables "
-
-
 echo -e "\n---------------------- Stop and Start commands for the broker : $brk"
 echo -e "perl /WebSphere/scripts/middleware/wmbRestart.pl $brk stop;perl /WebSphere/scripts/middleware/wmbRestart.pl $brk start;"
 echo -e "/WebSphere/scripts/middleware/brkrestart.sh $brk"
-echo -e "\n-------------------------------------------------------------------------------------------- 3. $tag 1. Collecting memory - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 3 : $brk : $tag Collecting memory - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------"
 echo -e "Status of free at $(date +%Y-%m-%d_%H-%M-%S)"
 free -g
-echo -e "\n-------------------------------------------------------------------------------------------- 4. $tag 2. Collecting sar - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 4 : $brk : $tag-Collecting sar - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------------------------"
 echo -e "Status of sar at $(date +%Y-%m-%d_%H-%M-%S)"
-sar
+sar > sar.$brk.$tag.0
 LOG=/tmp/log.log
-echo -e "\n-------------------------------------------------------------------------------------------- 5. $tag 3. $brk processes - $(date +%Y-%m-%d_%H-%M-%S)"
-mqsilist | grep $brk
+echo -e "\nS.No - 5 : $brk : $tag-Broker processes - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------------"
 ps -ef | grep $brk
-echo -e "\n-------------------------------------------------------------------------------------------- 6. $tag 4-1. $brk properties - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 6-1 : $brk : $tag-Properties - $(date +%Y-%m-%d_%H-%M-%S)----------------------------------------------------------------------------------------------"
 mqsireportbroker $brk > mqsireportbroker.$brk.$tag.1
-echo -e "\n-------------------------------------------------------------------------------------------- 7. $tag 5-2. $brk mqsiservice - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 7-2 : $brk : $tag-mqsiservice - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------------------"
 mqsiservice $brk > mqsiservice.$brk.$tag.2
-echo -e "\n-------------------------------------------------------------------------------------------- 8. $tag 6-3. $brk mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------------------"
 LOG=mqsicvp.$brk.$tag.3
 >$LOG
 mqsicvp $brk > $LOG
-echo -e "\n Verification passed for User Datasource $tag ---------------------------$brk--------------------9. $tag "
+echo -e "\nS.No - 9 : $brk : $tag-Verification passed for User Datasource-----------------------------------------------------------------------------------------------"
 cat $LOG | grep 'Verification passed for User Datasource'
-echo -e "\n One or more problems have been detected with User Datasource -------------------------------------------------10. $tag "
+echo -e "\nS.No - 10 : $brk : $tag-One or more problems have been detected with User Datasource-------------------------------------------------------------------------"
 cat $LOG | grep 'One or more problems have been detected with User Datasource'
-echo -e "\n--------------------------------------------------------------------------------------------11. Verification of dsn at v12 file - $(date +%Y-%m-%d_%H-%M-%S)"
+#echo -e "\nS.No - 11 : $brk : $tag-Verification of dsn at v12 file - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------"
 cat $LOG | grep 'Verification passed for User Datasource' | awk -F"'" '{print $2}' > /tmp/dsn
-echo -e "\nmqscvp for $tag - It must be a version. "
+echo -e "\n-------------------------------------------------------------------------------------------------mqscvp of DSNs for $tag (version)"
 SNO=1
 while IFS= read -r line
 do
-   echo -e "\n Verification of dsn(mqsicvp) - Brk : $brk - DSN : $line - SNO : $SNO ---------------------------------$tag ---------------------- "
+   echo -e "\n Verification of dsn(mqsicvp) - Brk : $brk - DSN : $line - SNO : $SNO ------------------------------$tag ---------------------- "
    mqsicvp $brk -n $line | wc -l
    ((SNO=SNO+1))
 done < /tmp/dsn
+echo -e "\n-----------------------------------------------------------------------------------------------Line number of DSNs at v10 odbc file"
 SNO=1
 while IFS= read -r line
 do
@@ -85,21 +92,22 @@ do
    cat -n /var/mqsi/odbc/.v10_odbc.ini | grep $line
    ((SNO=SNO+1))
 done < /tmp/dsn
+echo -e "\n-----------------------------------------------------------------------------------------------Line number of DSNs at v12 odbc file"
 SNO=1
 while IFS= read -r line
 do
-   echo -e "\n Line number of the dsn(.v12_odbc.ini) - Brk : $brk - DSN : $line - SNO : $SNO --------------------$tag --------------------- "
+   echo -e "\n Line number of the dsn(.v12_odbc.ini) - Brk : $brk - DSN : $line - SNO : $SNO ---------------------$tag --------------------- "
    cat -n /var/mqsi/odbc/.v12_odbc.ini | grep $line
    ((SNO=SNO+1))
 done < /tmp/dsn
-echo -e "\n All mqsicvp commands : "
+echo -e "\n------------------------------------------------------------------------------------All mqsicvp commands to verify at next version"
 SNO=1
 while IFS= read -r line
 do
    echo "mqsicvp $brk -n $line | wc -l"
    ((SNO=SNO+1))
 done < /tmp/dsn
-echo -e "/WebSphere/scripts/middleware/ace/dsnChkMqscvp.sh  Use this script validate uname and pwd"
+
 echo -e "\n--------------------------------------------------------------------------------------------12. $tag  8-5. mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)"
 LOG=mqsireportdbparms.$brk.$tag.5
 >$LOG
