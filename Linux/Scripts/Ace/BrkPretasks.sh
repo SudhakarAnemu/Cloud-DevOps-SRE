@@ -308,14 +308,11 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxHttpHeaderSize  >> $LOG
    ((ENO=ENO+1))
 done 
-echo -e "\n ---------------------------------------------------------------------------$brk---------------------50. $tag  maxHttpHeaderSize of EGs : $brk "
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 50 : $brk : $tag-maxHttpHeaderSize of EGs - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
 cat maxHttpHeaderSize.$brk.$tag.13 | grep maxHttpHeaderSize | grep -v "=''" | grep -v HTTP -B1
-echo -e "\n -----------------------------------------------------------------------------$brk-------------------51. $tag  maxHttpHeaderSize of All EGs : $brk "
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 51 : $brk : $tag-maxHttpHeaderSize of All EGs - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
 cat maxHttpHeaderSize.$brk.$tag.13 | grep "maxHttpHeaderSize=''"
-echo -e "\n----------------------------------------------------------------------------$brk---------------------52. $tag  18-14 - tls of all EGs $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 52-14 : $brk : $tag-tls of all EGs - $(date +%Y-%m-%d_%H-%M-%S)----------------------------------------------------------------------------------"
 LOG=tlsssl.$brk.$tag.14
 >$LOG
 echo -e "\nS.No - 53 : $brk : $tag-Broker Prop of tls $brk - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------"
