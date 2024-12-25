@@ -318,17 +318,13 @@ echo -e "\n---------------------------------------------------------------------
 #echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
 LOG=tlsssl.$brk.$tag.14
 >$LOG
-echo -e "-------------------------------------------------------------------------------$brk---------------53. $tag  Broker Prop of tls $brk " >> $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
-echo -e "-------------------------------------------------------------------------------$brk---------------54. $tag  Broker $brk - ssl " >> $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 53 : $brk : $tag-Broker Prop of tls $brk - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------"
+echo -e "\nS.No - 54 : $brk : $tag-Broker $brk - ssl - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------"
 mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i ssl >> $LOG
-echo -e "-------------------------------------------------------------------------------$brk---------------55. $tag  Broker $brk - tls " >> $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 55 : $brk : $tag-mqsicBroker $brk - tls - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------"
 mqsireportproperties $brk -b httplistener -o HTTPSConnector -r | grep -i tls >> $LOG
 ENO=1
-echo -e "--------------------------------------------------------------------------------$brk--------------56. $tag  Collecting for tls, ssl for EGs" >> $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 56 : $brk : $tag-Collecting datat of tls, ssl for EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
 for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
    echo -e "Prop of tls $brk - $eg($ENO)" >> $LOG
    mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i tls >> $LOG
@@ -336,14 +332,11 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i ssl >> $LOG
    ((ENO=ENO+1))
 done 
-echo -e "\n ------------------------------------------------------------------------------$brk------------57. $tag   Content of tlsssl file "
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 57 : $brk : $tag-Content of tlsssl file - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------"
 cat $LOG | grep TLS -B1
-echo -e "\n ------------------------------------------------------------------------------$brk--------------------------58. $tag   tls ssl of : $brk "
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 58 : $brk : $tag-tls ssl of - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------------"
 cat $LOG | grep TLS -B1
-echo -e "\n ------------------------------------------------------------------------------$brk--------------------------59. $tag   Total EGs to execute (#/2 pls) $brk "
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 59 : $brk : $tag-Total EGs to execute (#/2 pls) $brk - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
 cat $LOG | grep "sslProtocol='TLSv1.2'" | wc -l
 echo -e "List of all commands for all EGs : "
 >/tmp/del
@@ -355,29 +348,21 @@ while IFS= read -r line
 do
    echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n TLSProtocols -v 'TLSv1.2'"
 done < /tmp/del
-
-echo -e "\n--------------------------------------------------------------------------$brk------------------60. $tag  19-15 - webconsole $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
-echo -e "\n---------------------------------------------------------------------------$brk-----------------61. $tag - Broker port"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 61--15 : $brk : $tag-webconsole & $brk port - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------"
 mqsilist | grep $brk
 LOG=webconsole.$brk.$tag.15
 >$LOG
 mqsiwebuseradmin $brk -l >> $LOG
-echo -e "\n -------------------------------------------------------- mqsiwebuseradmin : $brk "
+echo -e "\n ---------------------------------------------------------- mqsiwebuseradmin : $brk "
 cat $LOG
-echo -e "\n---------------------------------------------------------------------------$brk-----------------62. $tag  20 - Line number of brokerstart.sh"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 20 : $brk : $tag-Line number of brokerstart.sh - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------"
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
 echo -e "/WebSphere/scripts/middleware/brokerstart.sh -> This script needs to be update"
-echo -e "\n------------------------------------------------------------------------------$brk-------------63. $tag  21-16 - Collecting all SSL prop of all EGs"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 21-16 : $brk : $tag-Collecting all SSL prop of all EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
 /WebSphere/scripts/middleware/ace/AllSslPropEgs.sh $brk 16 $tag > $LOG
-
-echo -e "\n----------------------------------------------------------------------------$brk----Commented------------64. $tag  23-18 - Collecting all flows with status"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 23-18 : $brk : $tag-Collecting all flows with status - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------"
 LOG=AllFlowStatus.$brk.$tag.18
 >$LOG
 #echo -e "\n---------------------------------------------------------------------------------------Collecting all running components"
