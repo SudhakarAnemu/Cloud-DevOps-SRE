@@ -126,16 +126,13 @@ echo -e "\nS.No - 17 : $brk : $tag-jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)-----
 LOG=jksJvmHttps.$brk.$tag.7
 >$LOG
 /WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 7 $tag > $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
-echo -e "\n -------------------------------------------------------------------------------------------18. $tag  Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
-echo -e "\n-------------------- All trusts"
+echo -e "\nS.No - 18 : $brk : $tag-Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
+echo -e "\n----------------------------------------------------------------------------------------------- All trusts"
 cat $LOG | grep -i trusts | grep -v Not
 echo -e "\n-------------------- All Uniq Trusts"
 cat $LOG | grep -i trusts | grep -v Not | awk -F ":" '{print $5}' | uniq
-echo -e "\nChk exits : /WebSphere/scripts/middleware/CompareTwoJKS.sh /WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks wmbtruststore /WebSphere/wmbconfig/tst1/keystore/v10/esbtst/esbtst.jks esbtst | grep 'not exist'
-"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
-echo -e "\n--------------------------------------------------------------------------------------------19. $tag  Trustsore commands to be execute--"
+echo -e "\nChk exits : /WebSphere/scripts/middleware/CompareTwoJKS.sh $pathtrust wmbtruststore RequirdJKS pwd | grep 'not exist'"
+echo -e "\nS.No - 19 : $brk : $tag-Trustsore commands to be execute - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------"
 >/tmp/del
 cat $LOG | grep -i trusts | grep -v Not | awk -F":" '{print $3}' > /tmp/del
 
@@ -144,65 +141,45 @@ do
    echo -e "mqsichangeproperties $brk -e $eg  -o ComIbmJVMManager -n truststoreType,truststoreFile,truststorePass -v JKS,$pathtrust,$eg::truststorePass"
    echo -e "mqsisetdbparms $brk -n $eg::truststorePass -u ignore -p wmbtruststore"
 done < /tmp/del
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
-echo -e "\n ------------------------------------------------------------------------------------------20. $tag  Keystores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
-echo -e "\n-------------------------------------------------------------------------------------------21. $tag -  Keystores of the EG"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 20 : $brk : $tag-Keystores of Egs - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------------"
+echo -e "\nS.No - 21 : $brk : $tag-Keystores of the EG - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------"
+echo -e "\nS.No - 22 : $brk : $tag - Keystores of the EG - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
 cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore
-echo -e "\n-------------------------------------------------------------------------------------------22. $tag -  Uniq - Keystores of the EG"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 23 : $brk : $tag-Unique - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------------------"
 cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore | awk -F":" '{print $5}' | uniq
-echo -e "\n-------------------------------------------------------------------------------------------23. $tag -  v9/v10 to ace"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
-#cat $LOG | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g'
+echo -e "\nS.No - 24 : $brk : $tag-v9/v10 to ace - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------"
 cat $LOG | grep -v "Not-Exists" | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g'
-echo -e "---------------------------------------------------------------------------------------------24.  ls -l of v9/v10 to ace"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 24 : $brk : $tag-ls -l of v9/v10 to ace - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
 cat $LOG | grep -v "Not-Exists" | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g' > /tmp/del
 while IFS= read -r line
 do
    ls -l $line
 done < /tmp/del
-echo -e "\n--------------------------------------------------------------------------------------------25. $tag  Commands of Kestore to execute"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 25 : $brk : $tag-Commands of Kestore to execute - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
 cat $LOG | grep -i ":Keystore" | grep -v Not | awk -F ":" '{print "mqsichangeproperties BROKER -e " $3 " -o ComIbmJVMManager -n keystoreFile -v " $5}'
-
-echo -e "\n ---------------------------------------------------------------------------$brk----------------26. $tag  Key and Trust stores of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 26 : $brk : $tag-Key and Trust stores of Egs - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------"
 cat $LOG
-
-echo -e "\n --------------------------------------------------------------------------$brk-----------------27. $tag  Key and Trust stores of Egs(Only Exists) - $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 27 : $brk : $tag-Key and Trust stores of Egs(Only Exists) - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------"
 cat $LOG | grep -v 'Not-Exists'
-
-
-echo -e "\n--------------------------------------------------------------------------$brk------------------28. $tag  12-8. http and https - $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 28-8 : $brk : $tag-http and https - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
 LOG=HttpHttpsPorts.$brk.$tag.8
 >$LOG
 /WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh $brk 8 $tag > $LOG
-
-
-echo -e "\n---------------------------------------------------------------------------$brk-----------------29. netstat of http ports"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 29 : $brk : $tag-netstat of http ports - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
 cat $LOG | awk -F"-" '{print $4}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
 while IFS= read -r line
 do
    echo -e "Testing the HTTP port : ***$line***"
    netstat -an | grep $line
 done < /tmp/del
-echo -e "\n---------------------------------------------------------------------------$brk----------------30. netstat of https ports"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 30 : $brk : $tag-netstat of https ports - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------"
 cat $LOG | awk -F"-" '{print $2}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
 while IFS= read -r line
 do
    echo -e "Testing the HTTPS port : ***$line***"
    netstat -an | grep $line
 done < /tmp/del
-
-echo -e "\n ----------------------------------------------------------------------------$brk---------------31. $tag  Http and Https ports"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 31 : $brk : $tag-Http and Https ports - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------"
 cat $LOG
 echo -e "----------Syntax to change ports : "
 echo -e "mqsichangeproperties brk -e eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
@@ -215,14 +192,10 @@ do
    echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
    echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
 done < /tmp/del
-
-
-echo -e "\n-----------------------------------------------------------------------------$brk----------------- 32. $tag  13-9. jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 31 : $brk : $tag-jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------"
 LOG=jvmSystemPropertyJvmDPort.$brk.$tag.9
 >$LOG
-echo -e "\n-----------------------------------------------------------------------------$brk------------------33.  Capturing jvmSystemProperty,jvmDebugPort of all EG's - Brk $brk" >> $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 33 : $brk : $tag-Capturing jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
 mqsilist $brk|grep BIP1286I|awk -F"'" '{print $2}' | sort -n> /tmp/eg.list
 while IFS= read -r line
 do
@@ -232,59 +205,35 @@ do
     mqsireportproperties $brk -e $line -o ComIbmJVMManager -n jvmDebugPort | grep -v BIP8071I >> $LOG
     ((SNO=SNO+1))
 done < /tmp/eg.list
-echo -e "\n-----------------------------------------------------------------------------$brk------------------34. $tag  14-10. Stopped EGs - $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 34-10 : $brk : $tag-Stopped EGs - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------------"
 LOG=EGStatus.$brk.$tag.10
 >$LOG
-echo -e "\n----------------------------------------------------------------------------$brk-------------------35.  Capturing Status of EGs : " >> $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 35 : $brk : $tag-Capturing Status of EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------"
 mqsilist $brk | sort -n >> $LOG
-echo -e "\n------------------------------------------------------------------------------$brk-----------------36. $tag  Running EGs - Brk $brk"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 36 : $brk : $tag-Running EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------------"
 cat $LOG | grep -i runn
-echo -e "\n-----------------------------------------------------------------------------$brk------------------37. $tag  Stopped EGs - Brk $brk"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 37 : $brk : $tag-Stopped EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------------"
 cat $LOG | grep -i stop
-
-echo -e "\n-----------------------------------------------------------------------------$brk------------------38. $tag  15-11 Status of Flows - $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 38 : $brk : $tag-Status of Flows - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
 LOG=AllFlowStatus.$brk.$tag.11
 >$LOG
 mqsilist $brk -r > $LOG
-
-echo -e "\n ------------------------------------------------------------------------------$brk-------------------------39. $tag Count of stopped - WMB Components  (Stopped) : $brk "
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 39 : $brk : $tag-Count of stopped - WMB Components  (Stopped) - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------"
 cat $LOG | grep -i stop | wc -l
-
-echo -e "\n -------------------------------------------------------------------------------$brk------------------------40. $tag List of Stopped components - EGs, flows  (Stopped) : $brk "
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 40 : $brk : $tag-List of Stopped components - EGs, flows (Stopped) - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------"
 cat $LOG | grep -i stop
-
-#echo -e "\n ---------------------------------------------------------------------------$brk----------------------------41 stopped commands - EG : $brk "
-#cat $LOG | grep -i stop
-
-echo -e "\n ----------------------------------------------------------------------------$brk---------------------------41-42 $tag mqsistop commands(EGs) for V12"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 41 : $brk : $tag-mqsistop commands(EGs) for V12 - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------"
 mqsilist $brk | grep -i stop | awk -F "'" '{print "mqsistop BRK -e "$2}'
-
-echo -e "\n ---------------------------------------------------------------------------$brk----------------------------43. $tag BIP1278I - mqsistop commands(flows) for V12"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 43 : $brk : $tag-BIP1278I - mqsistop commands(flows) for v12 - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------"
 cat $LOG| grep -i stop | grep BIP1278I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
-
-echo -e "\n -----------------------------------------------------------------------------$brk--------------------------44. $tag BIP1289I(no App) - mqsistop commands(flows) for V12"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 44 : $brk : $tag-BIP1289I(no App) - mqsistop commands(flows) for V12 - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------"
 cat $LOG| grep -i stop | grep BIP1289I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k  App" " -m "$2}'
-
-echo -e "\n -----------------------------------------------------------------------------$brk--------------------------45. $tag mqsistop commands(Applications) for V12"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 45 : $brk : $tag-mqsistop commands(Applications) for V12 - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------"
 cat $LOG| grep -i stop | grep BIP1276I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $2}'
-
-echo -e "\n---------------------------------------------------------------------------------$brk-----------------------46. $tag  16-12 - maxThreads of Egs $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 46-12 : $brk : $tag-maxThreads of Egs - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------------"
 LOG=maxThreads.$brk.$tag.12
 >$LOG
-echo -e "\n--------------------------------------------------------------------------------$brk-------------------- 47. $tag  maxThreads of EGs - Brk $brk" >> $LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No -47 : $brk : $tag-maxThreads of EGs - Brk $brk - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------"
 ENO=1
 for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
    echo -e "HTTPConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
@@ -294,12 +243,10 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    ((ENO=ENO+1))
 done  
 cat $LOG | grep maxThreads | grep -v HTTP
-echo -e "\n-------------------------------------------------------------------------------$brk--------------------48. $tag  17-13 - maxHttpHeaderSize of Egs $(date +%Y-%m-%d_%H-%M-%S)"
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 48-13 : $brk : $tag-maxHttpHeaderSize - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
 LOG=maxHttpHeaderSize.$brk.$tag.13
 >$LOG
-echo -e "\n -----------------------------------------------------------------------------$brk--------------------49. $tag  maxHttpHeaderSize of : $brk " >>$LOG
-#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 49 : $brk : $tag-maxHttpHeaderSize - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------"
 ENO=1
 for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do    
    echo -e "HTTPConnector - maxHttpHeaderSize - $brk - $eg($ENO)" >> $LOG
@@ -308,11 +255,11 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxHttpHeaderSize  >> $LOG
    ((ENO=ENO+1))
 done 
-echo -e "\nS.No - 50 : $brk : $tag-maxHttpHeaderSize of EGs - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 50 : $brk : $tag-maxHttpHeaderSize of EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------"
 cat maxHttpHeaderSize.$brk.$tag.13 | grep maxHttpHeaderSize | grep -v "=''" | grep -v HTTP -B1
-echo -e "\nS.No - 51 : $brk : $tag-maxHttpHeaderSize of All EGs - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
+echo -e "\nS.No - 51 : $brk : $tag-maxHttpHeaderSize of All EGs - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------"
 cat maxHttpHeaderSize.$brk.$tag.13 | grep "maxHttpHeaderSize=''"
-echo -e "\nS.No - 52-14 : $brk : $tag-tls of all EGs - $(date +%Y-%m-%d_%H-%M-%S)----------------------------------------------------------------------------------"
+echo -e "\nS.No - 52-14 : $brk : $tag-tls of all EGs - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------"
 LOG=tlsssl.$brk.$tag.14
 >$LOG
 echo -e "\nS.No - 53 : $brk : $tag-Broker Prop of tls $brk - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------"
