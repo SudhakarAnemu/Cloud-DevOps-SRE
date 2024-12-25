@@ -107,29 +107,26 @@ do
    echo "mqsicvp $brk -n $line | wc -l"
    ((SNO=SNO+1))
 done < /tmp/dsn
-
-echo -e "\n--------------------------------------------------------------------------------------------12. $tag  8-5. mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 12-5 : $brk : $tag-mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
 LOG=mqsireportdbparms.$brk.$tag.5
 >$LOG
 mqsireportdbparms $brk -n \* > $LOG
-echo -e "\n--------------------------------------------------------------------------------------------13. mqsireportdbparms for all"
+echo -e "\nS.No - 13 : $brk : $tag-Full OP of mqsireportdbparms - $(date +%Y-%m-%d_%H-%M-%S)--------------------- ------------------------------------------------------"
 cat $LOG
-echo -e "\n--------------------------------------------------------------------------------------------14. mqsireportdbparms for all DSN"
+echo -e "\nS.No - 14 : $brk : $tag-mqsireportdbparms for all DSN - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------"
 cat $LOG | grep -v '::' | awk -F" " '{print $5":"$8}' | awk -F"'" '{print $2":"$4}'
-echo -e "\n--------------------------------------------------------------------------------------------15. $tag  9-4. AllReportableEntityNames - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 15-4 : $brk : $tag-AllReportableEntityNames of the $brk - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
 LOG=AllReportableEntityNames.$brk.$tag.4
 mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > $LOG
-
 mqsireportproperties $brk -o BrokerRegistry -r > $LOG.1
 mqsireportproperties $brk -o SecurityCache -r > $LOG.2
-
-
-echo -e "\n--------------------------------------------------------------------------------------------16. $tag  10-6. d2 (Of entire $brk) - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 16 : $brk : $tag-d2 (Of entire $brk) - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------"
 mqsilist $brk -d2 -r > $brk.d2.$tag.6
-echo -e "\n--------------------------------------------------------------------------------------------17. $tag  11-7. jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)"
+echo -e "\nS.No - 17 : $brk : $tag-jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------------------------"
 LOG=jksJvmHttps.$brk.$tag.7
 >$LOG
 /WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 7 $tag > $LOG
+#echo -e "\nS.No - 8-3 : $brk : $tag-mqsicvp - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------------"
 echo -e "\n -------------------------------------------------------------------------------------------18. $tag  Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S)"
 echo -e "\n-------------------- All trusts"
 cat $LOG | grep -i trusts | grep -v Not
