@@ -24,7 +24,8 @@
 
 brk=$1
 tag=$2
-pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
+#pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
+pathtrust=/WebSphere/wmbconfig/dev/truststore/wmbtruststore.jks
 
 echo -e "IMP Config variables\nBroker : --$brk--\nTag : --$tag--\nTrust store path : --$pathtrust--"
 
