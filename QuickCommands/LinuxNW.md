@@ -1,5 +1,13 @@
 js
 
+# SSL Commands
+
+
+| S.No | Command                                     | Description |
+| ------ | --------------------------------------------- | ------------- |
+| 1    | keytool -list -keystore .jks -storepass pwd | wc -l       |
+|      |                                             |             |
+
 # Commands
 
 ## Linux
