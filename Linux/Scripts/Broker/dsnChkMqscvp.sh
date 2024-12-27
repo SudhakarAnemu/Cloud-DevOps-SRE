@@ -30,9 +30,11 @@ do
     
     if [ $count == 1 ]; then  
         echo -e "S.No:$SNO-Passed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd,Broker:$brk"
+        echo -e "S.No:$SNO-Passed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd,Broker:$brk" >> $log
         echo -e "SNO:$SNO--Broker:$brk--DSN:--$dsn--uid:--$uid--Pwd:--$pwd--,Broker:$brk" >> $log
     elif [ $count == 0 ]; then  
-        echo -e "S.No:$SNO-Failed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd,Broker:$brk"
+        echo -e "S.No:$SNO-Passed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd,Broker:$brk"
+        echo -e "S.No:$SNO-Failed for the dsn - $dsn, server-$server,user:$uid,pwd:$pwd,Broker:$brk" >> $log
         echo -e "SNO:$SNO--Broker:$brk--DSN:--$dsn--uid:--$uid--Pwd:--$pwd--,Broker:$brk" >> $log
     fi
     ((SNO=SNO+1))
