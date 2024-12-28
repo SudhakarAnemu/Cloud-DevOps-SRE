@@ -3,6 +3,8 @@ Js-Om
 Ideas : 
 1. Ansible or linux script to send a mail if a particular file changes (content changes or file accesseseed(update/del))
 Ex : once removed log files but got a doubt whether I touch the actual security file.
+2. properties files should be push at Git if there are any changes. It should be done automatically.
+3. 
 
 check this url :
 https://stacksimplify.com/courses/stacksimplify-best-selling-courses-on-udemy/
