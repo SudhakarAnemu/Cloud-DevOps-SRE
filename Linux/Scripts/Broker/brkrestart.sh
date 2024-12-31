@@ -26,3 +26,5 @@ ps -ef | grep $brk | grep -i dataflow | sort -n
 echo -e "\n------------------------------------------------Number of Execution groups : - $(date +%Y-%m-%d_%H-%M-%S)"
 ps -ef | grep $brk | grep -i dataflow | sort -n | wc -l
 free -m
+
+echo -e "-------------------Completed-------------------"

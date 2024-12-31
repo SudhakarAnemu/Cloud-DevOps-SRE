@@ -2,6 +2,7 @@
 
 #/WebSphere/scripts/middleware/ace/MigMQ.sh qmgr brk ver
 
+
 qmgr=$1
 brk=$2
 v12ver=$3
