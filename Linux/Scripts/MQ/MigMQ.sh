@@ -7,11 +7,15 @@ qmgr=$1
 brk=$2
 v12ver=$3
 
+
+
 echo -e "Name of the qmgr : $1, Broker : $2, V12MQ : $3 -------------------------------------------"
 
 echo -e "Setting v10 profile -------------------------------------------"
 #setwmb 10
 . /WebSphere/scripts/middleware/wmbprofile 10
+
+/WebSphere/scripts/middleware/qmgrSuspend.sh $qmgr
 
 echo -e "mqsilist of the brk"
 mqsilist | grep $brk 
