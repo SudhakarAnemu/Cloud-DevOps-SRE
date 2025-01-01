@@ -335,7 +335,13 @@ echo -e "\nS.No - 67-17 : $brk : $tag-Collecting all prop of all EGs - $(date +%
 LOG=AllPropEgs.$brk.$tag.17
 >$LOG
 /WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
-echo -e "\nS.No - 68 : $brk : $tag-List of all Files - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
+echo -e "\nS.No - 68 : $brk : $tag-jar file - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------"
+echo -e "\n----- Count of jars"
+ls -l /var/mqsi/config/$brk/shared-classes/*.jar | wc -l
+echo -e "\n----- Path of s21ib_fw_java.jar"
+ls -l /var/mqsi/config/$brk/shared-classes/s21ib_fw_java.jar
+
+echo -e "\nS.No - 69 : $brk : $tag-List of all Files - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
 pwd
 ls -lrt *
 echo -e "\nSuccessfully completed - Bye Bye"
