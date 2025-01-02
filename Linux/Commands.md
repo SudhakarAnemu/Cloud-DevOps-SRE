@@ -9,7 +9,11 @@ cat trust.ck | awk -F ":" '{print $5}' | uniq
 
 **SSL Commands**
 
-1. fingerprint list
+1. fingerprint
 keytool -list -keystore $1 -storepass $2 | grep -v fingerprint | grep -v Keystore | grep -v keystore | awk -F"," '{print $1}' | grep -v '^[[:space:]]*$' | sort > /tmp/alllbls
 
 
+| S.No | Commands | Description |
+| ------ | ---------- | ------------- |
+| 1    |keytool -list -keystore jks -storepass pwd|
+| 2    |          |             |
