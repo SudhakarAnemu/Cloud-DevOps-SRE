@@ -19,7 +19,3 @@ keytool -list -keystore $1 -storepass $2 | grep fingerprint | awk -F" " '{print 
 keytool -list -keystore $3 -storepass $4 | grep fingerprint | awk -F" " '{print $4}' > file2
 
 /WebSphere/scripts/middleware/check_lines.sh file1 file2
-
-
-VM[wmbadmin@varhdv122 truststore]
-
