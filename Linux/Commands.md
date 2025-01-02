@@ -12,5 +12,5 @@ cat trust.ck | awk -F ":" '{print $5}' | uniq
 
 | S.No | Commands | Description |
 | ------ | ---------- | ------------- |
-|      |          |             |
-|      |          |             |
+| 1    |          |             |
+| 2    |          |             |
