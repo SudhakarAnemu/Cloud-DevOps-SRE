@@ -340,6 +340,9 @@ echo -e "\n----- Count of jars"
 ls -l /var/mqsi/config/$brk/shared-classes/*.jar | wc -l
 echo -e "\n----- Path of s21ib_fw_java.jar"
 ls -l /var/mqsi/config/$brk/shared-classes/s21ib_fw_java.jar
+echo -e "\n----- Path of s21ib_fw_java.jar using find command"
+cd /var/mqsi/config/$brk/
+find ./ -name s21ib_fw_java.jar
 
 echo -e "\nS.No - 69 : $brk : $tag-List of all Files - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
 pwd
