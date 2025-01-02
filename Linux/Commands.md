@@ -7,7 +7,7 @@ Output :
 cat trust.ck | awk -F ":" '{print $5}' | uniq
 /WebSphere/wmbconfig/tst1/keystore/v9/esbtst/esbglobaltst.jks
 
-| col1
+**SSL Commands**
 
 
 | S.No | Commands | Description |
