@@ -17,3 +17,11 @@ VM-NY[wmbadmin@varhqa112 middleware] cat /WebSphere/scripts/middleware/ace/BrkPr
 
 
 VM-NY[wmbadmin@varhqa112 middleware]
+
+
+SSL : 
+/WebSphere/scripts/middleware/rmExpCerts.sh jks pwd
+
+Broker : 
+Broker restart : 
+/WebSphere/scripts/middleware/BRKRestart.sh

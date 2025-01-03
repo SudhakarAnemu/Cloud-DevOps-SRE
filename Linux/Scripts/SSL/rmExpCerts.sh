@@ -43,7 +43,7 @@ do
          #keytool -list -keystore $jksFile -storepass $jskPwd | grep "Your keystore contains"
          printNumber
          keytool -delete -keystore $jksFile -storepass $jskPwd -alias $line
-         sleep 10s      
+         #sleep 10s      
          #echo -e "\nGiven $jksFile contains below number of certs : "
          #keytool -list -keystore $jksFile -storepass $jskPwd | grep "Your keystore contains"
          printNumber

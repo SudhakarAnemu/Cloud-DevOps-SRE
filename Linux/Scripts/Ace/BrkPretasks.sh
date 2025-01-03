@@ -335,7 +335,7 @@ echo "mqsichangeproperties $brk -b pubsub -o MQTTServer -n enabled -v false"
 echo "mqsichangeproperties $brk -b pubsub -o MQTTServer -n port -v '0'"
 echo "mqsireportproperties $brk -b pubsub -o MQTTServer -r"
 echo -e "\nS.No - 66 : $brk : $tag-Health of the qmgr - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------"
-health | grep $brk
+/WebSphere/scripts/middleware/mqhealth.sh | grep $brk
 pwd
 echo -e "\nS.No - 67-17 : $brk : $tag-Collecting all prop of all EGs - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------"
 LOG=AllPropEgs.$brk.$tag.17
