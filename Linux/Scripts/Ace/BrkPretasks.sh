@@ -25,7 +25,8 @@
 brk=$1
 tag=$2
 #pathtrust=/WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
-pathtrust=/WebSphere/wmbconfig/dev/truststore/wmbtruststore.jks
+#pathtrust=/WebSphere/wmbconfig/dev/truststore/wmbtruststore.jks
+pathtrust=/WebSphere/wmbconfig/qa/truststore/wmbtruststore.jks
 
 echo -e "IMP Config variables\nBroker : --$brk--\nTag : --$tag--\nTrust store path : --$pathtrust--"
 
@@ -152,9 +153,12 @@ echo -e "\nS.No - 24 : $brk : $tag-v9/v10 to ace - $(date +%Y-%m-%d_%H-%M-%S)---
 cat $LOG | grep -v "Not-Exists" | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g'
 echo -e "\nS.No - 24 : $brk : $tag-ls -l of v9/v10 to ace - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
 cat $LOG | grep -v "Not-Exists" | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g' > /tmp/del
+SNO=1
 while IFS= read -r line
 do
+   echo -e "\n----- S.No : $SNO"
    ls -l $line
+   ((SNO=SNO+1))
 done < /tmp/del
 echo -e "\nS.No - 25 : $brk : $tag-Commands of Kestore to execute - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
 cat $LOG | grep -i ":Keystore" | grep -v Not | awk -F ":" '{print "mqsichangeproperties BROKER -e " $3 " -o ComIbmJVMManager -n keystoreFile -v " $5}'
@@ -283,6 +287,8 @@ echo -e "\nS.No - 58 : $brk : $tag-tls ssl of - $(date +%Y-%m-%d_%H-%M-%S)------
 cat $LOG | grep TLS -B1
 echo -e "\nS.No - 59 : $brk : $tag-Total EGs to execute (#/2 pls) $brk - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
 cat $LOG | grep "sslProtocol='TLSv1.2'" | wc -l
+echo -e "\n--- EGs where we need to execute tls commands"
+cat $LOG | grep "sslProtocol='TLSv1.2'" -B 1 | grep "Prop of tls" | awk -F " " '{print $6}'
 echo -e "List of all commands for all EGs : "
 >/tmp/del
 cat $LOG | grep 'Prop of ssl' | awk -F "-" '{print $2}' | awk -F "(" '{print $1}' > /tmp/del
@@ -335,7 +341,12 @@ echo -e "\nS.No - 67-17 : $brk : $tag-Collecting all prop of all EGs - $(date +%
 LOG=AllPropEgs.$brk.$tag.17
 >$LOG
 /WebSphere/scripts/middleware/ace/AllPropEgs.sh $brk 17 $tag > $LOG
-echo -e "\nS.No - 68 : $brk : $tag-jar file - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------"
+
+echo -e "\nS.No - 68 : $brk : $tag-List of all Files - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
+pwd
+ls -lrt *
+
+echo -e "\nS.No - 69 : $brk : $tag-jar file - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------"
 echo -e "\n----- Count of jars"
 ls -l /var/mqsi/config/$brk/shared-classes/*.jar | wc -l
 echo -e "\n----- Path of s21ib_fw_java.jar"
@@ -344,8 +355,6 @@ echo -e "\n----- Path of s21ib_fw_java.jar using find command"
 cd /var/mqsi/config/$brk/
 find ./ -name s21ib_fw_java.jar
 
-echo -e "\nS.No - 69 : $brk : $tag-List of all Files - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
-pwd
-ls -lrt *
+
 echo -e "\nSuccessfully completed - Bye Bye"
 echo "----> Completed <----"

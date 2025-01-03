@@ -50,3 +50,5 @@ strmqm $qmgr >> $LOG
 
 echo -e "Display the qmgr -------------------------------------------" >> $LOG
 dspmq -o all | grep $qmgr >> $LOG
+
+echo "---------------------------------------- Completed ----------------------------------------"

@@ -4,6 +4,8 @@
 #/WebSphere/scripts/middleware/check_lines.sh
 #!/bin/bash
 # Check if two filenames are provided as arguments
+DNExists=/tmp/DNExists
+>$DNExists
 if [[ $# -ne 2 ]]; then
     echo "Usage: check_lines file1 file2"
     exit 1
@@ -17,7 +19,7 @@ if [[ ! -f "$file1" || ! -f "$file2" ]]; then
     echo "Error: One or both files do not exist."
     exit 1
 fi
-
+echo -e "\n--------------------------------------------------------------------------------------------"
 # Read lines from file1 into an array
 lines1=($(cat "$file1"))
 
@@ -30,6 +32,8 @@ do
         echo "$line2 exists in both files. - $ENO"
     else
         echo "$line2 does not exist in file1. - $ENO"
+        echo $line2 >> $DNExists
     fi
     ((ENO=ENO+1))
 done < "$file2"
+

@@ -6,9 +6,10 @@ fJks=$1
 fPwd=$2
 sjks=$3
 sPwd=$4
-mv *.cer old
+#mv *.cer old
 >commandsToRun
-echo "------------------------------------------------------------------------------------------------------------"
+>commandsExport
+echo -e "\n------------------------------------------------------------------------------------------------------------"
 echo -e "\nNumber of certs on first jks : $fJks"
 keytool -list -keystore $fJks -storepass $fPwd | grep "Your keystore contains"
 echo -e "\nNumber of certs on second jks : $sjks"
@@ -25,7 +26,7 @@ do
    echo -e "\nLabel is ---$label---"
    echo -e "\nExporting the Cert from $sjks"
    keytool -exportcert -keystore $sjks -storetype jks -storepass $sPwd -file $label.cer -alias "$label"
-   echo -e "keytool -exportcert -keystore $sjks -storetype jks -storepass $sPwd -file $label.cer -alias "$label""
+   echo -e "keytool -exportcert -keystore $sjks -storetype jks -storepass $sPwd -file $label.cer -alias "$label"" >> commandsExport
    #echo -e "\nImporting the Cert to $fJks - Please run below commands ----------- S.No : $ENO"
    echo -e "keytool -importcert -keystore $fJks -storetype jks -storepass $fPwd -file $label.cer -alias "$label"" >> commandsToRun
 
@@ -35,5 +36,7 @@ echo -e "\n----------------------------Content of commandsToRun"
 cat commandsToRun
 echo -e "\n----------------------------Commands to run : "
 cat commandsToRun | grep importcert
+echo -e "\n----------------------------Export commands : "
+cat commandsExport
  
 echo -e "\n--------------------- Completed ---------------------"
