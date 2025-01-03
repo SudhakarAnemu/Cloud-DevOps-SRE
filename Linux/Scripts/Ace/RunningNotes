@@ -20,6 +20,7 @@ VM-NY[wmbadmin@varhqa112 middleware]
 
 
 SSL : 
+Remove expiry certs
 /WebSphere/scripts/middleware/rmExpCerts.sh jks pwd
 
 Broker : 
