@@ -1,0 +1,17 @@
+JS
+
+VM-NY[wmbadmin@varhqa112 middleware] cat /WebSphere/scripts/middleware/ace/BrkPretasks.sh | grep -v "#" | grep .sh | uniq | sort -n
+
+
+/WebSphere/scripts/middleware/brokerstart.sh
+/WebSphere/scripts/middleware/CompareTwoJKS.sh
+/WebSphere/scripts/middleware/ace/MigMQ.sh
+/WebSphere/scripts/middleware/brkrestart.sh
+/WebSphere/scripts/middleware/brokerstart.sh
+/WebSphere/scripts/middleware/ace/AllPropEgs.sh
+/WebSphere/scripts/middleware/ace/AllSslPropEgs.sh
+/WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh
+/WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh
+
+
+VM-NY[wmbadmin@varhqa112 middleware]

@@ -1,6 +1,6 @@
 #JS - It restarts the broker. 
 
-# /WebSphere/scripts/middleware/brkrestart.sh
+# /WebSphere/scripts/middleware/BRKRestart.sh
 # 
 
 #!/bin/bash
