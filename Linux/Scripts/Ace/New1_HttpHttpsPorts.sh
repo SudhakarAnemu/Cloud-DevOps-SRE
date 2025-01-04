@@ -17,7 +17,7 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    port2=`mqsireportproperties $brk -e  $eg  -o HTTPSConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
 
 
-   if [[ -z "$port1" || -z "$port2" ]]; then
+   if [[ "$port1" -eq 0 && "$port2" -eq 0 ]]; then
       flagHttps=1
    fi
 
@@ -25,7 +25,7 @@ for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk 
    port3=`mqsireportproperties $brk -e  $eg  -o HTTPConnector -n port|grep -v BIP8071I|tr -d '\n'`    
    port4=`mqsireportproperties $brk -e  $eg  -o HTTPConnector -n explicitlySetPortNumber|grep -v BIP8071I|tr -d '\n'`
 
-   if [[ -z "$port3" || -z "$port4" ]]; then
+   if [[ "$port3" -eq 0 && "$port4" -eq 0 ]]; then
       flagHtp=1
    fi
 

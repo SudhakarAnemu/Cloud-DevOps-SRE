@@ -123,7 +123,16 @@ mqsireportproperties $brk -c AllTypes -o AllReportableEntityNames -r > $LOG
 mqsireportproperties $brk -o BrokerRegistry -r > $LOG.1
 mqsireportproperties $brk -o SecurityCache -r > $LOG.2
 echo -e "\nS.No - 16 : $brk : $tag-d2 (Of entire $brk) - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------------------"
-mqsilist $brk -d2 -r > $brk.d2.$tag.6
+#mqsilist $brk -d2 -r > $brk.d2.$tag.6
+
+ENO=1
+for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+   echo -e "\n-----Capturing d2 for $eg, SNO : $ENO"
+   mqsilist $brk -e $eg -d2 -r > $ENO.mqsilist.$brk.$eg.d2
+   ((ENO=ENO+1))
+done  
+
+
 echo -e "\nS.No - 17 : $brk : $tag-jksHttpsJvm - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------------------------"
 LOG=jksJvmHttps.$brk.$tag.7
 >$LOG
