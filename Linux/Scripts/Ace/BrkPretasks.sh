@@ -2,7 +2,7 @@
 # Wanna to add - netstat of http, httpsports
 # Developer : "Sudhakar Anemu" <sanemu_consultant@cusa.canon.com>
 
-#v10Prechecks.sh <broker> Tag 
+#BrkPretasks.sh <broker> Tag 
 #/WebSphere/scripts/middleware/ace/BrkPretasks.sh brk tag
 #!/bin/bash
 
