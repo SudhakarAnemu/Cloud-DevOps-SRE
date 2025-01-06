@@ -49,10 +49,10 @@ LOG=maxThreads.$brk.$tag.6
 >$LOG
 ENO=1
 for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-   echo -e "HTTPConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
-   mqsireportproperties $brk -e $eg -o HTTPConnector -r | grep -i maxThreads  >> $LOG
-   echo -e "HTTPSConnector - maxThreads - $brk - $eg($ENO)" >> $LOG
-   mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i maxThreads  >> $LOG
+   echo -e "HTTPConnector - maxThreads/MaxConnections - $brk - $eg($ENO)" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPConnector -r | grep -i MaxConnections  >> $LOG
+   echo -e "HTTPSConnector - maxThreads/MaxConnections - $brk - $eg($ENO)" >> $LOG
+   mqsireportproperties $brk -e $eg -o HTTPSConnector -r | grep -i MaxConnections  >> $LOG
    ((ENO=ENO+1))
 done  
 cat $LOG | grep maxThreads | grep -v HTTP

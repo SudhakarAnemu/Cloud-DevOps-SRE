@@ -233,17 +233,26 @@ LOG=AllFlowStatus.$brk.$tag.11
 >$LOG
 mqsilist $brk -r > $LOG
 echo -e "\nS.No - 39 : $brk : $tag-Count of stopped - WMB Components  (Stopped) - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------"
-cat $LOG | grep -i stop | wc -l
+cat $LOG | grep -i stopped | wc -l
 echo -e "\nS.No - 40 : $brk : $tag-List of Stopped components - EGs, flows (Stopped) - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------"
-cat $LOG | grep -i stop
+cat $LOG | grep -i stopped
+echo -e "\nS.No - 40.1 : $brk : $tag-List of Stopped components(only msg flows) - EGs, flows (Stopped) - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------"
+cat $LOG | grep -i stopped | grep "Message flow"
+
+echo -e "\nS.No - 40.2 : $brk : $tag-List of Stopped components(only msg Applications) - EGs, flows (Stopped) - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------"
+cat $LOG | grep -i stopped | grep BIP1276I
+
+echo -e "\nS.No - 40.3 : $brk : $tag-List of Stopped components(only File) - EGs, flows (Stopped) - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------"
+cat $LOG | grep -i stopped | grep File
+
 echo -e "\nS.No - 41 : $brk : $tag-mqsistop commands(EGs) for V12 - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------------"
-mqsilist $brk | grep -i stop | awk -F "'" '{print "mqsistop BRK -e "$2}'
+mqsilist $brk | grep -i stopped | awk -F "'" '{print "mqsistop BRK -e "$2}'
 echo -e "\nS.No - 43 : $brk : $tag-BIP1278I - mqsistop commands(flows) for v12 - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------"
-cat $LOG| grep -i stop | grep BIP1278I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
+cat $LOG| grep -i stopped | grep BIP1278I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $6 " -m "$2}'
 echo -e "\nS.No - 44 : $brk : $tag-BIP1289I(no App) - mqsistop commands(flows) for V12 - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------"
-cat $LOG| grep -i stop | grep BIP1289I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k  App" " -m "$2}'
+cat $LOG| grep -i stopped | grep BIP1289I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k  App" " -m "$2}'
 echo -e "\nS.No - 45 : $brk : $tag-mqsistop commands(Applications) for V12 - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------"
-cat $LOG| grep -i stop | grep BIP1276I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $2}'
+cat $LOG| grep -i stopped | grep BIP1276I | awk -F "'" '{print "mqsistopmsgflow Broker -e " $4 " -k " $2}'
 echo -e "\nS.No - 46-12 : $brk : $tag-maxThreads of Egs - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------------"
 LOG=maxThreads.$brk.$tag.12
 >$LOG
