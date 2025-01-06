@@ -141,7 +141,7 @@ echo -e "\nS.No - 18 : $brk : $tag-Truststore of Egs - $(date +%Y-%m-%d_%H-%M-%S
 echo -e "\n----------------------------------------------------------------------------------------------- All trusts"
 cat $LOG | grep -i trusts | grep -v Not
 echo -e "\n-------------------- All Unique Trusts"
-cat $LOG | grep -i trusts | grep -v Not | awk -F ":" '{print $5}' | uniq
+cat $LOG | grep -i trusts | grep -v Not | awk -F ":" '{print $5}' | uniq | sort -n
 echo -e "\nChk exits : /WebSphere/scripts/middleware/CompareTwoJKS.sh $pathtrust wmbtruststore RequirdJKS pwd | grep 'not exist'"
 echo -e "\nS.No - 19 : $brk : $tag-Trustsore commands to be execute - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------"
 >/tmp/del
@@ -157,7 +157,7 @@ echo -e "\nS.No - 21 : $brk : $tag-Keystores of the EG - $(date +%Y-%m-%d_%H-%M-
 echo -e "\nS.No - 22 : $brk : $tag - Keystores of the EG - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
 cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore
 echo -e "\nS.No - 23 : $brk : $tag-Unique-keystores - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------------------"
-cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore | awk -F":" '{print $5}' | uniq
+cat $LOG | grep -i Keystore | grep -v Not | grep -v Truststore | awk -F":" '{print $5}' | uniq | sort -n
 echo -e "\nS.No - 24 : $brk : $tag-v9/v10 to ace - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------------------------"
 cat $LOG | grep -v "Not-Exists" | awk -F":" '{print $5}' | sed 's/v9/ace/g' | sed 's/v10/ace/g'
 echo -e "\nS.No - 24 : $brk : $tag-ls -l of v9/v10 to ace - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"

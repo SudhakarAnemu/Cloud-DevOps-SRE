@@ -1,5 +1,6 @@
 #JS 
 # /WebSphere/scripts/middleware/ImprtMssdCrts.sh firstjks pwd secondjks pwd
+# /WebSphere/wmbconfig/tst/truststore/wmbtruststore.jks
 #js
 #!/bin/bash
 fJks=$1
@@ -9,6 +10,7 @@ sPwd=$4
 #mv *.cer old
 >commandsToRun
 >commandsExport
+>/tmp/mfin
 echo -e "\n------------------------------------------------------------------------------------------------------------"
 echo -e "\nNumber of certs on first jks : $fJks"
 keytool -list -keystore $fJks -storepass $fPwd | grep "Your keystore contains"
@@ -22,7 +24,7 @@ ENO=1
 while IFS= read -r line
 do
    echo -e "\nS.No : $ENO, Working on the Finger --$line-- *******************************************************************"
-   label=`keytool -list -keystore $sjks -storepass $sPwd | grep $line -B 1 | grep trustedCertEntry | awk -F"," '{print $1}'`
+   label=`keytool -list -keystore $sjks -storepass $sPwd | grep $line -B 1 | grep Entry | awk -F"," '{print $1}'`
    echo -e "\nLabel is ---$label---"
    echo -e "\nExporting the Cert from $sjks"
    keytool -exportcert -keystore $sjks -storetype jks -storepass $sPwd -file $label.cer -alias "$label"

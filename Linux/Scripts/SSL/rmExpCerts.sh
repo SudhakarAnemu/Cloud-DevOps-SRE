@@ -20,7 +20,7 @@ printNumber() {
    keytool -list -keystore $jksFile -storepass $jskPwd | grep "Your keystore contains"
 }
 printNumber
-keytool -list -keystore $jksFile -storepass $jskPwd | grep trustedCertEntry | awk -F"," '{print $1}' | sort > /tmp/certs
+keytool -list -keystore $jksFile -storepass $jskPwd | grep Entry | awk -F"," '{print $1}' | sort > /tmp/certs
 SNO=1
 answer=''
 while IFS= read -r line

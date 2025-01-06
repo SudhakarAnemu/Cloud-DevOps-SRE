@@ -9,6 +9,7 @@ fJks=$1
 fPwd=$2
 sjks=$3
 sPwd=$4
+>/tmp/DNExists
 
 echo -e "\n First jks : ---$1--- pwd : ---$2---"
 echo -e "\n Second jks : ---$3--- pwd : ---$4---"
@@ -19,7 +20,7 @@ keytool -list -keystore $3 -storepass $4 | grep fingerprint | awk -F" " '{print 
 
 /WebSphere/scripts/middleware/check_lines.sh file1 file2
 
-echo -e "\n--------------- Finger prints which does not exists --------------- "
+echo -e "\n--------------- Finger prints which did not exists --------------- "
 cat /tmp/DNExists
 
 echo -e "\n------------- Lables and expiry basedon the Finger prints"
@@ -27,7 +28,7 @@ echo -e "\n------------- Lables and expiry basedon the Finger prints"
 ENO=1
 while IFS= read -r finger;
 do
-   label=`keytool -list -keystore $sjks -storepass $sPwd | grep $finger -B 1 | grep trustedCertEntry | awk -F"," '{print $1}'`
+   label=`keytool -list -keystore $sjks -storepass $sPwd | grep $finger -B 1 | grep Entry | awk -F"," '{print $1}'`
    echo -e "\nS.No : $ENO, Label is ---$label---"
    echo -e "\nExpiry ................................. "
    keytool -list -keystore $sjks -storepass $sPwd -alias "$label" -v | grep Valid   
