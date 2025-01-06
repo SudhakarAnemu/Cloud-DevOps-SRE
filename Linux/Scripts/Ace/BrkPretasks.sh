@@ -305,8 +305,13 @@ echo -e "\nS.No - 58 : $brk : $tag-tls ssl of - $(date +%Y-%m-%d_%H-%M-%S)------
 cat $LOG | grep TLS -B1
 echo -e "\nS.No - 59 : $brk : $tag-Total EGs to execute (#/2 pls) $brk - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
 cat $LOG | grep "sslProtocol='TLSv1.2'" | wc -l
-echo -e "\n--- EGs where we need to execute tls commands"
-cat $LOG | grep "sslProtocol='TLSv1.2'" -B 1 | grep "Prop of tls" | awk -F " " '{print $6}'
+echo -e "\n--- EGs where we need to execute tls commands with commands"
+#cat $LOG | grep "sslProtocol='TLSv1.2'" -B 1 | grep "Prop of tls" | awk -F " " '{print $6}'
+cat $LOG | grep "sslProtocol='TLSv1.2'" -B 1 | grep "Prop of tls IIBQAAA34" | awk -F" " '{print $6}' | awk -F"(" '{print $1}' > /tmp/del
+while IFS= read -r line
+do
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n TLSProtocols -v 'TLSv1.2'"
+done < /tmp/del
 echo -e "List of all commands for all EGs : "
 >/tmp/del
 cat $LOG | grep 'Prop of ssl' | awk -F "-" '{print $2}' | awk -F "(" '{print $1}' > /tmp/del
