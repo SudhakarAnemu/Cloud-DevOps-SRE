@@ -176,7 +176,13 @@ cat $LOG
 echo -e "\nS.No - 27 : $brk : $tag-Key and Trust stores of Egs(Only Exists) - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------"
 cat $LOG | grep -v 'Not-Exists'
 echo -e "\nS.No - 28-8 : $brk : $tag-http and https - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
-LOG=HttpHttpsPorts.$brk.$tag.8
+#LOG=HttpHttpsPorts.$brk.$tag.8.1
+#>$LOG
+#echo -e "\nActual commands needs to execute"
+#/WebSphere/scripts/middleware/ace/New1_HttpHttpsPorts.sh $brk 8.1 $tag > $LOG
+#echo -e "\nActual commands needs to execute"
+#echo -e "\n"
+#LOG=HttpHttpsPorts.$brk.$tag.8
 >$LOG
 /WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh $brk 8 $tag > $LOG
 echo -e "\nS.No - 29 : $brk : $tag-netstat of http ports - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
@@ -307,7 +313,10 @@ echo -e "\nS.No - 59 : $brk : $tag-Total EGs to execute (#/2 pls) $brk - $(date 
 cat $LOG | grep "sslProtocol='TLSv1.2'" | wc -l
 echo -e "\n--- EGs where we need to execute tls commands with commands"
 #cat $LOG | grep "sslProtocol='TLSv1.2'" -B 1 | grep "Prop of tls" | awk -F " " '{print $6}'
-cat $LOG | grep "sslProtocol='TLSv1.2'" -B 1 | grep "Prop of tls IIBQAAA34" | awk -F" " '{print $6}' | awk -F"(" '{print $1}' > /tmp/del
+cat $LOG | grep "sslProtocol='TLSv1.2'" -B 1 | grep "Prop of tls $brk" | awk -F" " '{print $6}' | awk -F"(" '{print $1}' > /tmp/del
+echo -e "\n---------------------------------------- List of EGs which has TLSv1.2"
+cat /tmp/del
+echo -e "\n---------------------------------------- List of Commands which needs to be executed"
 while IFS= read -r line
 do
    echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n TLSProtocols -v 'TLSv1.2'"
@@ -369,7 +378,13 @@ echo -e "\nS.No - 68 : $brk : $tag-List of all Files - $(date +%Y-%m-%d_%H-%M-%S
 pwd
 ls -lrt *
 
-echo -e "\nS.No - 69 : $brk : $tag-jar file - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------"
+echo -e "\nS.No - 69 : $brk : $tag-Https and Http commands - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------"
+
+echo -e "\nActual http commands needs to execute"
+/WebSphere/scripts/middleware/ace/New1_HttpHttpsPorts.sh $brk 8.1 $tag
+
+
+echo -e "\nS.No - 70 : $brk : $tag-jar file - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------"
 echo -e "\n----- Count of jars"
 ls -l /var/mqsi/config/$brk/shared-classes/*.jar | wc -l
 echo -e "\n----- Path of s21ib_fw_java.jar"
