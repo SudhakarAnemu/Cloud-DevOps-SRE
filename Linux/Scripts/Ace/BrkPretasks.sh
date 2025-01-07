@@ -204,14 +204,21 @@ cat $LOG
 echo -e "----------Syntax to change ports : "
 echo -e "mqsichangeproperties brk -e eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
 echo -e "mqsichangeproperties brk -e eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
-echo -e "----------List of EGs ---------"
+echo -e "----------Syntax to change prop of EGs ---------"
 >/tmp/del
-cat $LOG | awk -F":" '{print $2}' | awk -F"-" '{print $1}' > /tmp/del
-while IFS= read -r line
-do
-   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
-   echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
-done < /tmp/del
+#cat $LOG | awk -F":" '{print $2}' | awk -F"-" '{print $1}' > /tmp/del
+#while IFS= read -r line
+#do
+#   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+#   echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+#done < /tmp/del
+
+for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
+   echo -e "mqsichangeproperties $brk -e $eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+   echo -e "mqsichangeproperties $brk -e $eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+   ((ENO=ENO+1))
+done  
+
 echo -e "\nS.No - 31 : $brk : $tag-jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------"
 LOG=jvmSystemPropertyJvmDPort.$brk.$tag.9
 >$LOG
@@ -338,14 +345,14 @@ LOG=webconsole.$brk.$tag.15
 mqsiwebuseradmin $brk -l >> $LOG
 echo -e "\n ---------------------------------------------------------- mqsiwebuseradmin : $brk "
 cat $LOG
-echo -e "\nS.No - 20 : $brk : $tag-Line number of brokerstart.sh - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------"
+echo -e "\nS.No - 62 : $brk : $tag-Line number of brokerstart.sh - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------"
 cat -n /WebSphere/scripts/middleware/brokerstart.sh | grep $brk
 echo -e "/WebSphere/scripts/middleware/brokerstart.sh -> This script needs to be update"
-echo -e "\nS.No - 21-16 : $brk : $tag-Collecting all SSL prop of all EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
+echo -e "\nS.No - 63-16 : $brk : $tag-Collecting all SSL prop of all EGs - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------------"
 LOG=AllSSLProperties.$brk.$tag.16
 >$LOG
 /WebSphere/scripts/middleware/ace/AllSslPropEgs.sh $brk 16 $tag > $LOG
-echo -e "\nS.No - 23-18 : $brk : $tag-Collecting all flows with status - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------"
+echo -e "\nS.No - 64-18 : $brk : $tag-Collecting all flows with status - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------"
 LOG=AllFlowStatus.$brk.$tag.18
 >$LOG
 #echo -e "\n---------------------------------------------------------------------------------------Collecting all running components"
