@@ -185,6 +185,8 @@ echo -e "\nS.No - 28-8 : $brk : $tag-http and https - $(date +%Y-%m-%d_%H-%M-%S)
 #LOG=HttpHttpsPorts.$brk.$tag.8
 >$LOG
 /WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh $brk 8 $tag > $LOG
+echo -e "\nS.No - 29.0 : Http and Http ports"
+cat $LOG
 echo -e "\nS.No - 29 : $brk : $tag-netstat of http ports - $(date +%Y-%m-%d_%H-%M-%S)---------------------------------------------------------------------------------"
 cat $LOG | awk -F"-" '{print $4}' | grep -v ":0" | cut -d":" -f2 > /tmp/del
 while IFS= read -r line
@@ -213,12 +215,14 @@ echo -e "----------Syntax to change prop of EGs ---------"
 #   echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
 #done < /tmp/del
 
-for eg in `mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}'`; do
-   echo -e "mqsichangeproperties $brk -e $eg -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
-   echo -e "mqsichangeproperties $brk -e $eg -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
-   ((ENO=ENO+1))
-done  
+mqsilist $brk | grep running | sort -n |awk -F" " '{print $4}' | awk -F"'" '{print $2}' > /tmp/del
 
+while IFS= read -r line
+do
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPSConnector -n port,explicitlySetPortNumber -v 0,0"
+   echo -e "mqsichangeproperties $brk -e $line -o HTTPConnector -n port,explicitlySetPortNumber -v 0,0"
+done < /tmp/del
+ 
 echo -e "\nS.No - 31 : $brk : $tag-jvmSystemProperty,jvmDebugPort of all EG's - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------"
 LOG=jvmSystemPropertyJvmDPort.$brk.$tag.9
 >$LOG

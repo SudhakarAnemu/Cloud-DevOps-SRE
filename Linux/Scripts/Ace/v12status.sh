@@ -14,6 +14,9 @@ mqsilist | grep $brk
 echo -e "\nS.No - 2 : $brk : $tag- mqsicvp(success) - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
 mqsicvp $brk | grep 'Verification passed for User Datasource'
 echo -e "\nS.No - 3 : $brk : $tag- SSL(Key, Trust stores) - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
+echo -e "\nTrust and Keystore at Broker level"
+mqsireportproperties $brk -o BrokerRegistry -r | grep -E "brokerTruststoreFile|brokerKeystoreFile"
+
 LOG=jksJvmHttps.$brk.$tag.3
 >$LOG
 /WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 3 $tag > $LOG
