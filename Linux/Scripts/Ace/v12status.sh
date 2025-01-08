@@ -45,7 +45,7 @@ done < /tmp/del
 echo -e "\nS.No - 5 : List of Stopped flows - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
 mqsilist $brk -r| grep -i stop
 echo -e "\nCount of Stopped flows - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
-mqsilist $brk -r| grep -i stop | wc -l
+mqsilist $brk -r| grep -i stopped | wc -l
 
 echo -e "\nS.No - 6 : $brk : $tag-maxThreads of Egs - $(date +%Y-%m-%d_%H-%M-%S)--------------------------------------------------------------------------------"
 LOG=maxThreads.$brk.$tag.6
