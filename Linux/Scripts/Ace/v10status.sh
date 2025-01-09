@@ -18,6 +18,8 @@ LOG=jksJvmHttps.$brk.$tag.3
 >$LOG
 /WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh $brk 3 $tag > $LOG
 cat $LOG | grep -v 'Not-Exists'
+echo -e "\nS.No - 3.1 : $brk : $tag- SSL(Key, Trust stores) - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
+cat $LOG | grep 'Not-Exists'
 echo -e "\nS.No - 4 : $brk : $tag- HTTPports - $(date +%Y-%m-%d_%H-%M-%S)-----------------------------------------------------------------------"
 LOG=HttpHttpsPorts.$brk.$tag.4
 >$LOG
