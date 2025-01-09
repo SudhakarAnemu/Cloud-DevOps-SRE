@@ -27,6 +27,7 @@ SSL :
 Remove expiry certs
 /WebSphere/scripts/middleware/rmExpCerts.sh jks pwd
 /WebSphere/scripts/middleware/ImprtMssdCrts.sh firstjks pwd secondjks pwd
+/WebSphere/scripts/middleware/CompareTwoJKS.sh firstjks pwd secondjks pwd
 
 
 
