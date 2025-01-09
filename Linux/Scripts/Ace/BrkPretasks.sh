@@ -32,7 +32,7 @@ echo -e "IMP Config variables\nBroker : --$brk--\nTag : --$tag--\nTrust store pa
 
 echo "Do you want to proceed? (y/n)"
 read -r answer
-
+echo -e "\nGiven answer is $answer"
 if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
   echo "Exiting..... Please cross check above variables."
   exit 1
@@ -175,6 +175,8 @@ echo -e "\nS.No - 26 : $brk : $tag-Key and Trust stores of Egs - $(date +%Y-%m-%
 cat $LOG
 echo -e "\nS.No - 27 : $brk : $tag-Key and Trust stores of Egs(Only Exists) - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------"
 cat $LOG | grep -v 'Not-Exists'
+echo -e "\nS.No - 27.1 : $brk : $tag-Key and Trust stores of Egs(Only NotExists) - $(date +%Y-%m-%d_%H-%M-%S)------------------------------------------------------------"
+cat $LOG | grep 'Not-Exists'
 echo -e "\nS.No - 28-8 : $brk : $tag-http and https - $(date +%Y-%m-%d_%H-%M-%S)-------------------------------------------------------------------------------------"
 #LOG=HttpHttpsPorts.$brk.$tag.8.1
 #>$LOG

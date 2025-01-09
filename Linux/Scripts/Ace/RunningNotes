@@ -5,7 +5,11 @@ VM-NY[wmbadmin@varhqa112 middleware] cat /WebSphere/scripts/middleware/ace/BrkPr
 
 1. Prereq of the Broker (Broker pretasks)
 /WebSphere/scripts/middleware/ace/BrkPretasks.sh
- 
+/WebSphere/scripts/middleware/ace/v10status.sh
+/WebSphere/scripts/middleware/ace/v12status.sh
+
+
+
 /WebSphere/scripts/middleware/CompareTwoJKS.sh
 /WebSphere/scripts/middleware/ace/MigMQ.sh
 /WebSphere/scripts/middleware/BRKRestart.sh
