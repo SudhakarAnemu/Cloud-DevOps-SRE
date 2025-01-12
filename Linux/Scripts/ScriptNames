@@ -10,16 +10,22 @@ ACE Migrations
 /WebSphere/scripts/middleware/ace/v10status.sh
 /WebSphere/scripts/middleware/ace/v12status.sh
 
-2. JKS 
+2. JKS SSL 
+/WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh
+/WebSphere/scripts/middleware/ImprtMssdCrts.sh firstjks pwd secondjks pwd
+/WebSphere/scripts/middleware/CompareTwoJKS.sh firstjks pwd secondjks pwd
 
-/WebSphere/scripts/middleware/CompareTwoJKS.sh
+
+3. WMQ 
 /WebSphere/scripts/middleware/ace/MigMQ.sh
+
+
 /WebSphere/scripts/middleware/BRKRestart.sh
  
 /WebSphere/scripts/middleware/ace/AllPropEgs.sh
 /WebSphere/scripts/middleware/ace/AllSslPropEgs.sh
 /WebSphere/scripts/middleware/ace/HttpHttpsPorts.sh
-/WebSphere/scripts/middleware/ace/jksExistsJvmHttps.sh
+
 
 
 VM-NY[wmbadmin@varhqa112 middleware]
@@ -28,8 +34,6 @@ VM-NY[wmbadmin@varhqa112 middleware]
 SSL : 
 Remove expiry certs
 /WebSphere/scripts/middleware/rmExpCerts.sh jks pwd
-/WebSphere/scripts/middleware/ImprtMssdCrts.sh firstjks pwd secondjks pwd
-/WebSphere/scripts/middleware/CompareTwoJKS.sh firstjks pwd secondjks pwd
 
 
 
