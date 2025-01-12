@@ -10,7 +10,7 @@ ACE Migrations
 /WebSphere/scripts/middleware/ace/v10status.sh
 /WebSphere/scripts/middleware/ace/v12status.sh
 
-
+2. JKS 
 
 /WebSphere/scripts/middleware/CompareTwoJKS.sh
 /WebSphere/scripts/middleware/ace/MigMQ.sh
