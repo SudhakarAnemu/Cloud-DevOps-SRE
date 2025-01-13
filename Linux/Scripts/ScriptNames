@@ -1,6 +1,6 @@
 JS
 
-VM-NY[wmbadmin@varhqa112 middleware] cat /WebSphere/scripts/middleware/ace/BrkPretasks.sh | grep -v "#" | grep .sh | uniq | sort -n
+cat /WebSphere/scripts/middleware/ace/BrkPretasks.sh | grep -v "#" | grep .sh | uniq | sort -n
 
 
 ACE Migrations
@@ -19,8 +19,9 @@ ACE Migrations
 3. WMQ 
 /WebSphere/scripts/middleware/ace/MigMQ.sh
 
-
+4. WMB : 
 /WebSphere/scripts/middleware/BRKRestart.sh
+
  
 /WebSphere/scripts/middleware/ace/AllPropEgs.sh
 /WebSphere/scripts/middleware/ace/AllSslPropEgs.sh
@@ -40,4 +41,3 @@ Remove expiry certs
 
 Broker : 
 Broker restart : 
-/WebSphere/scripts/middleware/BRKRestart.sh
