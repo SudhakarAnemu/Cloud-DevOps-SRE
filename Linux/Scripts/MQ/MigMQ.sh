@@ -15,6 +15,10 @@ echo -e "Setting v10 profile -------------------------------------------" >> $LO
 #setwmb 10
 . /WebSphere/scripts/middleware/wmbprofile 10
 
+echo -e "\nHealth of the qmgr : " >> $LOG
+
+/WebSphere/scripts/middleware/mqhealth.sh | grep $qmgr >> $LOG
+
 /WebSphere/scripts/middleware/qmgrSuspend.sh $qmgr >> $LOG
 
 echo -e "mqsilist of the brk" >> $LOG
