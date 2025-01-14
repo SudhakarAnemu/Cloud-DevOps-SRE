@@ -19,7 +19,6 @@ ACE Migrations
 3. WMQ 
 /WebSphere/scripts/middleware/ace/MigMQ.sh qmgr brk ver
 
-
 4. WMB : 
 /WebSphere/scripts/middleware/BRKRestart.sh
 /WebSphere/scripts/middleware/qmgrResume.sh qmgr
