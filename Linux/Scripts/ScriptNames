@@ -19,8 +19,25 @@ ACE Migrations
 3. WMQ 
 /WebSphere/scripts/middleware/ace/MigMQ.sh qmgr brk ver
 
+
+REFRESH QMGR TYPE(CONFIGEV) NAME(WMBQAAA26)
+
+
+
 4. WMB : 
 /WebSphere/scripts/middleware/BRKRestart.sh
+
+perl /WebSphere/scripts/middleware/wmbRestart.pl WMBQAAB26 stop;
+perl /WebSphere/scripts/middleware/wmbRestart.pl WMBQAAB26 start;
+
+WMBQAAA26
+
+
+perl /WebSphere/scripts/middleware/wmbRestart.pl WMBQAAA26 stop;
+perl /WebSphere/scripts/middleware/wmbRestart.pl WMBQAAA26 start;
+
+
+
 /WebSphere/scripts/middleware/qmgrResume.sh qmgr
 /WebSphere/scripts/middleware/qmgrSuspend.sh qmgr
 
