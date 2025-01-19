@@ -3,7 +3,15 @@ JS
 URL : 
 https://www.linuxtechi.com/install-prometheus-monitoring-tool-centos-8-rhel-8/
 
+Hints : 
+1. Given 777 permissions on to resolve issues. 
 
+ 1073  chmod 777 /opt/prometheus-3.1.0.linux-amd64/prometheus
+ 1074  chmod 777 /opt/prometheus-3.1.0.linux-amd64/prometheus.yml
+ 1108  chmod -R 777 ls -ld /var/lib/prometheus/
+ 1109  chmod -R 777 /var/lib/prometheus/
+ 1145  chmod -R 777 /etc/prometheus
+ 1152  chmod -R 777 /opt/prometheus-3.1.0.linux-amd64
 
 
 1. 
