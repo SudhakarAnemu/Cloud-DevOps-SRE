@@ -1,0 +1,70 @@
+js
+
+
+URL to login : 
+
+http://<your_server_ip>:3000  --> 3000 is default of Grafana. 
+
+http://10.225.4.210:3000 ---> Enable vpn - GCP 
+
+admin/admin 
+
+sudo yum install -y grafana
+
+sudo systemctl daemon-reload
+sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
+
+
+systemctl restart grafana-server
+systemctl status grafana-server
+
+
+-------------> How to change port nummber of Grafana
+
+vi /etc/grafana/grafana.ini
+
+[root@esb-poc-instance-1 grafana]# diff grafana.ini grafana.ini.orig
+41,42c41
+< #;http_port = 3000
+< http_port = 4000
+---
+> ;http_port = 3000
+[root@esb-poc-instance-1 grafana]#
+
+
+vi /usr/share/grafana/conf/defaults.ini
+
+[root@esb-poc-instance-1 conf]# vi defaults.ini
+[root@esb-poc-instance-1 conf]# diff defaults.ini defaults.ini.orig
+41,43c41
+< #http_port = 3000
+< http_port = 4000
+<
+---
+> http_port = 3000
+[root@esb-poc-instance-1 conf]#
+[root@esb-poc-instance-1 conf]# pqd
+  
+[root@esb-poc-instance-1 conf]# pwd
+/usr/share/grafana/conf
+[root@esb-poc-instance-1 conf]#
+
+
+---> Permissions 
+
+[root@esb-poc-instance-1 conf]# ls -ld /var/lib/grafana
+drwxr-x---. 6 grafana grafana 77 Jan 19 17:26 /var/lib/grafana
+[root@esb-poc-instance-1 conf]# ls -ld /var/log/grafana
+drwxr-xr-x. 2 grafana grafana 25 Jan 19 17:16 /var/log/grafana
+[root@esb-poc-instance-1 conf]# chmod -R 777 /var/lib/grafana
+[root@esb-poc-instance-1 conf]# chmod -R 777 /var/log/grafana
+[root@esb-poc-instance-1 conf]# ls -ld /var/lib/grafana
+drwxrwxrwx. 6 grafana grafana 77 Jan 19 17:26 /var/lib/grafana
+[root@esb-poc-instance-1 conf]#
+[root@esb-poc-instance-1 conf]#
+[root@esb-poc-instance-1 conf]# ls -ld /var/log/grafana
+drwxrwxrwx. 2 grafana grafana 25 Jan 19 17:16 /var/log/grafana
+[root@esb-poc-instance-1 conf]#
+[root@esb-poc-instance-1 conf]#
+

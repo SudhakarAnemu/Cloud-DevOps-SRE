@@ -3,8 +3,9 @@ JS
 URL : 
 https://www.linuxtechi.com/install-prometheus-monitoring-tool-centos-8-rhel-8/
 
-Hints : 
-1. Given 777 permissions on to resolve issues. 
+Hints : Issues and Resolutions : 
+1. Installed go and java pkgs. 
+2. Given 777 permissions on to resolve issues. 
 
  1073  chmod 777 /opt/prometheus-3.1.0.linux-amd64/prometheus
  1074  chmod 777 /opt/prometheus-3.1.0.linux-amd64/prometheus.yml
@@ -13,6 +14,8 @@ Hints :
  1145  chmod -R 777 /etc/prometheus
  1152  chmod -R 777 /opt/prometheus-3.1.0.linux-amd64
 
+URL to access Promothesu : 
+1. GCP : http://10.225.4.210:9090/query   (Note : Enable vpn)
 
 1. 
 sudo yum install -y epel-release 
