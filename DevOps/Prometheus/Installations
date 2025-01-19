@@ -1,0 +1,105 @@
+JS
+
+URL : 
+https://www.linuxtechi.com/install-prometheus-monitoring-tool-centos-8-rhel-8/
+
+
+
+
+1. 
+sudo yum install -y epel-release 
+sudo yum install -y java-11-openjdk-devel
+
+2.
+wget https://github.com/prometheus/prometheus/releases/download/v3.x.x/prometheus-3.x.x.linux-amd64.tar.gz
+
+a. goto official website
+b. copy the link and download at the GCP server (VM)
+https://github.com/prometheus/prometheus/releases/download/v3.1.0/prometheus-3.1.0.linux-amd64.tar.gz
+
+3. untar at /opt 
+   
+sudo tar -xvf prometheus-3.1.0.linux-amd64.tar.gz -C /opt/
+
+[root@esb-poc-instance-1 jsmq]# sudo tar -xvf prometheus-3.1.0.linux-amd64.tar.gz -C /opt/
+prometheus-3.1.0.linux-amd64/
+prometheus-3.1.0.linux-amd64/NOTICE
+prometheus-3.1.0.linux-amd64/promtool
+prometheus-3.1.0.linux-amd64/LICENSE
+prometheus-3.1.0.linux-amd64/prometheus
+prometheus-3.1.0.linux-amd64/prometheus.yml
+[root@esb-poc-instance-1 jsmq]#
+
+4. Create systemd process : 
+   
+[root@esb-poc-instance-1 jsmq]# cat /etc/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus
+After=network.target
+
+[Service]
+User=prometheus
+Group=prometheus
+WorkingDirectory=/opt/prometheus-3.x.x
+ExecStart=/opt/prometheus-3.1.0.linux-amd64/prometheus --config.file=/opt/prometheus-3.x.x/prometheus.yml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+[root@esb-poc-instance-1 jsmq]#
+
+
+5. Create group and id . 
+sudo groupadd prometheus
+sudo useradd -r -g prometheus prometheus
+
+[root@esb-poc-instance-1 jsmq]# id prometheus
+uid=992(prometheus) gid=1008(prometheus) groups=1008(prometheus)
+[root@esb-poc-instance-1 jsmq]#
+
+6. Create a dir 
+sudo mkdir -p /etc/prometheus
+
+7. Create a symbolic link : 
+sudo ln -s /etc/prometheus/prometheus.yml /opt/prometheus-3.x.x/prometheus.yml
+
+sudo ln -s /etc/prometheus/prometheus.yml /opt/prometheus-3.x.x/prometheus.yml
+
+
+[root@esb-poc-instance-1 jsmq]# ls -l /opt/prometheus-3.1.0.linux-amd64/prometheus.yml
+-rw-r--r--. 1 nginxadminusr docker 934 Jan  2 14:07 /opt/prometheus-3.1.0.linux-amd64/prometheus.yml
+
+8. Create 
+sudo cp /opt/prometheus-3.x.x/prometheus.yml /etc/prometheus/
+
+cp /opt/prometheus-3.1.0.linux-amd64/prometheus.yml /etc/prometheus/
+
+cat /etc/prometheus/prometheus.yml
+9. Restart : 
+
+sudo systemctl daemon-reload
+sudo systemctl start prometheus
+sudo systemctl enable prometheus
+
+systemctl restart prometheus
+systemctl status prometheus
+
+
+[root@esb-poc-instance-1 prometheus]# sudo systemctl enable prometheus
+Created symlink /etc/systemd/system/multi-user.target.wants/prometheus.service → /etc/systemd/system/prometheus.service.
+[root@esb-poc-instance-1 prometheus]#
+
+10.    
+sudo journalctl -u prometheus -xe
+--> Trouble shooting if the process is down. 
+
+11.          
+[root@esb-poc-instance-1 prometheus-3.1.0.linux-amd64]# firewall-cmd --add-port=9090/tcp --permanent
+success
+[root@esb-poc-instance-1 prometheus-3.1.0.linux-amd64]#
+
+[root@esb-poc-instance-1 prometheus-3.1.0.linux-amd64]# firewall-cmd --reload
+success
+[root@esb-poc-instance-1 prometheus-3.1.0.linux-amd64]#
+
+
