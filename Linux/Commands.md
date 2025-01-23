@@ -9,7 +9,31 @@ cat trust.ck | awk -F ":" '{print $5}' | uniq
 
 **SSL Commands**
 
-| S.No | Commands | Description |
-| ------ | ---------- | ------------- |
-| 1    |keytool -list -keystore jks -storepass pwd|
-| 2    |          |             |
+
+| S.No | Commands                                   | Description                      |
+| ------ | :------------------------------------------- | ---------------------------------- |
+| 1    | keytool -list -keystore jks -storepass pwd |                                  |
+| 2    |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      | Grep                                       |                                  |
+|      | grep -E "string1PIPEstring2PIPEstring3"    | It consider the given strings    |
+|      | grep -Ev "string1PIPEstring2PIPEstring3"   | It will ignore the given strings |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
+|      |                                            |                                  |
