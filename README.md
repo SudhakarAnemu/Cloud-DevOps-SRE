@@ -27,7 +27,7 @@ https://stacksimplify.com/courses/stacksimplify-best-selling-courses-on-udemy/
 | 11   | Datastructures      |                                                                                             |                |
 | 12   | Java                |                                                                                             |                |
 | 13   | Python              |                                                                                             |                |
-| 14   |Linux                     |https://github.com/SudhakarAnemu/Cloud-DevOps-SRE/blob/main/QuickCommands/LinuxNW.md                                                                                             |                |
+| 14   |Linux                     |https://github.com/SudhakarAnemu/Cloud-DevOps-SRE/blob/main/Linux/Commands.md                                                                                             |                |
 | 15   |                     |                                                                                             |                |
 | 16   |                     |                                                                                             |                |
 | 17   |                     |                                                                                             |                |
