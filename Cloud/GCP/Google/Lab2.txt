@@ -1,0 +1,297 @@
+js
+
+bucket0126234
+
+gsutil cp -r gs://spls/gsp087/* gs://bucket0126234
+
+gs://bucket0126234/startup.sh
+
+
+
+
+
+#
+# Copyright 2017 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http:#www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Modified to sync up timing offset to first node startup
+
+
+#!/bin/bash
+if [ $# -ne 4 ]
+  then
+    echo "Usage $0 [PROJECTID] [INSTANCEID] [ZONEID] [TIMEOFFSET]"
+    exit 1
+fi
+while sleep 10; do node /opt/app/autoscale_metric/writeToCustomMetric.js $1 $2 $3 $4;  done
+
+exit 
+
+
+
+
+
+
+#
+# Copyright 2017 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http:#www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+set -v
+
+# Talk to the metadata server to get the project id
+PROJECTID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
+INSTANCEID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/id" -H "Metadata-Flavor:Google")
+ZONEID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/zone" -H "Metadata-Flavor:Google")
+GCS_BUCKET_NAME=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/attributes/gcs-bucket" -H "Metadata-Flavor:Google")
+
+# Install logging monitor. The monitor will automatically pick up logs sent to syslog.
+curl -s "https://storage.googleapis.com/signals-agents/logging/google-fluentd-install.sh" | bash
+service google-fluentd restart &
+
+# Install dependencies from apt
+apt-get update
+apt-get install -yq ca-certificates git nodejs build-essential supervisor libz-dev libgrpc-dev
+
+# Install nodejs
+apt-get install nodejs npm -y
+
+# Setup the script directories
+mkdir /opt/app
+mkdir /opt/app/autoscale_metric
+cd /opt/app/autoscale_metric
+
+# Copy the script files from your bucket to the VM
+gsutil cp $GCS_BUCKET_NAME/writeToCustomMetric.js /opt/app/autoscale_metric/writeToCustomMetric.js
+gsutil cp $GCS_BUCKET_NAME/writeToCustomMetric.sh /opt/app/autoscale_metric/writeToCustomMetric.sh
+gsutil cp $GCS_BUCKET_NAME/config.json /opt/app/autoscale_metric/config.json
+gsutil cp $GCS_BUCKET_NAME/package.json /opt/app/autoscale_metric/package.json
+
+npm install 
+
+# Set exec permissions
+chmod 755 /opt/app/autoscale_metric/writeToCustomMetric.sh 
+
+# Create a nodeapp user. The application will run as this user.
+useradd -m -d /home/nodeapp nodeapp
+chown -R nodeapp:nodeapp /opt/app
+
+# establish the high cycle start offset time based on the first node startup time, defaults to now to handle first run case. 
+# gcloud logging read --limit=1 nodeapp --order=asc > log.txt
+OFFSET=$(perl -e 'open (FH, "log.txt"); while (<FH>) { $x .= $_ }; if ($x =~ /receiveTimestamp.*\d\dT\d\d:(\d\d)/) {print "$1\n"} else {@time=localtime(time);print "$time[1]\n"}')
+echo $PROJECTID $INSTANCEID $ZONEID $OFFSET
+
+# Configure supervisor to run the node app.
+cat >/etc/supervisor/conf.d/node-app.conf << EOF
+[program:nodeapp]
+directory=/opt/app/autoscale_metric
+command=bash /opt/app/autoscale_metric/writeToCustomMetric.sh $PROJECTID $INSTANCEID $ZONEID $OFFSET
+autostart=true
+autorestart=true
+user=nodeapp
+environment=HOME="/home/nodeapp",USER="nodeapp",NODE_ENV="production"
+stdout_logfile=syslog
+stderr_logfile=syslog
+EOF
+
+supervisorctl reread
+supervisorctl update
+
+# Application should now be running under supervisor
+supervisorctl status all
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// Copyright 2017 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+"use strict";
+// Imports the Google Cloud client library
+const Monitoring = require('@google-cloud/monitoring');
+// import the configuration
+const config = require('./config.json');
+// Instantiates a monitoring client
+const client = new Monitoring.MetricServiceClient();
+// gets a random integer between a [min - max-1]
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; 
+}
+// [START insertCustomMetric]
+/**
+ * Creates an arbitrary custom metric based on the time of the day.
+ *
+ * @param {object} args The Node JS process arguments [PROJECTID] [INSTANCEID] [ZONEID]
+ */
+function insertCustomMetric(args){
+  var projectId = args[2];
+  var instanceId = args[3];
+  var zoneId = args[4].slice(args[4].lastIndexOf("/")+1);
+  var offset = args[5];
+  var dataValue = 0;
+  var minutes = new Date().getMinutes();
+  minutes = (minutes + 30 - offset) %30;
+
+  if ((minutes >= 0) && (minutes < 15)) {
+    dataValue = getRandomInt(config.HIGH_VAL_MIN,config.HIGH_VAL_MAX);   // scale up metric value 
+  } else {
+    dataValue = getRandomInt(config.LOW_VAL_MIN,config.LOW_VAL_MAX); // scale down metric value 
+  }
+  console.info("projectId: "+projectId + ", zoneId: "+zoneId+", instanceId: "+instanceId +", dataValue: "+dataValue);
+    const dataPoint = {
+      interval: {
+        endTime: {
+          seconds: Date.now() / 1000
+        }
+      },
+      value: {
+        doubleValue: dataValue
+      }
+    };
+    const timeSeriesData = {
+      metric: {
+        type: config.METRIC_TYPE,
+        labels: {
+          queue_name: config.METRIC_QUEUE_NAME
+        }
+      },
+      resource: {
+        type: 'gce_instance',
+        labels: {
+          project_id: projectId,
+          zone: zoneId,
+          instance_id: instanceId
+        }
+      },
+      points: [
+        dataPoint
+      ]
+    };
+    const request = {
+      name: client.projectPath(projectId),
+      timeSeries: [
+        timeSeriesData
+      ]
+    };
+    console.log(JSON.stringify(request));
+    // Writes time series data
+    client.createTimeSeries(request)
+      .then((results) => {
+        console.info(`Finished writing time series data.`);
+      })
+      .catch((err) => {
+        console.error('ERROR:', err);
+      });
+}
+// [END insertCustomMetric]
+
+ function main() {
+
+    // [START insertCustomMetric]
+    /**
+     * Creates an arbitrary custom metric based on the time of the day.
+     *
+     * @param {object} args The Node JS process arguments [PROJECTID] [INSTANCEID] [ZONEID]
+     */
+    if (process.argv.length != 6) {
+        console.error("Usage: writeToCustomMetric.js [PROJECTID] [INSTANCEID] [ZONEID] [OFFSET]");
+    } else {
+        insertCustomMetric(process.argv);
+
+    }
+    // [END insertCustomMetric]  
+
+
+}
+
+if (module === require.main) {
+  main();
+}
+
+module.exports = {
+main: main,
+getRandomInt: getRandomInt,
+insertCustomMetric: insertCustomMetric
+
+};
+
+
+
+#
+# Copyright 2017 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http:#www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Modified to sync up timing offset to first node startup
+
+
+#!/bin/bash
+if [ $# -ne 4 ]
+  then
+    echo "Usage $0 [PROJECTID] [INSTANCEID] [ZONEID] [TIMEOFFSET]"
+    exit 1
+fi
+while sleep 10; do node /opt/app/autoscale_metric/writeToCustomMetric.js $1 $2 $3 $4;  done
+
+exit 
+
+Understanding the code components
+Startup.sh - A shell script that installs the necessary components to each Compute Engine instance as the instance is added to the managed instance group.
+writeToCustomMetric.js - A Node.js snippet that creates a custom monitoring metric whose value triggers scaling. To emulate real-world metric values, this script varies the value over time. In a production deployment, you replace this script with custom code that reports the monitoring metric that you're interested in, such as a processing queue value.
+Config.json - A Node.js config file that specifies the values for the custom monitoring metric and used in writeToCustomMetric.js.
+Package.json - A Node.js package file that specifies standard installation and dependencies for writeToCustomMetric.js.
+writeToCustomMetric.sh - A shell script that continuously runs the writeToCustomMetric.js program on each Compute Engine instance.

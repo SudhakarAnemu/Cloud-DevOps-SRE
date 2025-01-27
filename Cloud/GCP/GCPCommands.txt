@@ -1,0 +1,9 @@
+js
+
+gcloud auth list
+
+gcloud config list project
+
+gsutil cp -r gs://spls/gsp087/* gs://<YOUR BUCKET>
+
+
