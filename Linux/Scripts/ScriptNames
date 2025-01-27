@@ -15,6 +15,10 @@ ACE Migrations
 /WebSphere/scripts/middleware/ImprtMssdCrts.sh firstjks pwd secondjks pwd
 /WebSphere/scripts/middleware/CompareTwoJKS.sh firstjks pwd secondjks pwd
 /WebSphere/scripts/middleware/ListoutExpiryCerts.sh 
+List lables with valid and more details of lables.
+/WebSphere/scripts/middleware/Listssllabls.sh <jks> <pwd>
+Remove expired certs : 
+/WebSphere/scripts/middleware/rmExpCerts.sh
 
 3. WMQ 
 /WebSphere/scripts/middleware/ace/MigMQ.sh qmgr brk ver

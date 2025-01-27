@@ -7,3 +7,31 @@ gcloud config list project
 gsutil cp -r gs://spls/gsp087/* gs://<YOUR BUCKET>
 
 
+gcloud config set compute/zone "ZONE"
+
+export PROJECT_ID=$(gcloud info --format='value(config.project)')
+
+gcloud container clusters create gmp-cluster --num-nodes=1 --zone "ZONE"
+
+resource.type="gce_instance" protoPayload.methodName="v1.compute.instances.stop"
+
+gcloud container clusters list
+
+gcloud container clusters get-credentials gmp-cluster
+
+kubectl create ns gmp-test
+
+kubectl -n gmp-test apply -f https://storage.googleapis.com/spls/gsp091/gmp_flask_deployment.yaml
+
+kubectl -n gmp-test apply -f https://storage.googleapis.com/spls/gsp091/gmp_flask_service.yaml
+
+kubectl get services -n gmp-test
+
+curl $(kubectl get services -n gmp-test -o jsonpath='{.items[*].status.loadBalancer.ingress[0].ip}')/metrics
+
+severity=ERROR
+resource.labels.container_name="hello-app"
+textPayload: "ERROR: 404 Error page not found"
+
+timeout 120 bash -c -- 'while true; do curl $(kubectl get services -n gmp-test -o jsonpath='{.items[*].status.loadBalancer.ingress[0].ip}')/error; sleep $((RANDOM % 4)) ; done'
+
