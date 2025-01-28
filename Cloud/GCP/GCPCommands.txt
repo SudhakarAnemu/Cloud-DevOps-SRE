@@ -35,3 +35,41 @@ textPayload: "ERROR: 404 Error page not found"
 
 timeout 120 bash -c -- 'while true; do curl $(kubectl get services -n gmp-test -o jsonpath='{.items[*].status.loadBalancer.ingress[0].ip}')/error; sleep $((RANDOM % 4)) ; done'
 
+gcloud config set compute/zone us-central1-a
+export PROJECT_ID=$(gcloud info --format='value(config.project)')
+gcloud container clusters create gmp-cluster --num-nodes=1 --zone us-central1-a
+
+gcloud container clusters list
+gcloud container clusters get-credentials gmp-cluster
+kubectl create ns gmp-test
+kubectl -n gmp-test apply -f https://storage.googleapis.com/spls/gsp091/gmp_flask_deployment.yaml
+kubectl -n gmp-test apply -f https://storage.googleapis.com/spls/gsp091/gmp_flask_service.yaml
+kubectl get services -n gmp-test
+
+curl $(kubectl get services -n gmp-test -o jsonpath='{.items[*].status.loadBalancer.ingress[0].ip}')/metrics
+
+timeout 120 bash -c -- 'while true; do curl $(kubectl get services -n gmp-test -o jsonpath='{.items[*].status.loadBalancer.ingress[0].ip}')/error; sleep $((RANDOM % 4)) ; done'
+
+gsutil -m cp -r gs://spls/gsp022/mongo-k8s-sidecar .
+kubectl get statefulset
+kubectl get pods 
+
+kubectl exec -ti mongo-0 -- mongosh
+
+kubectl scale --replicas=5 statefulset mongo
+
+kubectl scale --replicas=3 statefulset mongo
+
+Delete the StatefulSet:
+kubectl delete statefulset mongo
+Copied!
+Delete the service:
+kubectl delete svc mongo
+Copied!
+Delete the volumes:
+kubectl delete pvc -l role=mongo
+Copied!
+Finally, you can delete the test cluster:
+gcloud container clusters delete "hello-world"
+Copied!
+Press Y then Enter to continue deleting the test cluster.
