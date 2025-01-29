@@ -8,7 +8,7 @@ echo "First parameter (kdb) : $1"
 echo "Second parameter (pwd) : $2"
 
 echo -e "Certs under given kdb : $1 "
-runmqakm -cert -list -db WMBMQTSTkey.kdb -pw WMBMQTST
+runmqakm -cert -list -db $1 -pw $2
 
 runmqakm -cert -list -db $1 -pw $2 | grep -v found | grep -v "* default, - personal, ! trusted, # secret key" | awk -F " " '{print $2}' > /tmp/alllbls
 
