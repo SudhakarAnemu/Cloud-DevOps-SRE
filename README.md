@@ -1,5 +1,9 @@
 Js-Om
 
+Good urls : 
+https://github.com/iam-veeramalla/shell-scripting-projects/blob/main/github-api/list-users.sh
+
+
 Ideas : 
 1. Ansible or linux script to send a mail if a particular file changes (content changes or file accesseseed(update/del))
 Ex : once removed log files but got a doubt whether I touch the actual security file.
