@@ -73,3 +73,32 @@ Finally, you can delete the test cluster:
 gcloud container clusters delete "hello-world"
 Copied!
 Press Y then Enter to continue deleting the test cluster.
+
+
+gcloud app deploy
+gcloud app browse
+
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json \
+"https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}"
+
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json \
+"https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > result.json
+
+gcloud sql connect myinstance --user=postgres
+
+CREATE TABLE guestbook (guestName VARCHAR(255), content VARCHAR(255),
+                        entryID SERIAL PRIMARY KEY);
+INSERT INTO guestbook (guestName, content) values ('first guest', 'I got here!');
+INSERT INTO guestbook (guestName, content) values ('second guest', 'Me too!');
+
+SELECT * FROM guestbook;
+
+gcloud sql connect myinstance --user=root
+CREATE DATABASE guestbook;
+
+USE guestbook;
+CREATE TABLE entries (guestName VARCHAR(255), content VARCHAR(255),
+    entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));
+    INSERT INTO entries (guestName, content) values ("first guest", "I got here!");
+INSERT INTO entries (guestName, content) values ("second guest", "Me too!");
+

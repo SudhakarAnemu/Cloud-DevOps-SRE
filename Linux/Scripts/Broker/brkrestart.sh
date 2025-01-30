@@ -15,11 +15,11 @@ echo -e "\n------------------------------------------------Number of Execution g
 ps -ef | grep $brk | grep -i dataflow | sort -n | wc -l
 echo -e "\n------------------------------------------------Stopping the Broker $brk : - $(date +%Y-%m-%d_%H-%M-%S)"
 perl /WebSphere/scripts/middleware/wmbRestart.pl $brk stop
-sleep 15
+sleep 10
 echo -e "\n------------------------------------------------Processes of the broker After stopping : - $(date +%Y-%m-%d_%H-%M-%S)"
 ps -ef | grep $brk | grep bip
 perl /WebSphere/scripts/middleware/wmbRestart.pl $brk start
-sleep 15
+#sleep 15
 echo -e "\n------------------------------------------------Processes of the broker After starting : - $(date +%Y-%m-%d_%H-%M-%S)"
 ps -ef | grep $brk | grep bip
 echo -e "\n------------------------------------------------Processes of the Execution groups : - $(date +%Y-%m-%d_%H-%M-%S)"

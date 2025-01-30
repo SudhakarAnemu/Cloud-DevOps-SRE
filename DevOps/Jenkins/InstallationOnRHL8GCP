@@ -1,0 +1,23 @@
+js 
+
+Installing on GCPSandbox 
+
+sudo dnf update -y
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+sudo dnf install -y java-17-openjdk
+
+[root@esb-poc-instance-1 ~]# java --version
+openjdk 11.0.25 2024-10-15 LTS
+OpenJDK Runtime Environment (Red_Hat-11.0.25.0.9-1) (build 11.0.25+9-LTS)
+OpenJDK 64-Bit Server VM (Red_Hat-11.0.25.0.9-1) (build 11.0.25+9-LTS, mixed mode, sharing)
+[root@esb-poc-instance-1 ~]#
+
+sudo dnf install jenkins -y
+
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+sudo firewall-cmd --permanent --add-port=8080/tcp
+sudo firewall-cmd --reload
