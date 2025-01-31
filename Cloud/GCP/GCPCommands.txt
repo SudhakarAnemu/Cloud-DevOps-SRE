@@ -102,3 +102,6 @@ CREATE TABLE entries (guestName VARCHAR(255), content VARCHAR(255),
     INSERT INTO entries (guestName, content) values ("first guest", "I got here!");
 INSERT INTO entries (guestName, content) values ("second guest", "Me too!");
 
+export BUCKET=$GOOGLE_CLOUD_PROJECT
+gcloud storage buckets create gs://$BUCKET
+
