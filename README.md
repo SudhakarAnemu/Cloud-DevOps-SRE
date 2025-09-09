@@ -19,7 +19,7 @@ https://stacksimplify.com/courses/stacksimplify-best-selling-courses-on-udemy/
 | S.No | Desc                | Url                                                                                         |                |
 | ------ | --------------------- | --------------------------------------------------------------------------------------------- | ---------------- |
 | 1    | Cloud Commands      | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/Cloud.md     |                |
-| 2    | Docker Commands     | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/Docker.md    |                |
+| 2    | Docker Commands     | https://github.com/SudhakarAnemu/Cloud-DevOps-SRE/blob/main/QuickCommands/Docker.md    |                |
 | 3    | Kubernetes Commands | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/Kubernets.md |                |
 | 4    | Linux and Network   | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/LinuxNW.md   |                |
 | 5    | Nginx               | https://github.com/SudhakarAnemu/AI-DS-ML-DL-SRE-DRE/blob/master/QuickCommands/Nginx.md     |                |
