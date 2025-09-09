@@ -1,0 +1,33 @@
+Installations : 
+
+1. sudo apt update
+2. dnf update -y (RHL 8)
+3. apt install ansible 
+
+
+Installation of Ansible on GCP - RHL8. 
+
+ 1000  dnf update -y
+ 1001  apt install ansible
+ 1002  sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+ 1003  sudo dnf install ansible
+ 1004  ansible --version
+ 1005  sudo dnf install ansible
+ 1006  ansible -version
+ 1007  ansible --version
+ 1008  history
+[root@esb-poc-instance-1 ~]# ansible --version
+ansible [core 2.16.3]
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3.12/site-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible
+  python version = 3.12.8 (main, Dec  9 2024, 15:25:01) [GCC 8.5.0 20210514 (Red Hat 8.5.0-22)] (/usr/bin/python3.12)
+  jinja version = 3.1.2
+  libyaml = True
+[root@esb-poc-instance-1 ~]#
+
+
+
+

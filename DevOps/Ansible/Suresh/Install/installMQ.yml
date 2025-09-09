@@ -1,0 +1,37 @@
+# yml script to check mq pre-req
+---
+
+- name: Installations
+  hosts: mq_client_list
+  become: true
+  gather_facts: yes
+
+  vars:
+    mq_rpms_to_install:             
+      - MQSeriesRuntime-9.2.0-0.x86_64.rpm       
+      - MQSeriesSamples-9.2.0-0.x86_64.rpm 
+      - MQSeriesGSKit-9.2.0-0.x86_64.rpm
+      - MQSeriesServer-9.2.0-0.x86_64.rpm 
+
+  tasks:
+
+    - name: Stage scripts
+      unarchive:
+         src: "./mqscripts.tar.gz"
+         dest: /var/tmp/
+
+    - name: Accept MQ license
+      command: "/tmp/MQServer4Cloud/mqlicense.sh -accept"    
+      ignore_errors: yes  # Continue even if some RPMs are not found
+      register: AcceptMQLicense
+
+    - name: Install MQ RPMs using rpm -ivh
+      command: "rpm -ivh /tmp/MQServer4Cloud/{{ item }}"
+      loop: "{{ mq_rpms_to_install }}"
+      ignore_errors: yes  # Continue even if some RPMs are not found
+      register: rpm_install_result
+
+    - name: Display install output (optional)
+      debug:
+        var: rpm_install_result
+      when: rpm_install_result | length > 0

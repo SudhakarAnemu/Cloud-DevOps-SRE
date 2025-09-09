@@ -1,0 +1,13 @@
+---
+- name: Display IBM MQ Version
+  hosts: all
+  become: yes
+  tasks:
+    - name: Check IBM MQ version
+      command: dspmqver
+      register: mq_version
+
+
+    - name: Display IBM MQ version
+      debug:
+        var: mq_version.stdout
