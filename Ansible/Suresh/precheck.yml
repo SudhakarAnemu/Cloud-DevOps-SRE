@@ -1,0 +1,13 @@
+# yml script to check mq pre-req
+---
+
+- name: installation
+  hosts: mq_client_list
+  gather_facts: yes
+
+  tasks:
+
+    - name: Stage scripts
+      unarchive:
+         src: "./mqscripts.tar.gz"
+         dest: /var/tmp/

@@ -1,0 +1,82 @@
+js
+
+1. Configure pwd less authentiction. 
+a. Do ssh from GCP-Ansible server to cloned-117 server. It was asking for the pwd. 
+b. wmbadmin (id)
+c. ssh-keygen --> Generate key at Ansible-gcp-server. 
+[wmbadmin@esb-poc-instance-1 .ssh]$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/wmbadmin/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/wmbadmin/.ssh/id_rsa.
+Your public key has been saved in /home/wmbadmin/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:YG0HwFqk6DdiVHyg2O9UH8l9I7N0ddRwCHd4HBESJ0A wmbadmin@esb-poc-instance-1
+The key's randomart image is:
++---[RSA 3072]----+
+
+d. First way of doing it. 
+Copy public key of Ansible server at known_hosts of other child nodes.
+
+e. Second way of doing it. 
+ssh-copy-id your_username@your_server_ip_or_hostname
+ssh-copy-id wmbadmin@10.140.139.248
+
+f. ---> Configure inventory file, call a command. 
+[wmbadmin@esb-poc-instance-1 ~]$ cat inv
+10.140.139.248
+[wmbadmin@esb-poc-instance-1 ~]$ ansible -i inv all -m "shell" -a "touch abc"
+10.140.139.248 | CHANGED | rc=0 >>
+[wmbadmin@esb-poc-instance-1 ~]$ ansible -i inv all -m "shell" -a "hostname"
+10.140.139.248 | CHANGED | rc=0 >>
+varhdv117.cusa.canon.com
+
+h. Output of MQ ver yml file. 
+[wmbadmin@esb-poc-instance-1 ~]$ ansible-playbook -i inv mqver.yml
+
+PLAY [Display IBM MQ Version] ***************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************
+ok: [10.140.139.248]
+
+TASK [Check IBM MQ version] *****************************************************************************************************************************************************************
+changed: [10.140.139.248]
+
+TASK [Display IBM MQ version] ***************************************************************************************************************************************************************
+ok: [10.140.139.248] => {
+    "mq_version.stdout": "Name:        WebSphere MQ\nVersion:     7.0.1.13\nCMVC level:  p701-113-150730\nBuildType:   IKAP - (Production)"
+}
+
+PLAY RECAP **********************************************************************************************************************************************************************************
+10.140.139.248             : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+------------------------------------------------------------------------------------------------------------------------------
+Below command creates structure of the Kubernets. 
+[wmbadmin@esb-poc-instance-1 kubgala]$ ansible-galaxy role init kuber
+- Role kuber was created successfully
+[wmbadmin@esb-poc-instance-1 kubgala]$ ls -l
+total 0
+drwxrwxr-x. 10 wmbadmin wmbadmin 135 Feb  2 21:19 kuber
+[wmbadmin@esb-poc-instance-1 kubgala]$ tree kuber
+kuber
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+8 directories, 8 files
+[wmbadmin@esb-poc-instance-1 kubgala]$
+

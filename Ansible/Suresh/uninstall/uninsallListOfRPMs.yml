@@ -1,0 +1,36 @@
+# yml script to check mq pre-req
+---
+
+- name: uninstallation
+  hosts: mq_client_list
+  become: true
+  gather_facts: yes
+
+  vars:
+    mq_rpms_to_uninstall:             
+      - MQSeriesSamples-9.2.0-0.x86_64
+      - MQSeriesServer-9.2.0-0.x86_64
+      - MQSeriesGSKit-9.2.0-0.x86_64
+      - MQSeriesRuntime-9.2.0-0.x86_64          
+
+  tasks:
+
+    - name: List of rpms
+      command: "rpm -qa | grep MQ | sort -n"    
+      ignore_errors: yes  # Continue even if some RPMs are not found
+      register: rpm_list
+
+    - name: Display current MQ rpm list
+      debug:
+        var: rpm_list
+
+    - name: Uninstall MQ RPMs using rpm -ev
+      command: "rpm -ev {{ item }}"
+      loop: "{{ mq_rpms_to_uninstall }}"
+      ignore_errors: yes  # Continue even if some RPMs are not found
+      register: rpm_uninstall_result
+
+    - name: Display uninstall output (optional)
+      debug:
+        var: rpm_uninstall_result.results
+      when: rpm_uninstall_result.results | length > 0
