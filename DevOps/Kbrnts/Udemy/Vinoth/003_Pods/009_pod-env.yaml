@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: mypod
+spec:
+   restartPolicy: Never #Always OnFailure
+   terminationGracePeriodSeconds: 1
+   containers:
+   - name: myubuntu
+     image: ubuntu
+     env:
+     - name: "myEnvVal"
+       value: "10Ms-MyTime"
+     args:
+     - "env"

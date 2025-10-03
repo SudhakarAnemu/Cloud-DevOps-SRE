@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: jspod1
+spec:
+   restartPolicy: Never #Always OnFailure
+   terminationGracePeriodSeconds: 1
+   containers:
+   - name: entrypoint
+     image: vinsdocker/k8s-entrypoint
+     command:
+     - "date"
