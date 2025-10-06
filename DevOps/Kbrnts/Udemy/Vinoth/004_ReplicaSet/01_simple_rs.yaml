@@ -6,12 +6,13 @@ spec:
    selector:
       matchLabels:
          app: my-app
-   replicas: 4
+   replicas: 2
    template:
       metadata:
          name: my-pod
          labels:
             app: my-app
+            team: team-a
       spec:
          containers:
          - name: nginx

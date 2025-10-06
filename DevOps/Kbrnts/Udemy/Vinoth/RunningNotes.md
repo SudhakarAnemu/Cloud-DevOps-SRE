@@ -3,6 +3,9 @@ js
 
 kind create cluster --config  master.yml
 
+Source code : 
+https://github.com/vinsguru/kubernetes-course
+
 
 kind delete cluster
 
