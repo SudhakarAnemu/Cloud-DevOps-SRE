@@ -1,0 +1,23 @@
+#Deploymnet revisions
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: order-service-deploy
+spec:
+   selector:
+      matchLabels:
+         app: order-service
+   replicas: 3
+   template:
+      metadata:
+         labels:
+            app: order-service
+      spec:
+         containers:
+         - name: order-service
+           image: vinsdocker/k8s-app:v2
+           #check with v1 and v2 (run one job at v1 and update v2 and run it again)
+           #new replica set will create with desired state as 2 and old replica set will have Zero as desired state
+           ports:
+           - name: "app-port"
+             containerPort: 80
