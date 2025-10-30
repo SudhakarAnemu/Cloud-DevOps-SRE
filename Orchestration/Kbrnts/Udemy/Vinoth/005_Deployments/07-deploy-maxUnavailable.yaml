@@ -1,0 +1,32 @@
+#Deploymnet revisions
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: order-service-deploy
+   annotations:
+      kubernets.io/change-cause: "deployment v1"
+      #test with v1 / v2 and v3
+spec:
+   minReadySeconds: 15
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         #maxSurge: "80%"
+         maxSurge: 2
+   selector:
+      matchLabels:
+         app: order-service
+   replicas: 6
+   template:
+      metadata:
+         labels:
+            app: order-service
+      spec:
+         containers:
+         - name: order-service
+           image: vinsdocker/k8s-app:v1
+           #check with v1, v2 and v3
+           #check with command - kubectl rollout history deploy           
+           ports:
+           - name: "app-port"
+             containerPort: 80

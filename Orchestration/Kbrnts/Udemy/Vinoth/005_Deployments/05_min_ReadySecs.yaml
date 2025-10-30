@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: my-dep
+spec:
+   minReadySeconds: 10
+   #Application will be ready in 10 seconds (at the time of creation of pod)
+   selector:
+      matchLabels:
+         app: my-app
+   replicas: 3
+   template:
+      metadata:
+         labels:
+            app: my-app
+      spec:
+         containers:
+         - name: nginx
+           image: nginx
