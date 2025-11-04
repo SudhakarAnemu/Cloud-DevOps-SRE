@@ -7,12 +7,13 @@ metadata:
       kubernets.io/change-cause: "deployment v1"
       #test with v1 / v2 and v3
 spec:
-   minReadySeconds: 15
+   minReadySeconds: 20
    strategy:
       type: RollingUpdate
       rollingUpdate:
          #maxSurge: "80%"
-         maxSurge: 2
+         maxSurge: 0
+         maxUnavailable: 3
    selector:
       matchLabels:
          app: order-service
