@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: assignment
+spec:
+   selector:
+      matchLabels:
+         app: assignment
+   replicas: 6
+   template:
+      metadata:
+         labels:
+            app: assignment
+      spec:
+         containers:
+         - name: assignment
+           image: vinsdocker/k8s-deploy-assignment
+           ports:
+           - containerPort: 8080
+             name: "app-port"
+           env:
+           - name: "spring.redis.host"
+             value: "redis"
+             #First run redis yml and capture ip at above line
+           - name: "spring.redis.port"
+             value: "6379"
+
+# Test it by below way : 
+#$ kubectl port-forward deployment.apps/assignment 8080:8080
+#Forwarding from 127.0.0.1:8080 -> 8080
+#Forwarding from [::1]:8080 -> 8080
+
+#http://localhost:8080/
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: redis
+spec:
+   selector:
+      matchLabels:
+         app: redis
+   replicas: 1
+   template:
+      metadata:
+         labels:
+            app: redis
+      spec:
+         containers:
+         - name: redis
+           image: redis:6
+           ports:
+           - containerPort: 6379
+             name: "redis-port"
+
+---
+#js 
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  selector:
+    app: redis
+  ports:
+  - port: 6379
+    targetPort: 6379    
+
+
+
+# Test it by below way : 
+#$ kubectl port-forward deployment.apps/assignment 8080:8080
+#Forwarding from 127.0.0.1:8080 -> 8080
+#Forwarding from [::1]:8080 -> 8080
+
+#http://localhost:8080/

@@ -1,16 +1,4 @@
-# three node (two workers) cluster config
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-nodes:
-- role: control-plane
-- role: worker
-- role: worker
-
-
-
-
 # with Container and Node ports : 
-
 # three node (two workers) cluster config
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -25,7 +13,8 @@ nodes:
 - role: worker
 - role: worker
 
------->> 
 
-kind create cluster --config 01-cluster.yaml
 
+#kind create cluster --config 01-cluster.yaml
+#kind delete cluster
+#kind create cluster --config  master2_node.yml

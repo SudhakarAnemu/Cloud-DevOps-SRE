@@ -1,0 +1,15 @@
+#js 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mongo
+    image: mongo
+    startupProbe:
+      tcpSocket:        
+        port: 27017 # try with any wrong port
+      periodSeconds: 10 #start of pod will be done in 1 sec
+      failureThreshold: 3 #how many consecutive failures are allowed

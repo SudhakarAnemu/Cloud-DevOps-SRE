@@ -1,0 +1,60 @@
+#js
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deploy
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  replicas: 3
+  #This end points will be reflect at Servie
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: nginx
+        image: vinsdocker/nginx-gke
+        #it will give pod name when we access.
+        ports:
+        - containerPort: 80
+---
+#js 
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+spec:
+  selector:
+    app: my-app
+  ports:
+  - port: 80
+    targetPort: 80
+
+#ip is accessable in side the cluster
+#Service is accessable within the cluster 
+# so that we need to go inside the container and 
+# test the OP. 
+# Below pod is creating to test it. 
+---
+apiVersion: v1
+kind: Pod
+metadata:
+   name: demo-pod
+spec:
+   terminationGracePeriodSeconds: 1
+   containers:
+   - name: demo
+      image: vinsdocker/util
+      args:
+         - "sleep"
+         - "3600"
+
+#Below is the way where we can test it. 
+#login to pod - demo 
+#kubectl exec -it demo-pod -- bash 
+#give a command - curl my-app
