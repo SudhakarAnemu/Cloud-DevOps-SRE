@@ -1,0 +1,38 @@
+# js 
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-properties
+data:
+  application.properties: |
+     appUrl="http://my-app.com"
+     timeout="30"
+     username="jssudha"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "my-pod"
+  namespace: default
+  labels:
+    app: "my-pod"
+spec:
+  terminationGracePeriodSeconds: 1
+  restartPolicy: Never
+  containers:
+  - name: ubuntu
+    image: ubuntu
+    volumeMounts:
+    - name:  config-volume
+      mountPath:  /usr/share/props
+    args:
+    - sleep
+    - "3000"
+  volumes:
+  - name: config-volume
+    configMap:
+      name: app-poperties
+
+
+# Validation - connect to the Runtime and goto the specific directory. 
