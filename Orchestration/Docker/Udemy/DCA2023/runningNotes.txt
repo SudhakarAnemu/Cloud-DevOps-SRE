@@ -1,0 +1,13 @@
+JS 
+
+Docker Certification Page has been moved to Mirantis. Here is the new link for it:
+https://training.mirantis.com/dca-certification-exam/
+Our Discord Channel
+We have recently launched a new Discord channel for support or discussions. This will allow all of our members to actively participate in educational discussions, solve doubts and connect with like-minded people to set learning goals.
+
+http://kplabs.in/chat
+
+http://kplabs.in/chat
+
+For any discussions related to Docker Certified Associate certification, you can post in the #docker-associate channel.
+
