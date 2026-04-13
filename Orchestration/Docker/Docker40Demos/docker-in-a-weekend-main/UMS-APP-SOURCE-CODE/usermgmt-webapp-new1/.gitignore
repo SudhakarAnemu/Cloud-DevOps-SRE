@@ -1,0 +1,25 @@
+# Build directories
+/target/
+/build/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+/logs/
+*.log
+
+# Spring Boot specific
+*.jar
+*.war
+

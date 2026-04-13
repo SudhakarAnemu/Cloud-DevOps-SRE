@@ -1,0 +1,36 @@
+services:
+  myumsapp:
+    build:
+      context: .  # The path to the Dockerfile, assumed to be in the same directory as docker-compose.yml
+      dockerfile: Dockerfile  # The Dockerfile to use for building the image
+    image: usermgmt-webapp-final # Custom image name for the myumsapp service
+    container_name: myumsapp1  # Custom container name for the myumsapp service
+    volumes:
+      - .:/app  # Mount the current directory to /app inside the container
+    ports:
+      - "8080:8080"  # Expose the container's port 8080 to the host
+    #command: ["./mvnw", "spring-boot:run"]  # Override the default command (RUN IN SPRING BOOT DEVELOPMENT MODE)      
+    depends_on:
+      - mysql
+    environment:
+      - MAVEN_OPTS=-Xms256m -Xmx512m  # Set any Java memory options or other environment variables
+      - DB_HOSTNAME=mysql
+      - DB_PORT=3306
+      - DB_NAME=webappdb
+      - DB_USERNAME=root
+      - DB_PASSWORD=dbpassword11
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container  # Custom container name for the MySQL service
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dbpassword11
+      MYSQL_DATABASE: webappdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - umsdb:/var/lib/mysql
+
+volumes:
+  umsdb:
