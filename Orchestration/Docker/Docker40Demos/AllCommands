@@ -3,6 +3,7 @@ js
 
 -----------------------------------------------------------------------------------------03
 
+
 sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos/03 (main)
 $ docker build -t jsnginx:v1 .
 [+] Building 49.2s (8/8) FINISHED                                                                 docker:desktop-linux
@@ -10,8 +11,83 @@ $ docker build -t jsnginx:v1 .
  => => transferring dockerfile: 93B                                                                               0.0s
  => [internal] load metadata for docker.io/library/nginx:latest                                                   4.6s
  => [auth] library/nginx:pull token for registry-1.docker.io                                                      0.0s
- => [internal] load .dockerignore            
- 
+ => [internal] load .dockerignore                                                                                 0.1s
+ => => transferring context: 2B                                                                                   0.0s 
+ => [internal] load build context                                                                                 0.1s 
+ => => transferring context: 77B                                                                                  0.0s 
+ => [1/2] FROM docker.io/library/nginx:latest@sha256:7f0adca1fc6c29c8dc49a2e90037a10ba20dc266baaed0988e9fb4d0d8  43.3s 
+ => => resolve docker.io/library/nginx:latest@sha256:7f0adca1fc6c29c8dc49a2e90037a10ba20dc266baaed0988e9fb4d0d8b  0.1s 
+ => => sha256:448ea5cac5d5181193a0d6e6106ea1673e3713f929b4bb911ad63d2a6ef6155f 1.40kB / 1.40kB                    1.0s
+ => => sha256:7b5d674621c2c637ede5eb94b8ac1a844d84d9231ae61df78fc31315ce35e4bf 1.21kB / 1.21kB                    1.5s
+ => => sha256:84e114c2bb367b07ccb9aff4dbc37d7a0f119884219f2efc2cfd702a8510b9f4 404B / 404B                        2.0s 
+ => => sha256:4a038fd18db12b39452e6f5f883577e987b3ff96e8e55537079119e21086f28b 955B / 955B                        2.0s 
+ => => sha256:88d1d984b765ca06bdffb2c450ede950034501dad79536244e8fcdf41444840a 628B / 628B                        1.0s
+ => => sha256:054715a6bffa715b31d05aa5cf6aac8423bd97a1981d1d69a1a71d530ce588e6 33.16MB / 33.16MB                 26.8s
+ => => sha256:5435b2dcdf5cb7faa0d5b1d4d54be2c72a776fab9a605336f5067d6e9ecb5976 29.78MB / 29.78MB                 37.4s
+ => => extracting sha256:5435b2dcdf5cb7faa0d5b1d4d54be2c72a776fab9a605336f5067d6e9ecb5976                         1.8s
+ => => extracting sha256:054715a6bffa715b31d05aa5cf6aac8423bd97a1981d1d69a1a71d530ce588e6                         1.3s
+ => => extracting sha256:88d1d984b765ca06bdffb2c450ede950034501dad79536244e8fcdf41444840a                         0.0s
+ => => extracting sha256:4a038fd18db12b39452e6f5f883577e987b3ff96e8e55537079119e21086f28b                         0.0s
+ => => extracting sha256:84e114c2bb367b07ccb9aff4dbc37d7a0f119884219f2efc2cfd702a8510b9f4                         0.0s
+ => => extracting sha256:7b5d674621c2c637ede5eb94b8ac1a844d84d9231ae61df78fc31315ce35e4bf                         0.0s
+ => => extracting sha256:448ea5cac5d5181193a0d6e6106ea1673e3713f929b4bb911ad63d2a6ef6155f                         0.0s
+ => [2/2] COPY index.html /usr/share/nginx/html                                                                   0.3s
+ => exporting to image                                                                                            0.6s
+ => => exporting layers                                                                                           0.2s
+ => => exporting manifest sha256:85cd24deb68bf7bc2f17171b520c64b4c7c31b75cf5d6a57944ee594e4d0377e                 0.0s
+ => => exporting config sha256:735d702a103ffec568aa608bcbb79b1fb1224dd6a9351341e2e9fec37e16a2cd                   0.0s
+ => => exporting attestation manifest sha256:4e7a79f3abe69d81091bdae0a0995f1211bc928cc97b273f55d4cbff8f22fab4     0.1s
+ => => exporting manifest list sha256:bcaf1bd9d73771d8608f2b628ef64436e5863ff92eafa18b506a410e1cc3d827            0.0s
+ => => naming to docker.io/library/jsnginx:v1                                                                     0.0s
+ => => unpacking to docker.io/library/jsnginx:v1                                                                  0.1s
+
+ http://localhost:8090  ---> Testing the url (container run time) 
+
+sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos (main)
+$ docker run --name jsmyng1 -p 8090:80 -d jsnginx:v1
+1d96c8caca3513d8bf2bec33804fc80dbdf1d5daf38589f25746221eae154c9e
+
+sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos (main)
+$ docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS          PORTS                                     NAMES
+1d96c8caca35   jsnginx:v1             "/docker-entrypoint.…"   4 seconds ago   Up 3 seconds    0.0.0.0:8090->80/tcp, [::]:8090->80/tcp   jsmyng1
+b02a624be194   jsnginx:v1             "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes    80/tcp                                    wizardly_snyder
+785f625a93bd   kindest/node:v1.34.0   "/usr/local/bin/entr…"   6 months ago    Up 35 minutes   127.0.0.1:60975->6443/tcp                 kind-control-plane
+8ff22bfb0dcf   kindest/node:v1.34.0   "/usr/local/bin/entr…"   6 months ago    Up 35 minutes                                             kind-worker2
+e2241878c840   kindest/node:v1.34.0   "/usr/local/bin/entr…"   6 months ago    Up 35 minutes                                             kind-worker
+
+sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos (main)
+
+
+
+sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos (main)
+$ docker images
+REPOSITORY              TAG       IMAGE ID       CREATED          SIZE
+jsnginx                 v1        bcaf1bd9d737   18 minutes ago   237MB
+kindest/node            <none>    7416a61b42b1   7 months ago     1.45GB
+stacksimplify/mynginx   v1        7024efc5adcc   19 months ago    273MB
+
+sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos (main)
+$ docker tag jsnginx:v1 sudhadocid/jsnginx:v1
+
+sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos (main)
+$ docker push sudhadocid/jsnginx:v1
+The push refers to repository [docker.io/sudhadocid/jsnginx]
+d51a2dbf2c57: Pushed
+88d1d984b765: Pushed
+7b5d674621c2: Pushed
+448ea5cac5d5: Pushed
+5435b2dcdf5c: Pushed
+054715a6bffa: Pushed
+647bd36c095d: Pushed
+4a038fd18db1: Pushed
+84e114c2bb36: Pushed
+v1: digest: sha256:bcaf1bd9d73771d8608f2b628ef64436e5863ff92eafa18b506a410e1cc3d827 size: 856
+
+sudha@Devanth MINGW64 ~/Desktop/jsSudha/jsGit/Cloud-DevOps-SRE/Orchestration/Docker/Docker40Demos (main)
+$
+
+
 -----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
